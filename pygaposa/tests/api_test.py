@@ -75,7 +75,7 @@ expected_users_response: ApiUsersResponse = {
 
 expected_control_request_group: ApiControlRequest = {
     "serial": "mock_serial",
-    "data": {"cmd": "Oxee"},
+    "data": {"cmd": "0xee"},
     "group": "1",
 }
 
