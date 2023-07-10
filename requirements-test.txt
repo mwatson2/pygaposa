@@ -1,3 +1,5 @@
+asynctest
+parameterized
 pytest
 pytest-cov
 pytest-flake8
