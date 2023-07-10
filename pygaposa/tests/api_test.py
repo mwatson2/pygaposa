@@ -75,7 +75,7 @@ expected_users_response: ApiUsersResponse = {
 
 expected_control_request_group: ApiControlRequest = {
     "serial": "mock_serial",
-    "data": {"cmd": "0xee"},
+    "data": {"cmd": "Oxee"},
     "group": "1",
 }
 
@@ -89,6 +89,80 @@ expected_control_response: ApiControlResponse = {
     "apiCommand": "Success",
     "msg": "OK",
     "result": {"Success": "OK"},
+}
+
+add_schedule_update: ScheduleUpdate = {
+    "Name": "mock_name",
+    "Groups": [1],
+    "Location": {"_latitude": 1, "_longitude": 1},
+    "Icon": "mock_icon",
+    "Active": True,
+}
+
+expected_add_schedule_request: ApiScheduleRequest = {
+    "serial": "mock_serial",
+    "schedule": add_schedule_update,
+}
+
+expected_add_schedule_response: ApiScheduleResponse = {
+    "apiStatus": "success",
+    "msg": "Schedule Add",
+    "result": "ok",
+}
+
+update_schedule_update: ScheduleUpdate = {**add_schedule_update, "Id": "1"}
+
+expected_update_schedule_request: ApiScheduleRequest = {
+    "serial": "mock_serial",
+    "schedule": update_schedule_update,
+}
+
+expected_update_schedule_response: ApiScheduleResponse = {
+    "apiStatus": "success",
+    "msg": "Schedule Update",
+    "result": "ok",
+}
+
+delete_schedule_update: ScheduleUpdate = {"Id": "1"}
+
+expected_delete_schedule_request: ApiScheduleRequest = {
+    "serial": "mock_serial",
+    "schedule": delete_schedule_update,
+}
+
+expected_delete_schedule_response: ApiScheduleResponse = {
+    "apiStatus": "success",
+    "msg": "Schedule deleted",
+    "result": {"Schedule": True, "Down": True, "Up": True, "Preset": True},
+}
+
+schedule_event: ScheduleEvent = {
+    "EventRepeat": (True, True, True, True, True, True, True),
+    "TimeZone": "mock_timezone",
+    "Active": True,
+    "FutureEvent": True,
+    "Submit": True,
+    "EventEpoch": 1,
+    "Location": {"_latitude": 1, "_longitude": 1},
+    "Motors": [2, 3],
+    "EventMode": {"Sunrise": True, "Sunset": False, "TimeDay": False},
+}
+
+expected_schedule_event_request: ApiScheduleEventRequest = {
+    "serial": "mock_serial",
+    "schedule": {"Id": "1", "Mode": ScheduleEventType.UP},
+    "event": schedule_event,
+}
+
+expected_schedule_event_response: ApiScheduleEventResponse = {
+    "apiStatus": "success",
+    "msg": "Schedule Add",
+    "result": "ok",
+}
+
+expected_delete_schedule_event_request: ApiScheduleEventRequest = {
+    "serial": "mock_serial",
+    "schedule": {"Id": "1", "Mode": ScheduleEventType.UP},
 }
 
 
@@ -172,6 +246,66 @@ class TestGaposaApi(IsolatedAsyncioTestCase):
                 expected_control_response,
                 expected_control_request_channel,
             ],
+            [
+                "addSchedule",
+                "PUT",
+                "/v1/schedules",
+                True,
+                True,
+                [add_schedule_update],
+                expected_add_schedule_response,
+                expected_add_schedule_request,
+            ],
+            [
+                "updateSchedule",
+                "PUT",
+                "/v1/schedules",
+                True,
+                True,
+                [update_schedule_update],
+                expected_update_schedule_response,
+                expected_update_schedule_request,
+            ],
+            [
+                "deleteSchedule",
+                "DELETE",
+                "/v1/schedules",
+                True,
+                True,
+                ["1"],
+                expected_delete_schedule_response,
+                expected_delete_schedule_request,
+            ],
+            [
+                "addScheduleEvent",
+                "PUT",
+                "/v1/schedules/event",
+                True,
+                True,
+                ["1", ScheduleEventType.UP, schedule_event],
+                expected_schedule_event_response,
+                expected_schedule_event_request,
+            ],
+            [
+                "updateScheduleEvent",
+                "PUT",
+                "/v1/schedules/event",
+                True,
+                True,
+                ["1", ScheduleEventType.UP, schedule_event],
+                expected_schedule_event_response,
+                expected_schedule_event_request,
+            ],
+            [
+                "deleteScheduleEvent",
+                "DELETE",
+                "/v1/schedules/event",
+                True,
+                True,
+                ["1", ScheduleEventType.UP],
+                expected_schedule_event_response,
+                expected_delete_schedule_event_request,
+            ],
         ]
     )
     async def test_api_call(
@@ -243,6 +377,66 @@ class TestGaposaApi(IsolatedAsyncioTestCase):
                 expected_control_response,
                 'is missing required key(s): "Success"',
             ],
+            [
+                "addSchedule",
+                True,
+                True,
+                [add_schedule_update],
+                expected_add_schedule_response,
+                """did not match any element in the union:
+  Literal['ok']: is not any of ('ok')
+  pygaposa.api_types.ApiScheduleDeleteResult: is missing required key(s): \
+"Down", "Preset", "Schedule", "Up"
+  str: is not an instance of str""",
+            ],
+            [
+                "updateSchedule",
+                True,
+                True,
+                [update_schedule_update],
+                expected_update_schedule_response,
+                """did not match any element in the union:
+  Literal['ok']: is not any of ('ok')
+  pygaposa.api_types.ApiScheduleDeleteResult: is missing required key(s): \
+"Down", "Preset", "Schedule", "Up"
+  str: is not an instance of str""",
+            ],
+            [
+                "deleteSchedule",
+                True,
+                True,
+                ["1"],
+                expected_delete_schedule_response,
+                """did not match any element in the union:
+  Literal['ok']: is not any of ('ok')
+  pygaposa.api_types.ApiScheduleDeleteResult: is missing required key(s): \
+"Down", "Preset", "Schedule", "Up"
+  str: is not an instance of str""",
+            ],
+            [
+                "addScheduleEvent",
+                True,
+                True,
+                ["1", ScheduleEventType.UP, schedule_event],
+                expected_schedule_event_response,
+                """is not an instance of str""",
+            ],
+            [
+                "updateScheduleEvent",
+                True,
+                True,
+                ["1", ScheduleEventType.UP, schedule_event],
+                expected_schedule_event_response,
+                """is not an instance of str""",
+            ],
+            [
+                "deleteScheduleEvent",
+                True,
+                True,
+                ["1", ScheduleEventType.UP],
+                expected_schedule_event_response,
+                """is not an instance of str""",
+            ],
         ]
     )
     async def test_api_call_invalid_response(
@@ -276,6 +470,22 @@ class TestGaposaApi(IsolatedAsyncioTestCase):
             ["users", True, False, []],
             ["control", True, True, [Command.DOWN, "group", "1"]],
             ["control", True, True, [Command.DOWN, "channel", "1"]],
+            ["addSchedule", True, True, [add_schedule_update]],
+            ["updateSchedule", True, True, [update_schedule_update]],
+            ["deleteSchedule", True, True, ["1"]],
+            [
+                "addScheduleEvent",
+                True,
+                True,
+                ["1", ScheduleEventType.UP, schedule_event],
+            ],
+            [
+                "updateScheduleEvent",
+                True,
+                True,
+                ["1", ScheduleEventType.UP, schedule_event],
+            ],
+            ["deleteScheduleEvent", True, True, ["1", ScheduleEventType.UP]],
         ]
     )
     async def test_api_call_exception(
@@ -302,6 +512,22 @@ class TestGaposaApi(IsolatedAsyncioTestCase):
             ["users", True, False, []],
             ["control", True, True, [Command.DOWN, "group", "1"]],
             ["control", True, True, [Command.DOWN, "channel", "1"]],
+            ["addSchedule", True, True, [add_schedule_update]],
+            ["updateSchedule", True, True, [update_schedule_update]],
+            ["deleteSchedule", True, True, ["1"]],
+            [
+                "addScheduleEvent",
+                True,
+                True,
+                ["1", ScheduleEventType.UP, schedule_event],
+            ],
+            [
+                "updateScheduleEvent",
+                True,
+                True,
+                ["1", ScheduleEventType.UP, schedule_event],
+            ],
+            ["deleteScheduleEvent", True, True, ["1", ScheduleEventType.UP]],
         ]
     )
     async def test_api_call_json_exception(

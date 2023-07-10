@@ -98,7 +98,7 @@ class GaposaApi:
         assert hasattr(self, "serial")
         payload: ApiScheduleEventRequest = {
             "serial": self.serial,
-            "schedule": {"Id": Id, "Mode": Mode},
+            "schedule": {"Id": Id, "Mode": Mode.value},
             "event": event,
         }
         response = await self.request("/v1/schedules/event", "PUT", payload)

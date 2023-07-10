@@ -53,7 +53,7 @@ class ApiUsersResponse(TypedDict):
     result: UsersResult
 
 
-class Command(Enum):
+class Command(str, Enum):
     DOWN = "0xee"
     UP = "0xdd"
     STOP = "0xcc"
@@ -185,7 +185,7 @@ class NamedItem(TypedDict):
     Name: str
 
 
-class ScheduleEventType(Enum):
+class ScheduleEventType(str, Enum):
     UP = "UP"
     DOWN = "DOWN"
     PRESET = "PRESET"
@@ -247,7 +247,7 @@ class ApiScheduleResponse(TypedDict):
 
 class ScheduleEventSelector(TypedDict):
     Id: NumericIdentifier
-    Mode: ScheduleEventType
+    Mode: str
 
 
 # Request for /v1/schedules/event (in "payload" field)
