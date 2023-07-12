@@ -1,553 +1,434 @@
+import asyncio
 import json
-import unittest
-from typing import (
-    Any,
-    Awaitable,
-    Callable,
-    Dict,
-    List,
-    Literal,
-    Optional,
-    TypedDict,
-    Union,
-)
-from unittest import IsolatedAsyncioTestCase, TestCase, mock
+from typing import Any, Callable, Dict, Optional
 
-from aiohttp import ClientResponse, ClientSession
-from asynctest import CoroutineMock
+import aiohttp
+import pytest
+from aioresponses import CallbackResult, aioresponses
 from parameterized import parameterized
 from typeguard import TypeCheckError
 
 from pygaposa.api import GaposaApi
-from pygaposa.api_types import (
-    ApiControlRequest,
-    ApiControlResponse,
-    ApiLoginResponse,
-    ApiRequestPayload,
-    ApiScheduleEventRequest,
-    ApiScheduleEventResponse,
-    ApiScheduleRequest,
-    ApiScheduleResponse,
-    ApiUsersResponse,
-    Command,
-    ScheduleEvent,
-    ScheduleEventType,
-    ScheduleUpdate,
+from pygaposa.api_types import Command, ScheduleEventType
+
+from .api_test_data import (
+    add_schedule_update,
+    expected_add_schedule_request,
+    expected_add_schedule_response,
+    expected_control_request_channel,
+    expected_control_request_group,
+    expected_control_response,
+    expected_delete_schedule_event_request,
+    expected_delete_schedule_request,
+    expected_delete_schedule_response,
+    expected_login_response,
+    expected_schedule_event_request,
+    expected_schedule_event_response,
+    expected_update_schedule_request,
+    expected_update_schedule_response,
+    expected_users_response,
+    schedule_event,
+    update_schedule_update,
 )
 
-expected_login_response: ApiLoginResponse = {
-    "apiStatus": "Success",
-    "msg": "Auth",
-    "result": {
-        "TermsAgreed": True,
-        "UserRole": 1,
-        "Clients": {
-            "mock_client_id": {
-                "Role": 1,
-                "Name": "mock_client_name",
-                "Devices": [{"Serial": "mock_serial", "Name": "mock_device_name"}],
-            }
-        },
-    },
-}
 
-expected_users_response: ApiUsersResponse = {
-    "apiStatus": "success",
-    "msg": "Return user",
-    "result": {
-        "Info": {
-            "CountryId": "mock_country_id",
-            "EmailAlert": True,
-            "Email": "mock_email",
-            "Name": "mock_name",
-            "Role": 1,
-            "Uid": "mock_uid",
-            "Active": True,
-            "CompoundLocation": "mock_compound_location",
-            "Country": "mock_country",
-            "Joined": {"mock_joined": 1},
-            "TermsAgreed": True,
-            "CountryCode": "mock_country_code",
-            "Mobile": "mock_mobile",
-        }
-    },
-}
-
-expected_control_request_group: ApiControlRequest = {
-    "serial": "mock_serial",
-    "data": {"cmd": "0xee"},
-    "group": "1",
-}
-
-expected_control_request_channel: ApiControlRequest = {
-    "serial": "mock_serial",
-    "data": {"cmd": "0xee"},
-    "channel": "1",
-}
-
-expected_control_response: ApiControlResponse = {
-    "apiCommand": "Success",
-    "msg": "OK",
-    "result": {"Success": "OK"},
-}
-
-add_schedule_update: ScheduleUpdate = {
-    "Name": "mock_name",
-    "Groups": [1],
-    "Location": {"_latitude": 1, "_longitude": 1},
-    "Icon": "mock_icon",
-    "Active": True,
-}
-
-expected_add_schedule_request: ApiScheduleRequest = {
-    "serial": "mock_serial",
-    "schedule": add_schedule_update,
-}
-
-expected_add_schedule_response: ApiScheduleResponse = {
-    "apiStatus": "success",
-    "msg": "Schedule Add",
-    "result": "ok",
-}
-
-update_schedule_update: ScheduleUpdate = {**add_schedule_update, "Id": "1"}
-
-expected_update_schedule_request: ApiScheduleRequest = {
-    "serial": "mock_serial",
-    "schedule": update_schedule_update,
-}
-
-expected_update_schedule_response: ApiScheduleResponse = {
-    "apiStatus": "success",
-    "msg": "Schedule Update",
-    "result": "ok",
-}
-
-delete_schedule_update: ScheduleUpdate = {"Id": "1"}
-
-expected_delete_schedule_request: ApiScheduleRequest = {
-    "serial": "mock_serial",
-    "schedule": delete_schedule_update,
-}
-
-expected_delete_schedule_response: ApiScheduleResponse = {
-    "apiStatus": "success",
-    "msg": "Schedule deleted",
-    "result": {"Schedule": True, "Down": True, "Up": True, "Preset": True},
-}
-
-schedule_event: ScheduleEvent = {
-    "EventRepeat": (True, True, True, True, True, True, True),
-    "TimeZone": "mock_timezone",
-    "Active": True,
-    "FutureEvent": True,
-    "Submit": True,
-    "EventEpoch": 1,
-    "Location": {"_latitude": 1, "_longitude": 1},
-    "Motors": [2, 3],
-    "EventMode": {"Sunrise": True, "Sunset": False, "TimeDay": False},
-}
-
-expected_schedule_event_request: ApiScheduleEventRequest = {
-    "serial": "mock_serial",
-    "schedule": {"Id": "1", "Mode": ScheduleEventType.UP},
-    "event": schedule_event,
-}
-
-expected_schedule_event_response: ApiScheduleEventResponse = {
-    "apiStatus": "success",
-    "msg": "Schedule Add",
-    "result": "ok",
-}
-
-expected_delete_schedule_event_request: ApiScheduleEventRequest = {
-    "serial": "mock_serial",
-    "schedule": {"Id": "1", "Mode": ScheduleEventType.UP},
-}
+@pytest.fixture
+def server():
+    with aioresponses() as server:
+        yield server
 
 
-class TestGaposaApi(IsolatedAsyncioTestCase):
-    async def asyncSetUp(self):
-        self.websession = mock.create_autospec(ClientSession)
-        self.getToken = CoroutineMock(return_value="mock_token")
-        self.api = GaposaApi(self.websession, self.getToken)
+@pytest.fixture
+async def websession():
+    asyncio.get_event_loop()
+    session = aiohttp.ClientSession()
+    yield session
+    await session.close()
 
-    def setupWebRequestMock(self, expected_response):
-        mock_response = mock.create_autospec(ClientResponse)
-        mock_response.ok = True
-        mock_response.status = 200
-        mock_response.json = CoroutineMock(return_value=expected_response)
-        mock_request = CoroutineMock(return_value=mock_response)
-        self.websession.request = mock_request
-        return mock_request
 
-    def setupWebRequestMockFailure(self, expected_response):
-        mock_response = mock.create_autospec(ClientResponse)
-        mock_response.ok = False
-        mock_response.status = 400
-        mock_response.json = CoroutineMock(return_value=expected_response)
-        mock_request = CoroutineMock(return_value=mock_response)
-        self.websession.request = mock_request
-        return mock_request
+@pytest.fixture
+async def api(websession):
+    async def getToken():
+        return "mock_token"
 
-    def setupWebRequestMockException(self, expected_exception):
-        mock_request = CoroutineMock(side_effect=expected_exception)
-        self.websession.request = mock_request
-        return mock_request
+    return GaposaApi(websession, getToken)
 
-    def setupWebRequestMockJsonException(self, expected_exception):
-        mock_response = mock.create_autospec(ClientResponse)
-        mock_response.ok = True
-        mock_response.status = 200
-        mock_response.json = CoroutineMock(side_effect=expected_exception)
-        mock_request = CoroutineMock(return_value=mock_response)
-        self.websession.request = mock_request
-        return mock_request
 
-    @parameterized.expand(
-        [
-            [
-                "login",
-                "GET",
-                "/v1/login",
-                False,
-                False,
-                [],
-                expected_login_response,
-                None,
-            ],
-            [
-                "users",
-                "GET",
-                "/v1/users",
-                True,
-                False,
-                [],
-                expected_users_response,
-                None,
-            ],
-            [
-                "control",
-                "POST",
-                "/control",
-                True,
-                True,
-                [Command.DOWN, "group", "1"],
-                expected_control_response,
-                expected_control_request_group,
-            ],
-            [
-                "control",
-                "POST",
-                "/control",
-                True,
-                True,
-                [Command.DOWN, "channel", "1"],
-                expected_control_response,
-                expected_control_request_channel,
-            ],
-            [
-                "addSchedule",
-                "PUT",
-                "/v1/schedules",
-                True,
-                True,
-                [add_schedule_update],
-                expected_add_schedule_response,
-                expected_add_schedule_request,
-            ],
-            [
-                "updateSchedule",
-                "PUT",
-                "/v1/schedules",
-                True,
-                True,
-                [update_schedule_update],
-                expected_update_schedule_response,
-                expected_update_schedule_request,
-            ],
-            [
-                "deleteSchedule",
-                "DELETE",
-                "/v1/schedules",
-                True,
-                True,
-                ["1"],
-                expected_delete_schedule_response,
-                expected_delete_schedule_request,
-            ],
-            [
-                "addScheduleEvent",
-                "PUT",
-                "/v1/schedules/event",
-                True,
-                True,
-                ["1", ScheduleEventType.UP, schedule_event],
-                expected_schedule_event_response,
-                expected_schedule_event_request,
-            ],
-            [
-                "updateScheduleEvent",
-                "PUT",
-                "/v1/schedules/event",
-                True,
-                True,
-                ["1", ScheduleEventType.UP, schedule_event],
-                expected_schedule_event_response,
-                expected_schedule_event_request,
-            ],
-            [
-                "deleteScheduleEvent",
-                "DELETE",
-                "/v1/schedules/event",
-                True,
-                True,
-                ["1", ScheduleEventType.UP],
-                expected_schedule_event_response,
-                expected_delete_schedule_event_request,
-            ],
-        ]
+@pytest.fixture
+async def api_bad_auth(api):
+    async def getToken():
+        return "bad_mock_token"
+
+    api.getToken = getToken
+    return api
+
+
+@pytest.fixture
+async def api_set_client(api):
+    api.setClientAndRole("mock_client_id", 1)
+    return api
+
+
+@pytest.fixture
+async def api_set_bad_client(api):
+    api.setClientAndRole("bad_mock_client_id", 1)
+    return api
+
+
+@pytest.fixture
+async def api_set_serial(api):
+    api.setSerial("mock_serial")
+    return api
+
+
+def authorize(url, **kwargs):
+    if "headers" in kwargs:
+        headers: Optional[Dict[str, str]] = kwargs["headers"]
+        if headers and "authorization" in headers:
+            if headers["authorization"] == "Bearer mock_token":
+                if url.path.startswith("/v1/login"):
+                    return None
+                else:
+                    if "auth" in headers:
+                        auth: Dict = json.loads(headers["auth"])
+                        if "role" in auth and "client" in auth:
+                            if auth["role"] == 1 and auth["client"] == "mock_client_id":
+                                return None
+
+    return CallbackResult(status=403, reason="Forbidden")
+
+
+def mock_get(server: aioresponses, path: str, payload):
+    url = GaposaApi.serverUrl + path
+    server.get(url, payload=payload, callback=authorize)
+
+
+def mock_post(server: aioresponses, path: str, payload, validate: Callable):
+    url = GaposaApi.serverUrl + path
+    server.post(url, payload=payload, callback=make_callback(validate))
+
+
+def mock_put(server: aioresponses, path: str, payload, validate: Callable):
+    url = GaposaApi.serverUrl + path
+    server.put(url, payload=payload, callback=make_callback(validate))
+
+
+def mock_delete(server: aioresponses, path: str, payload, validate: Callable):
+    url = GaposaApi.serverUrl + path
+    server.delete(url, payload=payload, callback=make_callback(validate))
+
+
+def make_callback(validate: Callable):
+    def callback(url, **kwargs):
+        auth = authorize(url, **kwargs)
+        if auth:
+            return auth
+        if "data" in kwargs:
+            data = kwargs["data"]
+            if data:
+                data = json.loads(data) if isinstance(data, str) else data
+                return validate(data)
+        return CallbackResult(status=402, reason="Bad Request")
+
+    return callback
+
+
+def validator(expected: Dict[str, Any]):
+    def validate(data: Dict[str, Any]):
+        if data != expected:
+            return CallbackResult(status=402, reason="Bad Request")
+
+    return validate
+
+
+async def assert_forbidden(api_function: Callable):
+    await assert_http_failure(api_function, 403, "Forbidden")
+
+
+async def assert_bad_request(api_function: Callable):
+    await assert_http_failure(api_function, 402, "Bad Request")
+
+
+async def assert_http_failure(api_function: Callable, status: int, message: str):
+    try:
+        await api_function()
+        raise AssertionError("Expected exception")
+    except aiohttp.ClientResponseError as e:
+        assert e.status == status
+        assert e.message == message
+
+
+async def assert_bad_response(api_function: Callable, msg: str):
+    try:
+        await api_function()
+        raise AssertionError("Expected exception")
+    except TypeCheckError as e:
+        assert e.args[0] == msg
+
+
+async def test_login(server, api):
+    mock_get(server, "/v1/login", expected_login_response)
+    response = await api.login()
+    assert response == expected_login_response
+    server.assert_called_once()
+
+
+async def test_login_auth_failure(server, api, api_bad_auth):
+    mock_get(server, "/v1/login", expected_login_response)
+    await assert_forbidden(api.login)
+    server.assert_called_once()
+
+
+async def test_login_bad_response(server, api):
+    mock_get(server, "/v1/login", {"apiStatus": "Failed"})
+    await assert_bad_response(api.login, 'is missing required key(s): "msg", "result"')
+    server.assert_called_once()
+
+
+async def test_users(server, api, api_set_client):
+    mock_get(server, "/v1/users", expected_users_response)
+    response = await api.users()
+    assert response == expected_users_response
+    server.assert_called_once()
+
+
+async def test_users_auth_failure(server, api, api_set_client, api_bad_auth):
+    mock_get(server, "/v1/users", expected_users_response)
+    await assert_forbidden(api.users)
+    server.assert_called_once()
+
+
+async def test_users_client_auth_failure(server, api, api_set_bad_client):
+    mock_get(server, "/v1/users", expected_users_response)
+    await assert_forbidden(api.users)
+    server.assert_called_once()
+
+
+async def test_users_bad_response(server, api, api_set_client):
+    mock_get(server, "/v1/users", {"apiStatus": "Failed"})
+    await assert_bad_response(api.users, 'is missing required key(s): "msg", "result"')
+    server.assert_called_once()
+
+
+@pytest.mark.parametrize(
+    "scope, expected_request",
+    [
+        ["channel", expected_control_request_channel],
+        ["group", expected_control_request_group],
+    ],
+)
+async def test_control(
+    scope, expected_request, server, api, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_request})
+    mock_post(server, "/control", expected_control_response, validate)
+    response = await api.control(Command.DOWN, scope, "1")
+    assert response == expected_control_response
+    server.assert_called_once()
+
+
+async def test_control_bad_request(server, api, api_set_client, api_set_serial):
+    validate = validator({"payload": expected_control_request_channel})
+    mock_post(server, "/control", expected_control_response, validate)
+
+    def control():
+        return api.control(Command.DOWN, "room", "1")
+
+    await assert_bad_request(control)
+    server.assert_called_once()
+
+
+async def test_control_auth_failure(
+    server, api, api_bad_auth, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_control_request_channel})
+    mock_post(server, "/control", expected_control_response, validate)
+
+    def control():
+        return api.control(Command.DOWN, "channel", "1")
+
+    await assert_forbidden(control)
+    server.assert_called_once()
+
+
+async def test_control_bad_response(server, api, api_set_client, api_set_serial):
+    validate = validator({"payload": expected_control_request_channel})
+    mock_post(server, "/control", {"apiCommand": "Failed"}, validate)
+
+    def control():
+        return api.control(Command.DOWN, "channel", "1")
+
+    await assert_bad_response(control, 'is missing required key(s): "msg", "result"')
+    server.assert_called_once()
+
+
+async def test_add_schedule(server, api, api_set_client, api_set_serial):
+    validate = validator({"payload": expected_add_schedule_request})
+    mock_put(server, "/v1/schedules", expected_add_schedule_response, validate)
+    response = await api.addSchedule(add_schedule_update)
+    assert response == expected_add_schedule_response
+    server.assert_called_once()
+
+
+async def test_add_schedule_auth_failure(
+    server, api, api_bad_auth, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_add_schedule_request})
+    mock_put(server, "/v1/schedules", expected_add_schedule_response, validate)
+
+    def schedule():
+        return api.addSchedule(add_schedule_update)
+
+    await assert_forbidden(schedule)
+    server.assert_called_once()
+
+
+async def test_add_schedule_bad_response(server, api, api_set_client, api_set_serial):
+    validate = validator({"payload": expected_add_schedule_request})
+    mock_put(server, "/v1/schedules", {"apiStatus": "Failed"}, validate)
+
+    def schedule():
+        return api.addSchedule(add_schedule_update)
+
+    await assert_bad_response(schedule, 'is missing required key(s): "msg", "result"')
+    server.assert_called_once()
+
+
+async def test_update_schedule(server, api, api_set_client, api_set_serial):
+    validate = validator({"payload": expected_update_schedule_request})
+    mock_put(server, "/v1/schedules", expected_update_schedule_response, validate)
+    response = await api.updateSchedule(update_schedule_update)
+    assert response == expected_update_schedule_response
+    server.assert_called_once()
+
+
+async def test_update_schedule_auth_failure(
+    server, api, api_bad_auth, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_update_schedule_request})
+    mock_put(server, "/v1/schedules", expected_update_schedule_response, validate)
+
+    def schedule():
+        return api.updateSchedule(update_schedule_update)
+
+    await assert_forbidden(schedule)
+    server.assert_called_once()
+
+
+async def test_update_schedule_bad_response(
+    server, api, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_update_schedule_request})
+    mock_put(server, "/v1/schedules", {"apiStatus": "Failed"}, validate)
+
+    def schedule():
+        return api.updateSchedule(update_schedule_update)
+
+    await assert_bad_response(schedule, 'is missing required key(s): "msg", "result"')
+    server.assert_called_once()
+
+
+async def test_delete_schedule(server, api, api_set_client, api_set_serial):
+    validate = validator({"payload": expected_delete_schedule_request})
+    mock_delete(server, "/v1/schedules", expected_delete_schedule_response, validate)
+    response = await api.deleteSchedule("1")
+    assert response == expected_delete_schedule_response
+    server.assert_called_once()
+
+
+async def test_delete_schedule_auth_failure(
+    server, api, api_bad_auth, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_delete_schedule_request})
+    mock_delete(server, "/v1/schedules", expected_delete_schedule_response, validate)
+
+    def schedule():
+        return api.deleteSchedule("1")
+
+    await assert_forbidden(schedule)
+    server.assert_called_once()
+
+
+async def test_delete_schedule_bad_response(
+    server, api, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_delete_schedule_request})
+    mock_delete(server, "/v1/schedules", {"apiStatus": "Failed"}, validate)
+
+    def schedule():
+        return api.deleteSchedule("1")
+
+    await assert_bad_response(schedule, 'is missing required key(s): "msg", "result"')
+    server.assert_called_once()
+
+
+async def test_add_schedule_event(server, api, api_set_client, api_set_serial):
+    validate = validator({"payload": expected_schedule_event_request})
+    mock_put(server, "/v1/schedules/event", expected_schedule_event_response, validate)
+    response = await api.addScheduleEvent("1", ScheduleEventType.UP, schedule_event)
+    assert response == expected_schedule_event_response
+    server.assert_called_once()
+
+
+async def test_add_schedule_event_auth_failure(
+    server, api, api_bad_auth, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_schedule_event_request})
+    mock_put(server, "/v1/schedules/event", expected_schedule_event_response, validate)
+
+    def schedule():
+        return api.addScheduleEvent("1", ScheduleEventType.UP, schedule_event)
+
+    await assert_forbidden(schedule)
+    server.assert_called_once()
+
+
+async def test_add_schedule_event_bad_response(
+    server, api, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_schedule_event_request})
+    mock_put(server, "/v1/schedules/event", {"apiStatus": "Failed"}, validate)
+
+    def schedule():
+        return api.addScheduleEvent("1", ScheduleEventType.UP, schedule_event)
+
+    await assert_bad_response(schedule, 'is missing required key(s): "msg", "result"')
+    server.assert_called_once()
+
+
+async def test_delete_schedule_event(server, api, api_set_client, api_set_serial):
+    validate = validator({"payload": expected_delete_schedule_event_request})
+    mock_delete(
+        server, "/v1/schedules/event", expected_schedule_event_response, validate
     )
-    async def test_api_call(
-        self,
-        fn: str,
-        method: str,
-        path: str,
-        auth_header: bool,
-        serial: bool,
-        args: List,
-        expected_response: Dict,
-        expected_request: Optional[Dict],
-    ):
-        mock_request = self.setupWebRequestMock(expected_response)
-        if auth_header:
-            self.api.setClientAndRole("mock_client_id", 1)
-        if serial:
-            self.api.setSerial("mock_serial")
-        if expected_request:
-            expected_request = {"payload": expected_request}
+    response = await api.deleteScheduleEvent("1", ScheduleEventType.UP)
+    assert response == expected_schedule_event_response
+    server.assert_called_once()
 
-        response = await getattr(self.api, fn)(*args)
 
-        self.assertEqual(response, expected_response)
-        headers = {
-            "Content-Type": "application/json",
-            "authorization": "Bearer mock_token",
-        }
-        if auth_header:
-            headers["auth"] = '{"role": 1, "client": "mock_client_id"}'
-        mock_request.assert_called_once_with(
-            method,
-            "https://20230124t120606-dot-gaposa-prod.ew.r.appspot.com" + path,
-            headers=headers,
-            data=json.dumps(expected_request) if expected_request is not None else None,
-        )
-
-    @parameterized.expand(
-        [
-            [
-                "login",
-                False,
-                False,
-                [],
-                expected_login_response,
-                'is missing required key(s): "Clients", "TermsAgreed", "UserRole"',
-            ],
-            [
-                "users",
-                True,
-                False,
-                [],
-                expected_users_response,
-                'is missing required key(s): "Info"',
-            ],
-            [
-                "control",
-                True,
-                True,
-                [Command.DOWN, "group", "1"],
-                expected_control_response,
-                'is missing required key(s): "Success"',
-            ],
-            [
-                "control",
-                True,
-                True,
-                [Command.DOWN, "channel", "1"],
-                expected_control_response,
-                'is missing required key(s): "Success"',
-            ],
-            [
-                "addSchedule",
-                True,
-                True,
-                [add_schedule_update],
-                expected_add_schedule_response,
-                """did not match any element in the union:
-  Literal['ok']: is not any of ('ok')
-  pygaposa.api_types.ApiScheduleDeleteResult: is missing required key(s): \
-"Down", "Preset", "Schedule", "Up"
-  str: is not an instance of str""",
-            ],
-            [
-                "updateSchedule",
-                True,
-                True,
-                [update_schedule_update],
-                expected_update_schedule_response,
-                """did not match any element in the union:
-  Literal['ok']: is not any of ('ok')
-  pygaposa.api_types.ApiScheduleDeleteResult: is missing required key(s): \
-"Down", "Preset", "Schedule", "Up"
-  str: is not an instance of str""",
-            ],
-            [
-                "deleteSchedule",
-                True,
-                True,
-                ["1"],
-                expected_delete_schedule_response,
-                """did not match any element in the union:
-  Literal['ok']: is not any of ('ok')
-  pygaposa.api_types.ApiScheduleDeleteResult: is missing required key(s): \
-"Down", "Preset", "Schedule", "Up"
-  str: is not an instance of str""",
-            ],
-            [
-                "addScheduleEvent",
-                True,
-                True,
-                ["1", ScheduleEventType.UP, schedule_event],
-                expected_schedule_event_response,
-                """is not an instance of str""",
-            ],
-            [
-                "updateScheduleEvent",
-                True,
-                True,
-                ["1", ScheduleEventType.UP, schedule_event],
-                expected_schedule_event_response,
-                """is not an instance of str""",
-            ],
-            [
-                "deleteScheduleEvent",
-                True,
-                True,
-                ["1", ScheduleEventType.UP],
-                expected_schedule_event_response,
-                """is not an instance of str""",
-            ],
-        ]
+async def test_delete_schedule_event_auth_failure(
+    server, api, api_bad_auth, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_delete_schedule_event_request})
+    mock_delete(
+        server, "/v1/schedules/event", expected_schedule_event_response, validate
     )
-    async def test_api_call_invalid_response(
-        self,
-        fn: str,
-        auth_header: bool,
-        serial: bool,
-        args: List,
-        expected_response: Dict,
-        expected_failure: str,
-    ):
-        expected_response = expected_response.copy()
-        expected_response["result"] = {}
 
-        self.setupWebRequestMock(expected_response)
-        if auth_header:
-            self.api.setClientAndRole("mock_client_id", 1)
-        if serial:
-            self.api.setSerial("mock_serial")
+    def schedule():
+        return api.deleteScheduleEvent("1", ScheduleEventType.UP)
 
-        try:
-            await getattr(self.api, fn)(*args)
-            self.fail("Expected exception")
-        except TypeCheckError as exception:
-            self.assertIsInstance(exception, TypeCheckError)
-            self.assertEqual(exception.args[0], expected_failure)
-
-    @parameterized.expand(
-        [
-            ["login", False, False, []],
-            ["users", True, False, []],
-            ["control", True, True, [Command.DOWN, "group", "1"]],
-            ["control", True, True, [Command.DOWN, "channel", "1"]],
-            ["addSchedule", True, True, [add_schedule_update]],
-            ["updateSchedule", True, True, [update_schedule_update]],
-            ["deleteSchedule", True, True, ["1"]],
-            [
-                "addScheduleEvent",
-                True,
-                True,
-                ["1", ScheduleEventType.UP, schedule_event],
-            ],
-            [
-                "updateScheduleEvent",
-                True,
-                True,
-                ["1", ScheduleEventType.UP, schedule_event],
-            ],
-            ["deleteScheduleEvent", True, True, ["1", ScheduleEventType.UP]],
-        ]
-    )
-    async def test_api_call_exception(
-        self, fn: str, auth_header: bool, serial: bool, args: List
-    ):
-        expected_exception = Exception("mock_exception")
-
-        self.setupWebRequestMockException(expected_exception)
-        if auth_header:
-            self.api.setClientAndRole("mock_client_id", 1)
-        if serial:
-            self.api.setSerial("mock_serial")
-
-        try:
-            await getattr(self.api, fn)(*args)
-            self.fail("Expected exception")
-        except Exception as exception:
-            self.assertIsInstance(exception, Exception)
-            self.assertEqual(exception.args[0], "mock_exception")
-
-    @parameterized.expand(
-        [
-            ["login", False, False, []],
-            ["users", True, False, []],
-            ["control", True, True, [Command.DOWN, "group", "1"]],
-            ["control", True, True, [Command.DOWN, "channel", "1"]],
-            ["addSchedule", True, True, [add_schedule_update]],
-            ["updateSchedule", True, True, [update_schedule_update]],
-            ["deleteSchedule", True, True, ["1"]],
-            [
-                "addScheduleEvent",
-                True,
-                True,
-                ["1", ScheduleEventType.UP, schedule_event],
-            ],
-            [
-                "updateScheduleEvent",
-                True,
-                True,
-                ["1", ScheduleEventType.UP, schedule_event],
-            ],
-            ["deleteScheduleEvent", True, True, ["1", ScheduleEventType.UP]],
-        ]
-    )
-    async def test_api_call_json_exception(
-        self, fn: str, auth_header: bool, serial: bool, args: List
-    ):
-        expected_exception = Exception("mock_exception")
-
-        self.setupWebRequestMockJsonException(expected_exception)
-        if auth_header:
-            self.api.setClientAndRole("mock_client_id", 1)
-        if serial:
-            self.api.setSerial("mock_serial")
-
-        try:
-            await getattr(self.api, fn)(*args)
-            self.fail("Expected exception")
-        except Exception as exception:
-            self.assertIsInstance(exception, Exception)
-            self.assertEqual(exception.args[0], "mock_exception")
+    await assert_forbidden(schedule)
+    server.assert_called_once()
 
 
-if __name__ == "__main__":
-    unittest.main()
+async def test_delete_schedule_event_bad_response(
+    server, api, api_set_client, api_set_serial
+):
+    validate = validator({"payload": expected_delete_schedule_event_request})
+    mock_delete(server, "/v1/schedules/event", {"apiStatus": "Failed"}, validate)
+
+    def schedule():
+        return api.deleteScheduleEvent("1", ScheduleEventType.UP)
+
+    await assert_bad_response(schedule, 'is missing required key(s): "msg", "result"')
+    server.assert_called_once()

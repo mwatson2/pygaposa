@@ -32,13 +32,15 @@ from pygaposa.api_types import (
 
 
 class GaposaApi:
+    serverUrl: str = "https://20230124t120606-dot-gaposa-prod.ew.r.appspot.com"
+
     def __init__(
         self,
         websession: ClientSession,
         getToken: Callable[[], Awaitable[str]],
-        serverUrl: str = "https://20230124t120606-dot-gaposa-prod.ew.r.appspot.com",
+        serverUrl: Optional[str] = None,
     ):
-        self.serverUrl = serverUrl
+        self.serverUrl = serverUrl or GaposaApi.serverUrl
         self.websession = websession
         self.getToken = getToken
 
@@ -138,7 +140,11 @@ class GaposaApi:
         data = json.dumps({"payload": payload}) if payload else None
 
         response = await self.websession.request(
-            method, self.serverUrl + endpoint, headers=headers, data=data
+            method,
+            self.serverUrl + endpoint,
+            headers=headers,
+            data=data,
+            raise_for_status=True,
         )
 
         responseObject = await response.json()
