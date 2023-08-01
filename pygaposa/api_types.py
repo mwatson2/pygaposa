@@ -27,7 +27,7 @@ class ApiLoginResponse(TypedDict):
 
 
 class UserInfo(TypedDict):
-    CountryId: str
+    CountryID: str
     EmailAlert: bool
     Email: str
     Name: str
@@ -57,6 +57,7 @@ class Command(str, Enum):
     DOWN = "0xee"
     UP = "0xdd"
     STOP = "0xcc"
+    PRESET = "0xad"
 
 
 class EventDays(IntEnum):
@@ -115,22 +116,22 @@ class Channel(TypedDict):
     HomePaused: bool
 
 
-class Room(TypedDict):
+class RoomInfo(TypedDict):
     Favourite: bool
     Motors: list[int]
     Name: str
     Icon: str
 
 
-class Group(TypedDict):
+class GroupInfo(TypedDict):
     Favourite: bool
     Icon: str
     Name: str
     Motors: list[int]
+    Rooms: list[str]
 
 
-class Schedule(TypedDict):
-    Id: NumericIdentifier
+class ScheduleInfo(TypedDict):
     Name: str
     Groups: list[int]
     Location: Location
@@ -140,7 +141,7 @@ class Schedule(TypedDict):
 
 
 class ScheduleUpdate(TypedDict, total=False):
-    Id: NumericIdentifier  # Omit the Id field to create a new schedule
+    Id: NumericIdentifier
     Name: str
     Groups: list[int]
     Location: Location
@@ -154,9 +155,9 @@ class DeviceDocument(TypedDict):
     Info: Info
     Assistant: Assistant
     Channels: Dict[str, Channel]
-    Rooms: Dict[str, Room]  # key is room name
-    Groups: Dict[NumericIdentifier, Group]
-    Schedule: Dict[NumericIdentifier, Schedule]
+    Rooms: Dict[str, RoomInfo]  # key is room name
+    Groups: Dict[NumericIdentifier, GroupInfo]
+    Schedule: Dict[NumericIdentifier, ScheduleInfo]
     HeartBeat: HeartBeat
     DeletedChannels: List[int]
     Pending: list
@@ -164,12 +165,12 @@ class DeviceDocument(TypedDict):
 
 
 class EventMode(TypedDict):
-    Sunrise: bool
-    Sunset: bool
+    SunRise: bool
+    SunSet: bool
     TimeDay: bool
 
 
-class ScheduleEvent(TypedDict):
+class ScheduleEventInfo(TypedDict):
     EventRepeat: EventRepeat
     TimeZone: str
     Active: bool
@@ -195,22 +196,28 @@ class ApiControlResult(TypedDict):
     Success: Literal["OK"]
 
 
-class ApiControlData(TypedDict):
+class ApiGroupControlData(TypedDict):
     cmd: str
+
+
+class ApiChannelControlData(TypedDict):
+    cmd: str
+    bank: int
+    address: int
 
 
 # Request for /control
 class ApiControlRequestBase(TypedDict):
     serial: str
-    data: ApiControlData
 
 
 class ApiControlRequestGroup(ApiControlRequestBase):
     group: str
+    data: ApiGroupControlData
 
 
 class ApiControlRequestChannel(ApiControlRequestBase):
-    channel: str
+    data: ApiChannelControlData
 
 
 ApiControlRequest = Union[ApiControlRequestChannel, ApiControlRequestGroup]
@@ -257,7 +264,7 @@ class ApiScheduleEventRequestBase(TypedDict):
 
 
 class ApiScheduleEventRequest(ApiScheduleEventRequestBase, total=False):
-    event: ScheduleEvent
+    event: ScheduleEventInfo
 
 
 # Response for /v1/schedules/event

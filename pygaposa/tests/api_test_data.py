@@ -8,7 +8,7 @@ from pygaposa.api_types import (
     ApiScheduleRequest,
     ApiScheduleResponse,
     ApiUsersResponse,
-    ScheduleEvent,
+    ScheduleEventInfo,
     ScheduleUpdate,
 )
 
@@ -33,7 +33,7 @@ expected_users_response: ApiUsersResponse = {
     "msg": "Return user",
     "result": {
         "Info": {
-            "CountryId": "mock_country_id",
+            "CountryID": "mock_country_id",
             "EmailAlert": True,
             "Email": "mock_email",
             "Name": "mock_name",
@@ -58,8 +58,7 @@ expected_control_request_group: ApiControlRequest = {
 
 expected_control_request_channel: ApiControlRequest = {
     "serial": "mock_serial",
-    "data": {"cmd": "0xee"},
-    "channel": "1",
+    "data": {"cmd": "0xee", "bank": 0, "address": 1},
 }
 
 expected_control_response: ApiControlResponse = {
@@ -113,7 +112,7 @@ expected_delete_schedule_response: ApiScheduleResponse = {
     "result": {"Schedule": True, "Down": True, "Up": True, "Preset": True},
 }
 
-schedule_event: ScheduleEvent = {
+schedule_event: ScheduleEventInfo = {
     "EventRepeat": [True, True, True, True, True, True, True],  # type: ignore
     "TimeZone": "mock_timezone",
     "Active": True,

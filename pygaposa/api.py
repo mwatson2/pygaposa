@@ -1,21 +1,13 @@
 import json
-from typing import (
-    Any,
-    Awaitable,
-    Callable,
-    Dict,
-    List,
-    Literal,
-    Optional,
-    TypedDict,
-    Union,
-)
+import logging
+from typing import Awaitable, Callable, Literal, Optional, Union
 
 from aiohttp import ClientSession
 from typeguard import check_type
 
 from pygaposa.api_types import (
     ApiControlRequest,
+    ApiControlRequestChannel,
     ApiControlResponse,
     ApiLoginResponse,
     ApiRequestPayload,
@@ -25,14 +17,17 @@ from pygaposa.api_types import (
     ApiScheduleResponse,
     ApiUsersResponse,
     Command,
-    ScheduleEvent,
+    ScheduleEventInfo,
     ScheduleEventType,
     ScheduleUpdate,
 )
 
+logging.basicConfig(level=logging.DEBUG)
+
 
 class GaposaApi:
-    serverUrl: str = "https://20230124t120606-dot-gaposa-prod.ew.r.appspot.com"
+    # serverUrl: str = "https://20230124t120606-dot-gaposa-prod.ew.r.appspot.com"
+    serverUrl: str = "https://gaposa-prod.ew.r.appspot.com"
 
     def __init__(
         self,
@@ -43,6 +38,15 @@ class GaposaApi:
         self.serverUrl = serverUrl or GaposaApi.serverUrl
         self.websession = websession
         self.getToken = getToken
+        self.logger = logging.getLogger("gaposa")
+
+    def clone(self) -> "GaposaApi":
+        result = GaposaApi(self.websession, self.getToken, self.serverUrl)
+        if hasattr(self, "client"):
+            result.setClientAndRole(self.client, self.role)
+        if hasattr(self, "serial"):
+            result.setSerial(self.serial)
+        return result
 
     def setClientAndRole(self, client: str, role: int):
         self.client = client
@@ -68,23 +72,38 @@ class GaposaApi:
     ):
         assert hasattr(self, "client")
         assert hasattr(self, "serial")
-        payload: ApiControlRequest = {
-            "serial": self.serial,
-            "data": {"cmd": command.value},
-        }  # type: ignore
-        payload[scope] = id  # type: ignore
+        if scope == "channel":
+            payload: ApiControlRequest = {
+                "serial": self.serial,
+                "data": {"cmd": command.value, "bank": 0, "address": int(id)},
+            }
+        else:
+            payload: ApiControlRequest = {
+                "serial": self.serial,
+                "group": id,
+                "data": {"cmd": command.value},
+            }
+
         response = await self.request("/control", "POST", payload)
         return check_type(response, ApiControlResponse)
 
     async def addSchedule(self, schedule: ScheduleUpdate) -> ApiScheduleResponse:
-        assert hasattr(self, "client")
-        assert hasattr(self, "serial")
-        payload: ApiScheduleRequest = {"serial": self.serial, "schedule": schedule}
-        response = await self.request("/v1/schedules", "PUT", payload)
-        return check_type(response, ApiScheduleResponse)
+        assert "Id" not in schedule
+        return await self.addOrUpdateSchedule(schedule)
 
     async def updateSchedule(self, schedule: ScheduleUpdate) -> ApiScheduleResponse:
-        return await self.addSchedule(schedule)
+        assert "Id" in schedule
+        return await self.addOrUpdateSchedule(schedule)
+
+    async def addOrUpdateSchedule(
+        self, schedule: ScheduleUpdate
+    ) -> ApiScheduleResponse:
+        assert hasattr(self, "client")
+        assert hasattr(self, "serial")
+        method = "POST" if "Id" not in schedule else "PUT"
+        payload: ApiScheduleRequest = {"serial": self.serial, "schedule": schedule}
+        response = await self.request("/v1/schedules", method, payload)
+        return check_type(response, ApiScheduleResponse)
 
     async def deleteSchedule(self, Id: str) -> ApiScheduleResponse:
         assert hasattr(self, "client")
@@ -94,7 +113,7 @@ class GaposaApi:
         return check_type(response, ApiScheduleResponse)
 
     async def addScheduleEvent(
-        self, Id: str, Mode: ScheduleEventType, event: ScheduleEvent
+        self, Id: str, Mode: ScheduleEventType, event: ScheduleEventInfo
     ) -> ApiScheduleEventResponse:
         assert hasattr(self, "client")
         assert hasattr(self, "serial")
@@ -107,7 +126,7 @@ class GaposaApi:
         return check_type(response, ApiScheduleEventResponse)
 
     async def updateScheduleEvent(
-        self, Id: str, Mode: ScheduleEventType, event: ScheduleEvent
+        self, Id: str, Mode: ScheduleEventType, event: ScheduleEventInfo
     ) -> ApiScheduleEventResponse:
         return await self.addScheduleEvent(Id, Mode, event)
 
@@ -147,6 +166,13 @@ class GaposaApi:
             raise_for_status=True,
         )
 
+        self.logger.debug(f"Request: {method} {endpoint}")
+        self.logger.debug(f"Headers: {headers}")
+        self.logger.debug(f"Payload: {data}")
+        self.logger.debug(f"Response: {response}")
+
         responseObject = await response.json()
+
+        self.logger.debug(f"Response object: {responseObject}")
 
         return responseObject

@@ -40,7 +40,6 @@ def server():
 
 @pytest.fixture
 async def websession():
-    asyncio.get_event_loop()
     session = aiohttp.ClientSession()
     yield session
     await session.close()
@@ -264,7 +263,7 @@ async def test_control_bad_response(server, api, api_set_client, api_set_serial)
 
 async def test_add_schedule(server, api, api_set_client, api_set_serial):
     validate = validator({"payload": expected_add_schedule_request})
-    mock_put(server, "/v1/schedules", expected_add_schedule_response, validate)
+    mock_post(server, "/v1/schedules", expected_add_schedule_response, validate)
     response = await api.addSchedule(add_schedule_update)
     assert response == expected_add_schedule_response
     server.assert_called_once()
@@ -274,7 +273,7 @@ async def test_add_schedule_auth_failure(
     server, api, api_bad_auth, api_set_client, api_set_serial
 ):
     validate = validator({"payload": expected_add_schedule_request})
-    mock_put(server, "/v1/schedules", expected_add_schedule_response, validate)
+    mock_post(server, "/v1/schedules", expected_add_schedule_response, validate)
 
     def schedule():
         return api.addSchedule(add_schedule_update)
@@ -285,7 +284,7 @@ async def test_add_schedule_auth_failure(
 
 async def test_add_schedule_bad_response(server, api, api_set_client, api_set_serial):
     validate = validator({"payload": expected_add_schedule_request})
-    mock_put(server, "/v1/schedules", {"apiStatus": "Failed"}, validate)
+    mock_post(server, "/v1/schedules", {"apiStatus": "Failed"}, validate)
 
     def schedule():
         return api.addSchedule(add_schedule_update)

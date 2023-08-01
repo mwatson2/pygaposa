@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import asyncio
-import json
 import logging
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, TypedDict, Union
@@ -178,13 +177,17 @@ class Firestore:
             headers["Authorization"] = "Bearer " + token
 
         async with self.app.session.get(
-            pathjoin("https://firestore.googleapis.com/v1", path), headers=headers
+            pathjoin("https://firestore.googleapis.com/v1", path),
+            headers=headers,
         ) as response:
             self.app.logger.debug(response)
 
             if response.status == 200:
-                self.app.logger.debug("Headers: " + str(response.headers))
                 return await response.json()
+            elif response.status == 404:
+                return None
+            else:
+                response.raise_for_status()
 
     async def get(self, path: str) -> FirestoreDocument | None:
         document: Optional[FirestoreDocumentType] = await self._get(path)
@@ -194,8 +197,8 @@ class Firestore:
 
 def pathjoin(base: str, path: str) -> str:
     base = base[0:-1] if base.endswith("/") else base
-    path = path[1:] if path.startswith("/") else path
-    return base + "/" + path
+    path = "/" + path if len(path) > 0 and not path.startswith("/") else path
+    return base + path
 
 
 class FirestorePath:
