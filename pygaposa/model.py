@@ -1,6 +1,6 @@
 import asyncio
-from ctypes import Union
 from datetime import datetime, timedelta
+from logging import Logger
 from typing import Any, Callable, Dict, List, Literal, Optional, TypeVar
 
 import suncalc
@@ -17,7 +17,6 @@ from pygaposa.api_types import (
     EventMode,
     EventRepeat,
     GroupInfo,
-    Location,
     NamedItem,
     RoomInfo,
     ScheduleEventInfo,
@@ -28,6 +27,7 @@ from pygaposa.api_types import (
 )
 from pygaposa.firebase import FirestorePath
 from pygaposa.geoapi import GeoApi
+from pygaposa.poll_manager import PollManager
 
 
 class Named:
@@ -86,7 +86,7 @@ class Motor(Controllable):
     async def command(self, command: Command):
         await self.device.api.control(command, "channel", self.id)
         await asyncio.sleep(2)
-        await self.device.update()
+        await self.device.update(lambda: self.state == expectedState(command))
 
 
 class Room(Updatable):
@@ -98,7 +98,7 @@ class Room(Updatable):
     def update(self, info: RoomInfo):
         self.name = info["Name"]
         self.favourite = info["Favourite"]
-        self.motors = [self.device.findMotorById(id) for id in info["Motors"]]
+        self.motors = self.device.findMotorsById(info["Motors"])
         self.icon = info["Icon"]
 
 
@@ -111,7 +111,7 @@ class Group(Controllable):
     def update(self, info: GroupInfo):
         assert info["Name"] == self.name
         self.favourite = info["Favourite"]
-        self.motors = [self.device.findMotorById(id) for id in info["Motors"]]
+        self.motors = self.device.findMotorsById(info["Motors"])
         self.icon = info["Icon"]
 
     async def up(self):
@@ -129,7 +129,16 @@ class Group(Controllable):
     async def command(self, command: Command):
         await self.device.api.control(command, "group", self.id)
         await asyncio.sleep(2)
-        await self.device.update()
+        await self.device.update(lambda: self.motors[0].state == expectedState(command))
+
+
+def expectedState(command: Command) -> str:
+    return {
+        Command.UP: "UP",
+        Command.DOWN: "DOWN",
+        Command.STOP: "STOP",
+        Command.PRESET: "STOP",
+    }[command]
 
 
 class ScheduleEvent:
@@ -152,6 +161,14 @@ class ScheduleEvent:
 ScheduleEventsTuple = list[Optional[ScheduleEvent]]
 
 
+def modeToIndex(mode: ScheduleEventType) -> int:
+    return [
+        ScheduleEventType.UP,
+        ScheduleEventType.DOWN,
+        ScheduleEventType.PRESET,
+    ].index(mode)
+
+
 class Schedule(Updatable):
     def __init__(self, device: "Device", id: str, info: ScheduleInfo):
         Named.__init__(self, id, info["Name"])
@@ -163,10 +180,7 @@ class Schedule(Updatable):
         self.name = info["Name"]
         self.groups = info["Groups"]
         self.location = info["Location"]
-        motors = [self.device.findMotorById(id) for id in info["Motors"]]
-        if any(motor is None for motor in motors):
-            raise Exception("Motor not found")
-        self.motors: list[Motor] = motors  # type: ignore
+        self.motors = self.device.findMotorsById(info["Motors"])
         self.icon = info["Icon"]
         self.active = info["Active"]
 
@@ -185,22 +199,20 @@ class Schedule(Updatable):
     async def delete(self):
         await self.device.api.deleteSchedule(self.id)
         await asyncio.sleep(2)
-        await self.device.update()
+        await self.device.update(lambda: self.device.findScheduleById(self.id) is None)
 
     async def setActive(self, Active: bool):
         await self.updateProperties({"Active": Active})
-        await asyncio.sleep(2)
-        await self.device.update()
 
     async def setEvent(self, Mode: ScheduleEventType, event: ScheduleEventInfo):
         await self.device.api.addScheduleEvent(self.id, Mode, event)
         await asyncio.sleep(2)
-        await self.device.update()
+        await self.device.update(lambda: self.events[modeToIndex(Mode)] is not None)
 
     async def deleteEvent(self, Mode: ScheduleEventType):
         await self.device.api.deleteScheduleEvent(self.id, Mode)
         await asyncio.sleep(2)
-        await self.device.update()
+        await self.device.update(lambda: self.events[modeToIndex(Mode)] is None)
 
     async def setSunriseOpen(
         self, days: EventDays | List[EventDays] | EventRepeat = EventDays.ALL
@@ -265,16 +277,17 @@ InitializerType = TypeVar("InitializerType", bound=NamedItem)
 
 
 class Device(Updatable):
-    def __init__(self, api: GaposaApi, firestore: FirestorePath, info: DeviceInfo):
+    def __init__(
+        self, api: GaposaApi, firestore: FirestorePath, logger: Logger, info: DeviceInfo
+    ):
         Named.__init__(self, info["Serial"], info["Name"])
         self.api = api.clone()
+        self.logger = logger
         self.serial: str = info["Serial"]
 
         self.api.setSerial(self.serial)
 
-        self.updateComplete = asyncio.Event()
-        self.updateComplete.set()
-        self.updateRequired = False
+        self.pollManager = PollManager(self.doUpdate, self.logger)
 
         self.documentRef = firestore.child("Devices").child(self.serial)
         self.scheduleRef = self.documentRef.child("Schedule")
@@ -283,20 +296,8 @@ class Device(Updatable):
         self.groups: list[Group] = []
         self.schedules: list[Schedule] = []
 
-    async def update(self):
-        if not self.updateComplete.is_set():
-            self.updateRequired = True
-            await self.updateComplete.wait()
-        else:
-            self.updateComplete.clear()
-
-            while True:
-                self.updateRequired = False
-                await self.doUpdate()
-                if not self.updateRequired:
-                    break
-
-            self.updateComplete.set()
+    async def update(self, condition: Callable[[], bool] | None = None):
+        await self.pollManager.wait_for_condition(condition)
 
     async def doUpdate(self):
         self.snapshot = await self.documentRef.get()
@@ -309,7 +310,7 @@ class Device(Updatable):
         check_type(self.document, DeviceDocument)
 
         self.scheduleEvents = {}
-        schedules = self.document["Schedule"]
+        schedules = self.document["Schedule"] if "Schedule" in self.document else []
         for schedule in schedules:
             (scheduleUp, scheduleDown, schedulePreset) = await asyncio.gather(
                 self.scheduleRef.get(schedule + ".UP"),
@@ -336,8 +337,10 @@ class Device(Updatable):
         self.motors = self.onListUpdated(self.motors, self.document["Channels"], Motor)
         self.rooms = self.onListUpdated(self.rooms, self.document["Rooms"], Room)
         self.groups = self.onListUpdated(self.groups, self.document["Groups"], Group)
-        self.schedules = self.onListUpdated(
-            self.schedules, self.document["Schedule"], Schedule
+        self.schedules = (
+            self.onListUpdated(self.schedules, self.document["Schedule"], Schedule)
+            if "Schedule" in self.document
+            else []
         )
         if updateSchedules:
             for schedule in self.schedules:
@@ -354,6 +357,12 @@ class Device(Updatable):
 
     def findScheduleById(self, id: int | str) -> Schedule | None:
         return findById(self.schedules, str(id))
+
+    def findMotorsById(self, ids: list[int]) -> list[Motor]:
+        motors = [self.findMotorById(id) for id in ids]
+        if any(motor is None for motor in motors):
+            raise Exception("Motor not found")
+        return motors  # type: ignore
 
     def onListUpdated(
         self,
@@ -388,7 +397,8 @@ class Device(Updatable):
             }
 
         await self.api.addSchedule(schedule)
-        await self.update()
+        await asyncio.sleep(2)
+        await self.update(lambda: any(s.name == Name for s in self.schedules))
 
     def nextScheduleId(self) -> int:
         ids = [int(s.id) for s in self.schedules]
@@ -428,6 +438,7 @@ class Client(Named):
         api: GaposaApi,
         geoApi: GeoApi,
         firestore: FirestorePath,
+        logger: Logger,
         id: str,
         info: ClientInfo,
     ):
@@ -439,9 +450,10 @@ class Client(Named):
         self.api.setClientAndRole(self.id, self.role)
 
         self.geoApi = geoApi
+        self.logger = logger
 
         self.devices: List[Device] = [
-            Device(self.api, firestore, d) for d in info["Devices"]
+            Device(self.api, firestore, logger, d) for d in info["Devices"]
         ]
 
     async def getUserInfo(self) -> User:

@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from typing import Optional
 
 import aiohttp
@@ -8,6 +9,8 @@ from pygaposa.api_types import ApiLoginResponse
 from pygaposa.firebase import FirebaseAuth, initialize_app
 from pygaposa.geoapi import GeoApi
 from pygaposa.model import Client, User
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 class Gaposa:
@@ -31,6 +34,7 @@ class Gaposa:
             }
         )
         self.firestore = None
+        self.logger = logging.getLogger("GAPOSA")
 
         if location:
             self.location: tuple[float, float] = location
@@ -69,7 +73,9 @@ class Gaposa:
 
         self.clients: list[tuple[Client, User]] = []
         for key, value in authResponse["result"]["Clients"].items():
-            client = Client(self.api, self.geoApi, self.firestore, key, value)
+            client = Client(
+                self.api, self.geoApi, self.firestore, self.logger, key, value
+            )
             user = await client.getUserInfo()
             self.clients.append((client, user))
 

@@ -150,18 +150,21 @@ class ScheduleUpdate(TypedDict, total=False):
     Active: bool
 
 
-class DeviceDocument(TypedDict):
+class DeviceDocumentRequired(TypedDict):
     State: State
     Info: Info
     Assistant: Assistant
     Channels: Dict[str, Channel]
     Rooms: Dict[str, RoomInfo]  # key is room name
     Groups: Dict[NumericIdentifier, GroupInfo]
-    Schedule: Dict[NumericIdentifier, ScheduleInfo]
     HeartBeat: HeartBeat
     DeletedChannels: List[int]
     Pending: list
     Uid: list[str]
+
+
+class DeviceDocument(DeviceDocumentRequired, total=False):
+    Schedule: Dict[NumericIdentifier, ScheduleInfo]
 
 
 class EventMode(TypedDict):

@@ -8,8 +8,6 @@ from urllib.parse import urljoin
 
 import aiohttp
 
-logging.basicConfig(level=logging.DEBUG)
-
 FirebaseConfig = TypedDict(
     "FirebaseConfig",
     {
