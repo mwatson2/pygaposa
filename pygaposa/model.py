@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from logging import Logger
 from typing import Any, Callable, Dict, List, Literal, Optional, TypeVar
 
-import suncalc
+import suncalc  # type: ignore
 from typeguard import check_type
 
 from pygaposa.api import GaposaApi
@@ -387,7 +387,7 @@ class Device(Updatable):
         schedule: ScheduleUpdate = {
             "Name": Name,
             "Icon": "noImg",
-            **properties,
+            **properties,  # type: ignore
         }
 
         if "Location" not in schedule and self.location is not None:
@@ -489,9 +489,9 @@ def getEventRepeat(days: EventDays | List[EventDays] | EventRepeat) -> EventRepe
             return tuple(days)  # type: ignore
         else:
             assert all(isinstance(d, EventDays) for d in days)
-            return tuple(x in days for x in range(7))
+            return tuple(x in days for x in range(7))  # type: ignore
     elif days == EventDays.ALL:
-        return (True,) * len(EventDays)
+        return (True,) * len(EventDays)  # type: ignore
     elif days == EventDays.WEEKDAYS:
         return (True, True, True, True, True, False, False)
     elif days == EventDays.WEEKENDS:

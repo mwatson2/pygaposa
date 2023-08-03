@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# type: ignore
 import glob
 import os
 import sys

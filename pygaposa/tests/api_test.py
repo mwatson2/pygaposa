@@ -1,12 +1,11 @@
-import asyncio
 import json
 from typing import Any, Callable, Dict, Optional
 
 import aiohttp
 import pytest
 from aioresponses import CallbackResult, aioresponses
-from parameterized import parameterized
 from typeguard import TypeCheckError
+from yarl import URL
 
 from pygaposa.api import GaposaApi
 from pygaposa.api_types import Command, ScheduleEventType
@@ -46,7 +45,7 @@ async def websession():
 
 
 @pytest.fixture
-async def api(websession):
+async def api(websession: aiohttp.ClientSession):
     async def getToken():
         return "mock_token"
 
@@ -54,7 +53,7 @@ async def api(websession):
 
 
 @pytest.fixture
-async def api_bad_auth(api):
+async def api_bad_auth(api: GaposaApi):
     async def getToken():
         return "bad_mock_token"
 
@@ -63,24 +62,24 @@ async def api_bad_auth(api):
 
 
 @pytest.fixture
-async def api_set_client(api):
+async def api_set_client(api: GaposaApi):
     api.setClientAndRole("mock_client_id", 1)
     return api
 
 
 @pytest.fixture
-async def api_set_bad_client(api):
+async def api_set_bad_client(api: GaposaApi):
     api.setClientAndRole("bad_mock_client_id", 1)
     return api
 
 
 @pytest.fixture
-async def api_set_serial(api):
+async def api_set_serial(api: GaposaApi):
     api.setSerial("mock_serial")
     return api
 
 
-def authorize(url, **kwargs):
+def authorize(url: URL, **kwargs: Dict[str, Any]):
     if "headers" in kwargs:
         headers: Optional[Dict[str, str]] = kwargs["headers"]
         if headers and "authorization" in headers:
@@ -89,7 +88,7 @@ def authorize(url, **kwargs):
                     return None
                 else:
                     if "auth" in headers:
-                        auth: Dict = json.loads(headers["auth"])
+                        auth: Dict[str, Any] = json.loads(headers["auth"])
                         if "role" in auth and "client" in auth:
                             if auth["role"] == 1 and auth["client"] == "mock_client_id":
                                 return None
@@ -97,7 +96,7 @@ def authorize(url, **kwargs):
     return CallbackResult(status=403, reason="Forbidden")
 
 
-def mock_get(server: aioresponses, path: str, payload):
+def mock_get(server: aioresponses, path: str, payload: Any):
     url = GaposaApi.serverUrl + path
     server.get(url, payload=payload, callback=authorize)
 

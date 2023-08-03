@@ -1,6 +1,6 @@
 import asyncio
 from logging import Logger
-from typing import Callable, Coroutine
+from typing import Any, Callable, Coroutine
 
 POLL_INTERVAL = 2  # seconds
 POLL_RETRIES = 5
@@ -24,7 +24,7 @@ class PollManager:
     def __init__(self, poll: Callable[[], Coroutine], logger: Logger):
         self.poll = poll
         self.logger = logger
-        self.pollingTask = None
+        self.pollingTask: asyncio.Task[Any] | None = None
         self.waiters: list[tuple[Callable[[], bool] | None, asyncio.Event]] = []
 
     async def wait_for_update(self):

@@ -7,3 +7,6 @@ build-backend = "setuptools.build_meta"
 minversion = "6.0"
 addopts = "--failed-first"
 asyncio_mode = "auto"
+
+[mypy]
+modules = ["pygaposa"]

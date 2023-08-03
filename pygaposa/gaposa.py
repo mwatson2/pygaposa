@@ -6,7 +6,7 @@ import aiohttp
 
 from pygaposa.api import GaposaApi
 from pygaposa.api_types import ApiLoginResponse
-from pygaposa.firebase import FirebaseAuth, initialize_app
+from pygaposa.firebase import FirebaseAuth, FirestorePath, initialize_app
 from pygaposa.geoapi import GeoApi
 from pygaposa.model import Client, User
 
@@ -33,7 +33,7 @@ class Gaposa:
                 "storageBucket": "gaposa-prod.appspot.com",
             }
         )
-        self.firestore = None
+        self.firestore: FirestorePath | None = None
         self.logger = logging.getLogger("GAPOSA")
 
         if location:
@@ -45,14 +45,14 @@ class Gaposa:
         if loop:
             self.loop: asyncio.AbstractEventLoop = loop
         else:
-            self.loop: asyncio.AbstractEventLoop = asyncio.get_event_loop()
+            self.loop = asyncio.get_event_loop()
 
         if websession:
             self.session: aiohttp.ClientSession = websession
             self.ownSession: bool = False
         else:
-            self.session: aiohttp.ClientSession = aiohttp.ClientSession()
-            self.ownSession: bool = True
+            self.session = aiohttp.ClientSession()
+            self.ownSession = True
 
     async def open(self, email: str, password: str):
         self.email = email
@@ -80,6 +80,8 @@ class Gaposa:
             self.clients.append((client, user))
 
         await self.update()
+
+        return None
 
     async def close(self):
         if self.ownSession:

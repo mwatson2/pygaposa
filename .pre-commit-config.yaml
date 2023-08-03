@@ -101,3 +101,8 @@ repos:
           - flake8-comprehensions
           - flake8-docstrings
           - flake8-implicit-str-concat
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.4.1'
+    hooks:
+    -   id: mypy

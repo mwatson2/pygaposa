@@ -91,7 +91,7 @@ class FirebaseAuth:
         self.password: str = password
         await self.sign_in()
 
-    async def sign_in(self):
+    async def sign_in(self) -> None:
         async with self.app.session.post(
             "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword",
             params={"key": self.app.config["apiKey"]},
@@ -186,11 +186,13 @@ class Firestore:
                 return None
             else:
                 response.raise_for_status()
+            return None
 
     async def get(self, path: str) -> FirestoreDocument | None:
         document: Optional[FirestoreDocumentType] = await self._get(path)
         if document is not None:
             return FirestoreDocument(self, document)
+        return None
 
 
 def pathjoin(base: str, path: str) -> str:
@@ -239,12 +241,12 @@ class FirebaseApp:
         if loop:
             self.loop: asyncio.AbstractEventLoop = loop
         else:
-            self.loop: asyncio.AbstractEventLoop = asyncio.get_event_loop()
+            self.loop = asyncio.get_event_loop()
 
         if websession:
             self.session: aiohttp.ClientSession = websession
         else:
-            self.session: aiohttp.ClientSession = aiohttp.ClientSession()
+            self.session = aiohttp.ClientSession()
 
     def auth(self) -> FirebaseAuth:
         if not self.hasAuth:

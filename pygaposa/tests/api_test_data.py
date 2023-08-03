@@ -2,7 +2,6 @@ from pygaposa.api_types import (
     ApiControlRequest,
     ApiControlResponse,
     ApiLoginResponse,
-    ApiRequestPayload,
     ApiScheduleEventRequest,
     ApiScheduleEventResponse,
     ApiScheduleRequest,
@@ -86,7 +85,10 @@ expected_add_schedule_response: ApiScheduleResponse = {
     "result": "ok",
 }
 
-update_schedule_update: ScheduleUpdate = {**add_schedule_update, "Id": "1"}
+update_schedule_update: ScheduleUpdate = {
+    **add_schedule_update,  # type: ignore
+    "Id": "1",
+}
 
 expected_update_schedule_request: ApiScheduleRequest = {
     "serial": "mock_serial",
@@ -121,7 +123,7 @@ schedule_event: ScheduleEventInfo = {
     "EventEpoch": 1,
     "Location": {"_latitude": 1, "_longitude": 1},
     "Motors": [2, 3],
-    "EventMode": {"Sunrise": True, "Sunset": False, "TimeDay": False},
+    "EventMode": {"SunRise": True, "SunSet": False, "TimeDay": False},
 }
 
 expected_schedule_event_request: ApiScheduleEventRequest = {

@@ -78,7 +78,7 @@ class GaposaApi:
                 "data": {"cmd": command.value, "bank": 0, "address": int(id)},
             }
         else:
-            payload: ApiControlRequest = {
+            payload = {
                 "serial": self.serial,
                 "group": id,
                 "data": {"cmd": command.value},
