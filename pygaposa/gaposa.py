@@ -33,7 +33,7 @@ class Gaposa:
                 "storageBucket": "gaposa-prod.appspot.com",
             }
         )
-        self.firestore: FirestorePath | None = None
+        self.firestore: Optional[FirestorePath] = None
         self.logger = logging.getLogger("GAPOSA")
 
         if location:

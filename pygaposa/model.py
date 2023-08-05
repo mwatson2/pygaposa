@@ -1,7 +1,7 @@
 import asyncio
 from datetime import datetime, timedelta
 from logging import Logger
-from typing import Any, Callable, Dict, List, Literal, Optional, TypeVar
+from typing import Any, Callable, Dict, List, Literal, Optional, TypeVar, Union
 
 import suncalc  # type: ignore
 from typeguard import check_type
@@ -169,6 +169,9 @@ def modeToIndex(mode: ScheduleEventType) -> int:
     ].index(mode)
 
 
+EventDaysSpecifier = Union[EventDays, List[EventDays], EventRepeat]
+
+
 class Schedule(Updatable):
     def __init__(self, device: "Device", id: str, info: ScheduleInfo):
         Named.__init__(self, id, info["Name"])
@@ -214,21 +217,17 @@ class Schedule(Updatable):
         await asyncio.sleep(2)
         await self.device.update(lambda: self.events[modeToIndex(Mode)] is None)
 
-    async def setSunriseOpen(
-        self, days: EventDays | List[EventDays] | EventRepeat = EventDays.ALL
-    ):
+    async def setSunriseOpen(self, days: EventDaysSpecifier = EventDays.ALL):
         await self.setSuntimeCommand(ScheduleEventType.UP, "sunrise", days)
 
-    async def setSunsetClose(
-        self, days: EventDays | List[EventDays] | EventRepeat = EventDays.ALL
-    ):
+    async def setSunsetClose(self, days: EventDaysSpecifier = EventDays.ALL):
         await self.setSuntimeCommand(ScheduleEventType.DOWN, "sunset", days)
 
     async def setSuntimeCommand(
         self,
         event: ScheduleEventType,
         suntime: Literal["sunrise", "sunset"],
-        days: EventDays | List[EventDays] | EventRepeat = EventDays.ALL,
+        days: EventDaysSpecifier = EventDays.ALL,
     ):
         mode: EventMode = {
             "SunRise": suntime == "sunrise",
@@ -296,7 +295,7 @@ class Device(Updatable):
         self.groups: list[Group] = []
         self.schedules: list[Schedule] = []
 
-    async def update(self, condition: Callable[[], bool] | None = None):
+    async def update(self, condition: Optional[Callable[[], bool]] = None):
         await self.pollManager.wait_for_condition(condition)
 
     async def doUpdate(self):
@@ -346,16 +345,16 @@ class Device(Updatable):
             for schedule in self.schedules:
                 schedule.updateEvents(self.scheduleEvents[schedule.id])
 
-    def findMotorById(self, id: int | str) -> Motor | None:
+    def findMotorById(self, id: Union[int, str]) -> Optional[Motor]:
         return findById(self.motors, str(id))
 
-    def findRoomById(self, id: int | str) -> Room | None:
+    def findRoomById(self, id: Union[int, str]) -> Optional[Room]:
         return findById(self.rooms, str(id))
 
-    def findGroupById(self, id: int | str) -> Group | None:
+    def findGroupById(self, id: Union[int, str]) -> Optional[Group]:
         return findById(self.groups, str(id))
 
-    def findScheduleById(self, id: int | str) -> Schedule | None:
+    def findScheduleById(self, id: Union[int, str]) -> Optional[Schedule]:
         return findById(self.schedules, str(id))
 
     def findMotorsById(self, ids: list[int]) -> list[Motor]:
@@ -483,7 +482,7 @@ def findByName(items: list[NamedType], name: str) -> Optional[NamedType]:
     return None
 
 
-def getEventRepeat(days: EventDays | List[EventDays] | EventRepeat) -> EventRepeat:
+def getEventRepeat(days: EventDaysSpecifier) -> EventRepeat:
     if isinstance(days, tuple) or isinstance(days, list):
         if len(days) == 7 and all(isinstance(d, bool) for d in days):
             return tuple(days)  # type: ignore

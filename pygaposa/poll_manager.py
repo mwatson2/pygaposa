@@ -1,6 +1,6 @@
 import asyncio
 from logging import Logger
-from typing import Any, Callable, Coroutine
+from typing import Any, Callable, Coroutine, Optional
 
 POLL_INTERVAL = 2  # seconds
 POLL_RETRIES = 5
@@ -24,8 +24,8 @@ class PollManager:
     def __init__(self, poll: Callable[[], Coroutine], logger: Logger):
         self.poll = poll
         self.logger = logger
-        self.pollingTask: asyncio.Task[Any] | None = None
-        self.waiters: list[tuple[Callable[[], bool] | None, asyncio.Event]] = []
+        self.pollingTask: Optional[asyncio.Task[Any]] = None
+        self.waiters: list[tuple[Optional[Callable[[], bool]], asyncio.Event]] = []
 
     async def wait_for_update(self):
         """
@@ -33,7 +33,7 @@ class PollManager:
         """
         await self.wait_for_condition()
 
-    async def wait_for_condition(self, condition: Callable[[], bool] | None = None):
+    async def wait_for_condition(self, condition: Optional[Callable[[], bool]] = None):
         """
         Poll the device document until the callback returns True or just once.
         """
