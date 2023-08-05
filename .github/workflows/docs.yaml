@@ -34,10 +34,18 @@ jobs:
             --from=gfm
             --output=README.rst
 
-    - name: Build HTML docs
-      uses: ammaraskar/sphinx-action@master
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
       with:
-        docs-folder: "docs/"
+        python-version: '3.9'
+
+    - name: Upgrade pip, install package, install requirements, build docs
+      run: |
+        pip install --upgrade pip
+        pip install .
+        pip install -r ./docs/requirements.txt
+        pip install sphinx
+        sphinx-build docs/source ./docs/_build/html/
 
     - name: Determine default branch
       run: |
