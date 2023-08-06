@@ -6,9 +6,9 @@ import aiohttp
 
 from pygaposa.api import GaposaApi
 from pygaposa.api_types import ApiLoginResponse
+from pygaposa.client import Client, User
 from pygaposa.firebase import FirebaseAuth, FirestorePath, initialize_app
 from pygaposa.geoapi import GeoApi
-from pygaposa.model import Client, User
 
 logging.basicConfig(level=logging.DEBUG)
 
