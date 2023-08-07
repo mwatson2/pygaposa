@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "name": "Run pytest",
+      "type": "python",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "${file}"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}

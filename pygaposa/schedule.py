@@ -55,13 +55,14 @@ class Schedule(Updatable):
         self.events: ScheduleEventsTuple = [None, None, None]
         self.update(info)
 
-    def update(self, info: ScheduleInfo):
+    def update(self, info: ScheduleInfo) -> "Schedule":
         self.name = info["Name"]
         self.groups = info["Groups"]
         self.location = info["Location"]
         self.motors = self.device.findMotorsById(info["Motors"])
         self.icon = info["Icon"]
         self.active = info["Active"]
+        return self
 
     def updateEvents(self, infos: list[Optional[ScheduleEventInfo]]):
         def scheduleevent(info: Optional[ScheduleEventInfo]) -> Optional[ScheduleEvent]:
@@ -160,4 +161,4 @@ def getEventRepeat(days: EventDaysSpecifier) -> EventRepeat:
     elif days == EventDays.WEEKENDS:
         return (False, False, False, False, False, True, True)
     else:
-        return (i == days for i in range(7))  # type: ignore
+        return tuple(i == days for i in range(7))  # type: ignore

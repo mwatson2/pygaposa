@@ -8,12 +8,17 @@ from pygaposa.api import GaposaApi
 from pygaposa.api_types import DeviceDocument, DeviceInfo
 from pygaposa.firebase import FirestorePath
 from pygaposa.model import Motor, Named, Updatable
-from pygaposa.poll_manager import PollManager
+from pygaposa.poll_manager import PollMagagerConfig, PollManager
 
 
 class DeviceBase(Updatable):
     def __init__(
-        self, api: GaposaApi, firestore: FirestorePath, logger: Logger, info: DeviceInfo
+        self,
+        api: GaposaApi,
+        firestore: FirestorePath,
+        logger: Logger,
+        config: PollMagagerConfig,
+        info: DeviceInfo,
     ):
         Named.__init__(self, info["Serial"], info["Name"])
         self.api = api.clone()
@@ -22,7 +27,7 @@ class DeviceBase(Updatable):
 
         self.api.setSerial(self.serial)
 
-        self.pollManager = PollManager(self.doUpdate, self.logger)
+        self.pollManager = PollManager(self.doUpdate, self.logger, config)
 
         self.documentRef = firestore.child("Devices").child(self.serial)
         self.scheduleRef = self.documentRef.child("Schedule")

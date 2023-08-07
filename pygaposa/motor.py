@@ -2,7 +2,7 @@ import asyncio
 
 from pygaposa.api_types import Channel, Command
 from pygaposa.devicebase import DeviceBase
-from pygaposa.model import Controllable, Motor, Named, expectedState
+from pygaposa.model import Motor, Named, expectedState
 
 
 class MotorImpl(Motor):

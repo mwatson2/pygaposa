@@ -27,7 +27,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 class GaposaApi:
     # serverUrl: str = "https://20230124t120606-dot-gaposa-prod.ew.r.appspot.com"
-    serverUrl: str = "https://gaposa-prod.ew.r.appspot.com"
+    # serverUrl: str = "https://gaposa-prod.ew.r.appspot.com"
+    serverUrl = "https://backend.rollapp.tech"
 
     def __init__(
         self,
@@ -84,7 +85,7 @@ class GaposaApi:
                 "data": {"cmd": command.value},
             }
 
-        response = await self.request("/control", "POST", payload)
+        response = await self.request("/v1/control", "POST", payload)
         return check_type(response, ApiControlResponse)
 
     async def addSchedule(self, schedule: ScheduleUpdate) -> ApiScheduleResponse:

@@ -33,12 +33,12 @@ class Controllable(Updatable):
         pass
 
     @abstractmethod
-    async def set(self, preset: int):
+    async def preset(self):
         pass
 
 
 class Motor(Controllable):
-    def update(self, info: Channel):
+    def update(self, info: Channel) -> "Motor":
         self.name = info["Name"]
         self.status = info["StatusCode"]
         self.state = info["State"]
@@ -47,6 +47,7 @@ class Motor(Controllable):
         self.paused = info["HomePaused"]
         self.location = info["Location"]
         self.icon = info["Icon"]
+        return self
 
 
 def expectedState(command: Command) -> str:

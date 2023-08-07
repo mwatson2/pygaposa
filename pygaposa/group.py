@@ -11,11 +11,12 @@ class Group(Controllable):
         self.device = device
         self.update(info)
 
-    def update(self, info: GroupInfo):
-        assert info["Name"] == self.name
+    def update(self, info: GroupInfo) -> "Group":
+        self.name = info["Name"]
         self.favourite = info["Favourite"]
         self.motors = self.device.findMotorsById(info["Motors"])
         self.icon = info["Icon"]
+        return self
 
     async def up(self):
         await self.command(Command.UP)

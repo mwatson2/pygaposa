@@ -17,6 +17,9 @@ expected_login_response: ApiLoginResponse = {
     "result": {
         "TermsAgreed": True,
         "UserRole": 1,
+        "DateFormat": None,
+        "TimeFormat": None,
+        "Theme": None,
         "Clients": {
             "mock_client_id": {
                 "Role": 1,

@@ -3,3 +3,4 @@ black==23.1.0
 identify>=1.4.20
 parameterized
 pre-commit
+pytest-mock

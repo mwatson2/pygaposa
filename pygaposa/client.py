@@ -10,6 +10,7 @@ from pygaposa.device import Device
 from pygaposa.firebase import FirestorePath
 from pygaposa.geoapi import GeoApi
 from pygaposa.model import Named
+from pygaposa.poll_manager import PollMagagerConfig
 
 
 class User(Named):
@@ -40,6 +41,7 @@ class Client(Named):
         api: GaposaApi,
         geoApi: GeoApi,
         firestore: FirestorePath,
+        config: PollMagagerConfig,
         logger: Logger,
         id: str,
         info: ClientInfo,
@@ -55,7 +57,7 @@ class Client(Named):
         self.logger = logger
 
         self.devices: List[Device] = [
-            Device(self.api, firestore, logger, d) for d in info["Devices"]
+            Device(self.api, firestore, logger, config, d) for d in info["Devices"]
         ]
 
     async def getUserInfo(self) -> User:

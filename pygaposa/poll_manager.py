@@ -1,28 +1,59 @@
 import asyncio
 from logging import Logger
-from typing import Any, Callable, Coroutine, Optional
+from typing import Any, Callable, Coroutine, Optional, TypedDict
 
 POLL_INTERVAL = 2  # seconds
 POLL_RETRIES = 5
 POLL_TIMEOUT = 10  # seconds
 
 
+class PollMagagerConfig(TypedDict):
+    """
+    Configuration for PollManager.
+    """
+
+    """Interval between polls in seconds."""
+    poll_interval: int
+
+    """Number of times to retry a poll before giving up."""
+    poll_retries: int
+
+    """Timeout for a single poll in seconds."""
+    poll_timeout: int
+
+
+DefaultPollManagerConfig: PollMagagerConfig = {
+    "poll_interval": POLL_INTERVAL,
+    "poll_retries": POLL_RETRIES,
+    "poll_timeout": POLL_TIMEOUT,
+}
+
+
 class PollManager:
     """
-    Class for managing polling of the device document.
+    Class for managing polling in response to a request and until a condition is met.
 
-    When a command is issued, it takes a while for the system to update the device
-    document. During this time other commands may be issued, necessetating continued
-    polling. This class manages the polling and updates the device document when it
-    changes.
+    The poll method should return a coroutine that polls the remote state. This class
+    issues poll request in response to wait_for_update() and wait_for_condition() calls,
+    ensuring that the polling is stopped when all waiters have been satisfied and that
+    there is only one polling task active at a time.
 
-    Requests for a document update may be accompanies by a callback function. This
-    tests whether an expected update has occured (e.g. change in motor state).
-    Polling stops when the callback returns True.
+    The wait_for_update() method will perform the poll once. The wait_for_condition()
+    method will perform the poll until the condition is met. The condition is a callback
+    that returns True when the polling should stop. The condition is checked after each
+    poll.
     """
 
-    def __init__(self, poll: Callable[[], Coroutine], logger: Logger):
+    def __init__(
+        self,
+        poll: Callable[[], Coroutine],
+        logger: Logger,
+        config: PollMagagerConfig = DefaultPollManagerConfig,
+    ):
         self.poll = poll
+        self.poll_interval = config["poll_interval"]
+        self.poll_retries = config["poll_retries"]
+        self.poll_timeout = config["poll_timeout"]
         self.logger = logger
         self.pollingTask: Optional[asyncio.Task[Any]] = None
         self.waiters: list[tuple[Optional[Callable[[], bool]], asyncio.Event]] = []
@@ -53,7 +84,7 @@ class PollManager:
         while self.waiters:
             numConditions = self.numConditions()
             try:
-                await asyncio.wait_for(self.poll(), POLL_TIMEOUT)
+                await asyncio.wait_for(self.poll(), self.poll_timeout)
             except asyncio.TimeoutError:
                 self.logger.error("Timeout waiting for device document update")
             except Exception as e:
@@ -73,13 +104,13 @@ class PollManager:
 
             if self.waiters and sleep:
                 self.retries += 1
-                if self.retries > POLL_RETRIES:
+                if self.retries > self.poll_retries:
                     self.logger.error("Exceeded polling retries")
                     for _, event in self.waiters:
                         event.set()
                     self.waiters = []
                 else:
-                    await asyncio.sleep(POLL_INTERVAL)
+                    await asyncio.sleep(self.poll_interval)
 
         self.pollingTask = None
 

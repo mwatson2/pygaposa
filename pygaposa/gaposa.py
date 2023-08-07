@@ -9,6 +9,7 @@ from pygaposa.api_types import ApiLoginResponse
 from pygaposa.client import Client, User
 from pygaposa.firebase import FirebaseAuth, FirestorePath, initialize_app
 from pygaposa.geoapi import GeoApi
+from pygaposa.poll_manager import DefaultPollManagerConfig, PollMagagerConfig
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -17,13 +18,11 @@ class Gaposa:
     def __init__(
         self,
         apiKey: str,
-        location: Optional[tuple[float, float]] = None,
-        timeZoneId: Optional[str] = None,
         loop: Optional[asyncio.AbstractEventLoop] = None,
         websession: Optional[aiohttp.ClientSession] = None,
     ):
         self.apiKey = apiKey
-        self.serverUrl = "https://gaposa-prod.ew.r.appspot.com"
+        self.serverUrl = "https://backend.rollapp.tech"
         self.firebase = initialize_app(
             {
                 "apiKey": apiKey,
@@ -35,12 +34,7 @@ class Gaposa:
         )
         self.firestore: Optional[FirestorePath] = None
         self.logger = logging.getLogger("GAPOSA")
-
-        if location:
-            self.location: tuple[float, float] = location
-
-        if timeZoneId:
-            self.timeZoneId: str = timeZoneId
+        self.config = DefaultPollManagerConfig
 
         if loop:
             self.loop: asyncio.AbstractEventLoop = loop
@@ -53,6 +47,15 @@ class Gaposa:
         else:
             self.session = aiohttp.ClientSession()
             self.ownSession = True
+
+    def setLocation(self, location: tuple[float, float], timeZoneId: str) -> "Gaposa":
+        self.location = location
+        self.timeZoneId = timeZoneId
+        return self
+
+    def setConfig(self, config: PollMagagerConfig) -> "Gaposa":
+        self.config = config
+        return self
 
     async def open(self, email: str, password: str):
         self.email = email
@@ -74,7 +77,13 @@ class Gaposa:
         self.clients: list[tuple[Client, User]] = []
         for key, value in authResponse["result"]["Clients"].items():
             client = Client(
-                self.api, self.geoApi, self.firestore, self.logger, key, value
+                self.api,
+                self.geoApi,
+                self.firestore,
+                self.config,
+                self.logger,
+                key,
+                value,
             )
             user = await client.getUserInfo()
             self.clients.append((client, user))

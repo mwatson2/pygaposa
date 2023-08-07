@@ -219,7 +219,7 @@ async def test_control(
     scope, expected_request, server, api, api_set_client, api_set_serial
 ):
     validate = validator({"payload": expected_request})
-    mock_post(server, "/control", expected_control_response, validate)
+    mock_post(server, "/v1/control", expected_control_response, validate)
     response = await api.control(Command.DOWN, scope, "1")
     assert response == expected_control_response
     server.assert_called_once()
@@ -227,7 +227,7 @@ async def test_control(
 
 async def test_control_bad_request(server, api, api_set_client, api_set_serial):
     validate = validator({"payload": expected_control_request_channel})
-    mock_post(server, "/control", expected_control_response, validate)
+    mock_post(server, "/v1/control", expected_control_response, validate)
 
     def control():
         return api.control(Command.DOWN, "room", "1")
@@ -240,7 +240,7 @@ async def test_control_auth_failure(
     server, api, api_bad_auth, api_set_client, api_set_serial
 ):
     validate = validator({"payload": expected_control_request_channel})
-    mock_post(server, "/control", expected_control_response, validate)
+    mock_post(server, "/v1/control", expected_control_response, validate)
 
     def control():
         return api.control(Command.DOWN, "channel", "1")
@@ -251,7 +251,7 @@ async def test_control_auth_failure(
 
 async def test_control_bad_response(server, api, api_set_client, api_set_serial):
     validate = validator({"payload": expected_control_request_channel})
-    mock_post(server, "/control", {"apiCommand": "Failed"}, validate)
+    mock_post(server, "/v1/control", {"apiCommand": "Failed"}, validate)
 
     def control():
         return api.control(Command.DOWN, "channel", "1")

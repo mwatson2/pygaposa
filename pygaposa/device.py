@@ -15,7 +15,7 @@ from pygaposa.firebase import FirestorePath
 from pygaposa.group import Group
 from pygaposa.model import NamedType, Updatable
 from pygaposa.motor import Motor, MotorImpl
-from pygaposa.poll_manager import PollManager
+from pygaposa.poll_manager import PollMagagerConfig, PollManager
 from pygaposa.room import Room
 from pygaposa.schedule import Schedule
 
@@ -26,9 +26,14 @@ EventDaysSpecifier = Union[EventDays, List[EventDays], EventRepeat]
 
 class Device(DeviceBase):
     def __init__(
-        self, api: GaposaApi, firestore: FirestorePath, logger: Logger, info: DeviceInfo
+        self,
+        api: GaposaApi,
+        firestore: FirestorePath,
+        logger: Logger,
+        config: PollMagagerConfig,
+        info: DeviceInfo,
     ):
-        DeviceBase.__init__(self, api, firestore, logger, info)
+        DeviceBase.__init__(self, api, firestore, logger, config, info)
 
         self.motors: list[Motor] = []
         self.rooms: list[Room] = []
@@ -79,14 +84,12 @@ class Device(DeviceBase):
         update: Dict[str, InitializerType],
         itemType: Callable[["Device", str, InitializerType], ItemType],
     ) -> list[ItemType]:  # noqa: E501
-        result: list[ItemType] = []
+        result: list[ItemType] = [
+            item.update(update[item.id]) for item in items if item.id in update
+        ]
         for key, value in update.items():
-            item = findById(items, key)
-            if item is None:
-                item = itemType(self, key, value)
-            else:
-                item.update(value)
-            result.append(item)
+            if findById(items, key) is None:
+                result.append(itemType(self, key, value))
         return result
 
     async def addSchedule(self, Name: str, properties: ScheduleUpdate):

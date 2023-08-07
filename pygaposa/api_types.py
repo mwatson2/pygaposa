@@ -17,6 +17,9 @@ class AuthResult(TypedDict):
     TermsAgreed: bool
     UserRole: int
     Clients: Dict[str, ClientInfo]
+    DateFormat: Any
+    TimeFormat: Any
+    Theme: Any
 
 
 # Response for /v1/login
@@ -82,6 +85,7 @@ class State(TypedDict):
     TimeStamp: str
     OnLine: bool
     LastCmd: str
+    Message: str
 
 
 class Info(TypedDict):
@@ -96,13 +100,14 @@ class Assistant(TypedDict):
 
 class HeartBeat(TypedDict):
     Subnet: str
-    Channels: str
+    Channels: int
     Software: str
-    Signal: str
+    Signal: int
     Mode: str
-    Frequency: str
+    Frequency: int
     Gateway: str
     Ip: str
+    TxID: list[int]
 
 
 class Channel(TypedDict):
