@@ -47,6 +47,7 @@ SecureTokenRefreshResponse = TypedDict(
 
 
 def flattenValue(value: Dict) -> Union[Dict, List, str, int, float, bool, None]:
+    """Flatten a Firestore value to a native Python type."""
     if "mapValue" in value:
         dict: Dict = {}
         if "fields" in value["mapValue"]:

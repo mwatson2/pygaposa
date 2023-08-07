@@ -14,6 +14,13 @@ from pygaposa.poll_manager import PollMagagerConfig
 
 
 class User(Named):
+    """Represents the "user" object in the API.
+
+    There appears to be a one-to-one relationship between users and clients.
+    The user object is the source of location and timezone information for
+    all devices associated with this client
+    """
+
     def __init__(self, geoApi: GeoApi, info: UserInfo):
         Named.__init__(self, info["Uid"], info["Name"])
         self.email: str = info["Email"]
@@ -36,6 +43,14 @@ class User(Named):
 
 
 class Client(Named):
+    """Represents the "client" object in the API.
+
+    The API supports multiple clients for one set of login credentials,
+    but it is not clear if this capbility is used in practice.
+
+    A client may be associated with multiple devices.
+    """
+
     def __init__(
         self,
         api: GaposaApi,
@@ -61,6 +76,11 @@ class Client(Named):
         ]
 
     async def getUserInfo(self) -> User:
+        """Get the user info for this client.
+
+        The user info is the source of location and timezone information for
+        all devices associated with this client.
+        """
         response = await self.api.users()
         self.user = User(self.geoApi, response["result"]["Info"])
         await self.user.resolveLocation()
@@ -69,5 +89,6 @@ class Client(Named):
         return self.user
 
     async def update(self):
+        """Update the state of all devices associated with this client."""
         updates = [device.update() for device in self.devices]
         await asyncio.gather(*updates)

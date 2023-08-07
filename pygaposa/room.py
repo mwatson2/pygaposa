@@ -4,6 +4,8 @@ from pygaposa.model import Named, Updatable
 
 
 class Room(Updatable):
+    """Represents a room in the Gaposa API."""
+
     def __init__(self, device: DeviceBase, id: str, info: RoomInfo):
         Named.__init__(self, id, info["Name"])
         self.device = device

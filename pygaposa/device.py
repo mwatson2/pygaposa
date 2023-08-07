@@ -25,6 +25,18 @@ EventDaysSpecifier = Union[EventDays, List[EventDays], EventRepeat]
 
 
 class Device(DeviceBase):
+    """Represents a device in the Gaposa API.
+
+    A device is a physical Gaposa hub device that can be controlled by the API.
+    The Gaposa hub control one or more motors, which can be controlled individually,
+    or as part of a group. The device also has a list of rooms.
+
+    The device also has a list of schedules, which can be used to schedule events
+    for the motors or groups. The device (presuambly) has a clock and location
+    information, so the schedules can be set to run at specific times, or at
+    sunrise/sunset and will continue to run even if the device is offline.
+    """
+
     def __init__(
         self,
         api: GaposaApi,
@@ -93,6 +105,7 @@ class Device(DeviceBase):
         return result
 
     async def addSchedule(self, Name: str, properties: ScheduleUpdate):
+        """Add a new schedule to the device."""
         if any(s.name == Name for s in self.schedules):
             raise Exception("Schedule already exists")
 
@@ -111,11 +124,6 @@ class Device(DeviceBase):
         await self.api.addSchedule(schedule)
         await asyncio.sleep(2)
         await self.update(lambda: any(s.name == Name for s in self.schedules))
-
-    def nextScheduleId(self) -> int:
-        ids = [int(s.id) for s in self.schedules]
-        highestId = max(ids) if len(ids) > 0 else 0
-        return highestId + 1
 
 
 def findById(items: list[NamedType], id: str) -> Optional[NamedType]:

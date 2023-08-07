@@ -15,6 +15,12 @@ class ApiTimezoneResponse(TypedDict):
 
 
 class GeoApi:
+    """A simple class for interacting with the Google Maps API.
+
+    This class supports resolving locations from addresses
+    and timezones from locations.
+    """
+
     def __init__(self, session: aiohttp.ClientSession, apiKey: str):
         self.session = session
         self.apiKey = apiKey
@@ -27,6 +33,7 @@ class GeoApi:
         )
 
     async def resolveLocation(self, address: str) -> tuple[float, float]:
+        """Resolve a location from an address using the Google Maps API."""
         response = await self.fetch(
             "https://maps.googleapis.com/maps/api/geocode/json",
             params={"address": address, "key": self.apiKey},
@@ -38,6 +45,7 @@ class GeoApi:
         return (location["lat"], location["lng"])
 
     async def resolveTimezone(self, location: tuple[float, float]) -> str:
+        """Resolve a timezone from a location using the Google Maps API."""
         query = {
             "location": f"{location[0]},{location[1]}",
             "timestamp": int(datetime.now().timestamp()),

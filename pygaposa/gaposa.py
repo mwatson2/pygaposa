@@ -15,6 +15,24 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class Gaposa:
+    """The main class for interacting with the Gaposa API.
+
+    The Gaposa API is a REST API that is used to communicate with the Gaposa
+    backend. The API is used to retrieve information about the user's account,
+    devices, and to control the devices. The API is used by the Gaposa mobile app,
+    and is not officially supported for third-party use. However, the API is fairly
+    simple and easy to use.
+
+    Arguments:
+    ---------
+        apiKey: The Google API key to use for the Gaopsa API.
+        loop: The event loop to use for the API. If not specified, the default
+            event loop will be used.
+        websession: The aiohttp session to use for the API. If not specified,
+            a new session will be created.
+
+    """
+
     def __init__(
         self,
         apiKey: str,
@@ -49,6 +67,12 @@ class Gaposa:
             self.ownSession = True
 
     def setLocation(self, location: tuple[float, float], timeZoneId: str) -> "Gaposa":
+        """Set the physical location and timezone for the API.
+
+        If not provided, these will be obtained from the user information.
+        This information is (presumably) use to enable schedules with sunrise / sunset
+        activation times which are calculated based on geographic location and date.
+        """
         self.location = location
         self.timeZoneId = timeZoneId
         return self
@@ -58,6 +82,7 @@ class Gaposa:
         return self
 
     async def open(self, email: str, password: str):
+        """Open the API and authenticate with Google and Gaposa."""
         self.email = email
         self.password = password
         self.auth: FirebaseAuth = self.firebase.auth()
@@ -97,5 +122,6 @@ class Gaposa:
             await self.session.close()
 
     async def update(self):
+        """Update the state of all devices."""
         updates = [client.update() for client, _ in self.clients]
         await asyncio.gather(*updates)

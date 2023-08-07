@@ -49,6 +49,8 @@ EventDaysSpecifier = Union[EventDays, List[EventDays], EventRepeat]
 
 
 class Schedule(Updatable):
+    """Represents a schedule in the Gaposa API."""
+
     def __init__(self, device: DeviceBase, id: str, info: ScheduleInfo):
         Named.__init__(self, id, info["Name"])
         self.device = device
