@@ -1,0 +1,995 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>pygaposa package &#8212; pygaposa 0.1.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/js/rtd_search_config.js"></script>
+    <script src="../_static/js/rtd_sphinx_search.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'packages/pygaposa';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pygaposa.tests package" href="pygaposa.tests.html" />
+    <link rel="prev" title="API Reference" href="modules.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">pygaposa 0.1.dev0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">pygaposa package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="pygaposa.tests.html">pygaposa.tests package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.api_test.html">pygaposa.tests.api_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.api_test_data.html">pygaposa.tests.api_test_data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firebase.html">pygaposa.tests.test_firebase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firestore.html">pygaposa.tests.test_firestore module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firestore_path.html">pygaposa.tests.test_firestore_path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_group.html">pygaposa.tests.test_group module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_motor.html">pygaposa.tests.test_motor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_poll_manager.html">pygaposa.tests.test_poll_manager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_room.html">pygaposa.tests.test_room module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_schedule.html">pygaposa.tests.test_schedule module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html">pygaposa.api module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html">pygaposa.api_types module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.client.html">pygaposa.client module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html">pygaposa.device module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.devicebase.html">pygaposa.devicebase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html">pygaposa.firebase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.gaposa.html">pygaposa.gaposa module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.geoapi.html">pygaposa.geoapi module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.group.html">pygaposa.group module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.model.html">pygaposa.model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.motor.html">pygaposa.motor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.poll_manager.html">pygaposa.poll_manager module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.room.html">pygaposa.room module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html">pygaposa.schedule module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../py-modindex.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/packages/pygaposa.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>pygaposa package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="module-pygaposa">
+<span id="pygaposa-package"></span><h1>pygaposa package<a class="headerlink" href="#module-pygaposa" title="Permalink to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.tests.html">pygaposa.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.tests.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.api_test.html">pygaposa.tests.api_test module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.api_test_data.html">pygaposa.tests.api_test_data module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.test_firebase.html">pygaposa.tests.test_firebase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.test_firestore.html">pygaposa.tests.test_firestore module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.test_firestore_path.html">pygaposa.tests.test_firestore_path module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.test_group.html">pygaposa.tests.test_group module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.test_motor.html">pygaposa.tests.test_motor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.test_poll_manager.html">pygaposa.tests.test_poll_manager module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.test_room.html">pygaposa.tests.test_room module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.tests.test_schedule.html">pygaposa.tests.test_schedule module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.api.html">pygaposa.api module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi"><code class="docutils literal notranslate"><span class="pre">GaposaApi</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.addOrUpdateSchedule"><code class="docutils literal notranslate"><span class="pre">GaposaApi.addOrUpdateSchedule()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.addSchedule"><code class="docutils literal notranslate"><span class="pre">GaposaApi.addSchedule()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.addScheduleEvent"><code class="docutils literal notranslate"><span class="pre">GaposaApi.addScheduleEvent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.clone"><code class="docutils literal notranslate"><span class="pre">GaposaApi.clone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.control"><code class="docutils literal notranslate"><span class="pre">GaposaApi.control()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.deleteSchedule"><code class="docutils literal notranslate"><span class="pre">GaposaApi.deleteSchedule()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.deleteScheduleEvent"><code class="docutils literal notranslate"><span class="pre">GaposaApi.deleteScheduleEvent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.login"><code class="docutils literal notranslate"><span class="pre">GaposaApi.login()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.request"><code class="docutils literal notranslate"><span class="pre">GaposaApi.request()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.serverUrl"><code class="docutils literal notranslate"><span class="pre">GaposaApi.serverUrl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.setClientAndRole"><code class="docutils literal notranslate"><span class="pre">GaposaApi.setClientAndRole()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.setSerial"><code class="docutils literal notranslate"><span class="pre">GaposaApi.setSerial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.updateSchedule"><code class="docutils literal notranslate"><span class="pre">GaposaApi.updateSchedule()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.updateScheduleEvent"><code class="docutils literal notranslate"><span class="pre">GaposaApi.updateScheduleEvent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi.users"><code class="docutils literal notranslate"><span class="pre">GaposaApi.users()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.api_types.html">pygaposa.api_types module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiChannelControlData"><code class="docutils literal notranslate"><span class="pre">ApiChannelControlData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiChannelControlData.address"><code class="docutils literal notranslate"><span class="pre">ApiChannelControlData.address</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiChannelControlData.bank"><code class="docutils literal notranslate"><span class="pre">ApiChannelControlData.bank</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiChannelControlData.cmd"><code class="docutils literal notranslate"><span class="pre">ApiChannelControlData.cmd</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestBase"><code class="docutils literal notranslate"><span class="pre">ApiControlRequestBase</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestBase.serial"><code class="docutils literal notranslate"><span class="pre">ApiControlRequestBase.serial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestChannel"><code class="docutils literal notranslate"><span class="pre">ApiControlRequestChannel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestChannel.data"><code class="docutils literal notranslate"><span class="pre">ApiControlRequestChannel.data</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestChannel.serial"><code class="docutils literal notranslate"><span class="pre">ApiControlRequestChannel.serial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestGroup"><code class="docutils literal notranslate"><span class="pre">ApiControlRequestGroup</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestGroup.data"><code class="docutils literal notranslate"><span class="pre">ApiControlRequestGroup.data</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestGroup.group"><code class="docutils literal notranslate"><span class="pre">ApiControlRequestGroup.group</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestGroup.serial"><code class="docutils literal notranslate"><span class="pre">ApiControlRequestGroup.serial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlResponse"><code class="docutils literal notranslate"><span class="pre">ApiControlResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlResponse.apiCommand"><code class="docutils literal notranslate"><span class="pre">ApiControlResponse.apiCommand</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlResponse.msg"><code class="docutils literal notranslate"><span class="pre">ApiControlResponse.msg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlResponse.result"><code class="docutils literal notranslate"><span class="pre">ApiControlResponse.result</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlResult"><code class="docutils literal notranslate"><span class="pre">ApiControlResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiControlResult.Success"><code class="docutils literal notranslate"><span class="pre">ApiControlResult.Success</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiGroupControlData"><code class="docutils literal notranslate"><span class="pre">ApiGroupControlData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiGroupControlData.cmd"><code class="docutils literal notranslate"><span class="pre">ApiGroupControlData.cmd</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiLoginResponse"><code class="docutils literal notranslate"><span class="pre">ApiLoginResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiLoginResponse.apiStatus"><code class="docutils literal notranslate"><span class="pre">ApiLoginResponse.apiStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiLoginResponse.msg"><code class="docutils literal notranslate"><span class="pre">ApiLoginResponse.msg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiLoginResponse.result"><code class="docutils literal notranslate"><span class="pre">ApiLoginResponse.result</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleDeleteResult"><code class="docutils literal notranslate"><span class="pre">ApiScheduleDeleteResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleDeleteResult.Down"><code class="docutils literal notranslate"><span class="pre">ApiScheduleDeleteResult.Down</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleDeleteResult.Preset"><code class="docutils literal notranslate"><span class="pre">ApiScheduleDeleteResult.Preset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleDeleteResult.Schedule"><code class="docutils literal notranslate"><span class="pre">ApiScheduleDeleteResult.Schedule</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleDeleteResult.Up"><code class="docutils literal notranslate"><span class="pre">ApiScheduleDeleteResult.Up</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventRequest"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventRequest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventRequest.event"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventRequest.event</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventRequest.schedule"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventRequest.schedule</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventRequest.serial"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventRequest.serial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventRequestBase"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventRequestBase</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventRequestBase.schedule"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventRequestBase.schedule</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventRequestBase.serial"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventRequestBase.serial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventResponse"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventResponse.apiStatus"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventResponse.apiStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventResponse.msg"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventResponse.msg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventResponse.result"><code class="docutils literal notranslate"><span class="pre">ApiScheduleEventResponse.result</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleRequest"><code class="docutils literal notranslate"><span class="pre">ApiScheduleRequest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleRequest.schedule"><code class="docutils literal notranslate"><span class="pre">ApiScheduleRequest.schedule</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleRequest.serial"><code class="docutils literal notranslate"><span class="pre">ApiScheduleRequest.serial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleResponse"><code class="docutils literal notranslate"><span class="pre">ApiScheduleResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleResponse.apiStatus"><code class="docutils literal notranslate"><span class="pre">ApiScheduleResponse.apiStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleResponse.msg"><code class="docutils literal notranslate"><span class="pre">ApiScheduleResponse.msg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiScheduleResponse.result"><code class="docutils literal notranslate"><span class="pre">ApiScheduleResponse.result</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiUsersResponse"><code class="docutils literal notranslate"><span class="pre">ApiUsersResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiUsersResponse.apiStatus"><code class="docutils literal notranslate"><span class="pre">ApiUsersResponse.apiStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiUsersResponse.msg"><code class="docutils literal notranslate"><span class="pre">ApiUsersResponse.msg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ApiUsersResponse.result"><code class="docutils literal notranslate"><span class="pre">ApiUsersResponse.result</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Assistant"><code class="docutils literal notranslate"><span class="pre">Assistant</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Assistant.Alexa"><code class="docutils literal notranslate"><span class="pre">Assistant.Alexa</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Assistant.Home"><code class="docutils literal notranslate"><span class="pre">Assistant.Home</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.AuthResult"><code class="docutils literal notranslate"><span class="pre">AuthResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.AuthResult.Clients"><code class="docutils literal notranslate"><span class="pre">AuthResult.Clients</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.AuthResult.DateFormat"><code class="docutils literal notranslate"><span class="pre">AuthResult.DateFormat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.AuthResult.TermsAgreed"><code class="docutils literal notranslate"><span class="pre">AuthResult.TermsAgreed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.AuthResult.Theme"><code class="docutils literal notranslate"><span class="pre">AuthResult.Theme</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.AuthResult.TimeFormat"><code class="docutils literal notranslate"><span class="pre">AuthResult.TimeFormat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.AuthResult.UserRole"><code class="docutils literal notranslate"><span class="pre">AuthResult.UserRole</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Channel"><code class="docutils literal notranslate"><span class="pre">Channel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Channel.HomePaused"><code class="docutils literal notranslate"><span class="pre">Channel.HomePaused</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Channel.HomePercent"><code class="docutils literal notranslate"><span class="pre">Channel.HomePercent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Channel.HomeRunning"><code class="docutils literal notranslate"><span class="pre">Channel.HomeRunning</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Channel.Icon"><code class="docutils literal notranslate"><span class="pre">Channel.Icon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Channel.Location"><code class="docutils literal notranslate"><span class="pre">Channel.Location</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Channel.Name"><code class="docutils literal notranslate"><span class="pre">Channel.Name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Channel.State"><code class="docutils literal notranslate"><span class="pre">Channel.State</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Channel.StatusCode"><code class="docutils literal notranslate"><span class="pre">Channel.StatusCode</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ClientInfo"><code class="docutils literal notranslate"><span class="pre">ClientInfo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ClientInfo.Devices"><code class="docutils literal notranslate"><span class="pre">ClientInfo.Devices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ClientInfo.Name"><code class="docutils literal notranslate"><span class="pre">ClientInfo.Name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ClientInfo.Role"><code class="docutils literal notranslate"><span class="pre">ClientInfo.Role</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command"><code class="docutils literal notranslate"><span class="pre">Command</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command.DOWN"><code class="docutils literal notranslate"><span class="pre">Command.DOWN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command.PRESET"><code class="docutils literal notranslate"><span class="pre">Command.PRESET</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command.STOP"><code class="docutils literal notranslate"><span class="pre">Command.STOP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command.UP"><code class="docutils literal notranslate"><span class="pre">Command.UP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument"><code class="docutils literal notranslate"><span class="pre">DeviceDocument</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.Assistant"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.Assistant</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.Channels"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.Channels</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.DeletedChannels"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.DeletedChannels</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.Groups"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.Groups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.HeartBeat"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.HeartBeat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.Info"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.Info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.Pending"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.Pending</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.Rooms"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.Rooms</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.Schedule"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.Schedule</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.State"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.State</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocument.Uid"><code class="docutils literal notranslate"><span class="pre">DeviceDocument.Uid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.Assistant"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.Assistant</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.Channels"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.Channels</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.DeletedChannels"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.DeletedChannels</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.Groups"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.Groups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.HeartBeat"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.HeartBeat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.Info"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.Info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.Pending"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.Pending</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.Rooms"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.Rooms</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.State"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.State</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired.Uid"><code class="docutils literal notranslate"><span class="pre">DeviceDocumentRequired.Uid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceInfo"><code class="docutils literal notranslate"><span class="pre">DeviceInfo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceInfo.Name"><code class="docutils literal notranslate"><span class="pre">DeviceInfo.Name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceInfo.Serial"><code class="docutils literal notranslate"><span class="pre">DeviceInfo.Serial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays"><code class="docutils literal notranslate"><span class="pre">EventDays</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.ALL"><code class="docutils literal notranslate"><span class="pre">EventDays.ALL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.FRI"><code class="docutils literal notranslate"><span class="pre">EventDays.FRI</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.MON"><code class="docutils literal notranslate"><span class="pre">EventDays.MON</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.SAT"><code class="docutils literal notranslate"><span class="pre">EventDays.SAT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.SUN"><code class="docutils literal notranslate"><span class="pre">EventDays.SUN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.THU"><code class="docutils literal notranslate"><span class="pre">EventDays.THU</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.TUE"><code class="docutils literal notranslate"><span class="pre">EventDays.TUE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.WED"><code class="docutils literal notranslate"><span class="pre">EventDays.WED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.WEEKDAYS"><code class="docutils literal notranslate"><span class="pre">EventDays.WEEKDAYS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventDays.WEEKENDS"><code class="docutils literal notranslate"><span class="pre">EventDays.WEEKENDS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventMode"><code class="docutils literal notranslate"><span class="pre">EventMode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventMode.SunRise"><code class="docutils literal notranslate"><span class="pre">EventMode.SunRise</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventMode.SunSet"><code class="docutils literal notranslate"><span class="pre">EventMode.SunSet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.EventMode.TimeDay"><code class="docutils literal notranslate"><span class="pre">EventMode.TimeDay</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.GroupInfo"><code class="docutils literal notranslate"><span class="pre">GroupInfo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.GroupInfo.Favourite"><code class="docutils literal notranslate"><span class="pre">GroupInfo.Favourite</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.GroupInfo.Icon"><code class="docutils literal notranslate"><span class="pre">GroupInfo.Icon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.GroupInfo.Motors"><code class="docutils literal notranslate"><span class="pre">GroupInfo.Motors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.GroupInfo.Name"><code class="docutils literal notranslate"><span class="pre">GroupInfo.Name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.GroupInfo.Rooms"><code class="docutils literal notranslate"><span class="pre">GroupInfo.Rooms</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat"><code class="docutils literal notranslate"><span class="pre">HeartBeat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat.Channels"><code class="docutils literal notranslate"><span class="pre">HeartBeat.Channels</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat.Frequency"><code class="docutils literal notranslate"><span class="pre">HeartBeat.Frequency</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat.Gateway"><code class="docutils literal notranslate"><span class="pre">HeartBeat.Gateway</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat.Ip"><code class="docutils literal notranslate"><span class="pre">HeartBeat.Ip</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat.Mode"><code class="docutils literal notranslate"><span class="pre">HeartBeat.Mode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat.Signal"><code class="docutils literal notranslate"><span class="pre">HeartBeat.Signal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat.Software"><code class="docutils literal notranslate"><span class="pre">HeartBeat.Software</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat.Subnet"><code class="docutils literal notranslate"><span class="pre">HeartBeat.Subnet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.HeartBeat.TxID"><code class="docutils literal notranslate"><span class="pre">HeartBeat.TxID</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Info"><code class="docutils literal notranslate"><span class="pre">Info</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Info.ClientId"><code class="docutils literal notranslate"><span class="pre">Info.ClientId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Info.Name"><code class="docutils literal notranslate"><span class="pre">Info.Name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Location"><code class="docutils literal notranslate"><span class="pre">Location</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.NamedItem"><code class="docutils literal notranslate"><span class="pre">NamedItem</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.NamedItem.Name"><code class="docutils literal notranslate"><span class="pre">NamedItem.Name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.RoomInfo"><code class="docutils literal notranslate"><span class="pre">RoomInfo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.RoomInfo.Favourite"><code class="docutils literal notranslate"><span class="pre">RoomInfo.Favourite</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.RoomInfo.Icon"><code class="docutils literal notranslate"><span class="pre">RoomInfo.Icon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.RoomInfo.Motors"><code class="docutils literal notranslate"><span class="pre">RoomInfo.Motors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.RoomInfo.Name"><code class="docutils literal notranslate"><span class="pre">RoomInfo.Name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo.Active"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo.Active</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo.EventEpoch"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo.EventEpoch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo.EventMode"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo.EventMode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo.EventRepeat"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo.EventRepeat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo.FutureEvent"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo.FutureEvent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo.Location"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo.Location</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo.Motors"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo.Motors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo.Submit"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo.Submit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo.TimeZone"><code class="docutils literal notranslate"><span class="pre">ScheduleEventInfo.TimeZone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventSelector"><code class="docutils literal notranslate"><span class="pre">ScheduleEventSelector</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventSelector.Id"><code class="docutils literal notranslate"><span class="pre">ScheduleEventSelector.Id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventSelector.Mode"><code class="docutils literal notranslate"><span class="pre">ScheduleEventSelector.Mode</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventType"><code class="docutils literal notranslate"><span class="pre">ScheduleEventType</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventType.DOWN"><code class="docutils literal notranslate"><span class="pre">ScheduleEventType.DOWN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventType.PRESET"><code class="docutils literal notranslate"><span class="pre">ScheduleEventType.PRESET</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleEventType.UP"><code class="docutils literal notranslate"><span class="pre">ScheduleEventType.UP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleInfo"><code class="docutils literal notranslate"><span class="pre">ScheduleInfo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleInfo.Active"><code class="docutils literal notranslate"><span class="pre">ScheduleInfo.Active</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleInfo.Groups"><code class="docutils literal notranslate"><span class="pre">ScheduleInfo.Groups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleInfo.Icon"><code class="docutils literal notranslate"><span class="pre">ScheduleInfo.Icon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleInfo.Location"><code class="docutils literal notranslate"><span class="pre">ScheduleInfo.Location</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleInfo.Motors"><code class="docutils literal notranslate"><span class="pre">ScheduleInfo.Motors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleInfo.Name"><code class="docutils literal notranslate"><span class="pre">ScheduleInfo.Name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleUpdate"><code class="docutils literal notranslate"><span class="pre">ScheduleUpdate</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleUpdate.Active"><code class="docutils literal notranslate"><span class="pre">ScheduleUpdate.Active</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleUpdate.Groups"><code class="docutils literal notranslate"><span class="pre">ScheduleUpdate.Groups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleUpdate.Icon"><code class="docutils literal notranslate"><span class="pre">ScheduleUpdate.Icon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleUpdate.Id"><code class="docutils literal notranslate"><span class="pre">ScheduleUpdate.Id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleUpdate.Location"><code class="docutils literal notranslate"><span class="pre">ScheduleUpdate.Location</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleUpdate.Motors"><code class="docutils literal notranslate"><span class="pre">ScheduleUpdate.Motors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.ScheduleUpdate.Name"><code class="docutils literal notranslate"><span class="pre">ScheduleUpdate.Name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.State"><code class="docutils literal notranslate"><span class="pre">State</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.State.LastCmd"><code class="docutils literal notranslate"><span class="pre">State.LastCmd</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.State.Message"><code class="docutils literal notranslate"><span class="pre">State.Message</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.State.OnLine"><code class="docutils literal notranslate"><span class="pre">State.OnLine</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.State.TimeStamp"><code class="docutils literal notranslate"><span class="pre">State.TimeStamp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo"><code class="docutils literal notranslate"><span class="pre">UserInfo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.Active"><code class="docutils literal notranslate"><span class="pre">UserInfo.Active</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.CompoundLocation"><code class="docutils literal notranslate"><span class="pre">UserInfo.CompoundLocation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.Country"><code class="docutils literal notranslate"><span class="pre">UserInfo.Country</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.CountryCode"><code class="docutils literal notranslate"><span class="pre">UserInfo.CountryCode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.CountryID"><code class="docutils literal notranslate"><span class="pre">UserInfo.CountryID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.Email"><code class="docutils literal notranslate"><span class="pre">UserInfo.Email</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.EmailAlert"><code class="docutils literal notranslate"><span class="pre">UserInfo.EmailAlert</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.Joined"><code class="docutils literal notranslate"><span class="pre">UserInfo.Joined</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.Mobile"><code class="docutils literal notranslate"><span class="pre">UserInfo.Mobile</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.Name"><code class="docutils literal notranslate"><span class="pre">UserInfo.Name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.Role"><code class="docutils literal notranslate"><span class="pre">UserInfo.Role</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.TermsAgreed"><code class="docutils literal notranslate"><span class="pre">UserInfo.TermsAgreed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UserInfo.Uid"><code class="docutils literal notranslate"><span class="pre">UserInfo.Uid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UsersResult"><code class="docutils literal notranslate"><span class="pre">UsersResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.UsersResult.Info"><code class="docutils literal notranslate"><span class="pre">UsersResult.Info</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.client.html">pygaposa.client module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.client.html#pygaposa.client.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.client.html#pygaposa.client.Client.getUserInfo"><code class="docutils literal notranslate"><span class="pre">Client.getUserInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.client.html#pygaposa.client.Client.update"><code class="docutils literal notranslate"><span class="pre">Client.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.client.html#pygaposa.client.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.client.html#pygaposa.client.User.resolveLocation"><code class="docutils literal notranslate"><span class="pre">User.resolveLocation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.device.html">pygaposa.device module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device"><code class="docutils literal notranslate"><span class="pre">Device</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device.addSchedule"><code class="docutils literal notranslate"><span class="pre">Device.addSchedule()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device.findGroupById"><code class="docutils literal notranslate"><span class="pre">Device.findGroupById()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device.findMotorById"><code class="docutils literal notranslate"><span class="pre">Device.findMotorById()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device.findMotorsById"><code class="docutils literal notranslate"><span class="pre">Device.findMotorsById()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device.findRoomById"><code class="docutils literal notranslate"><span class="pre">Device.findRoomById()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device.findScheduleById"><code class="docutils literal notranslate"><span class="pre">Device.findScheduleById()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device.hasSchedule"><code class="docutils literal notranslate"><span class="pre">Device.hasSchedule()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device.onDocumentUpdated"><code class="docutils literal notranslate"><span class="pre">Device.onDocumentUpdated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.Device.onListUpdated"><code class="docutils literal notranslate"><span class="pre">Device.onListUpdated()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.device.html#pygaposa.device.findById"><code class="docutils literal notranslate"><span class="pre">findById()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.devicebase.html">pygaposa.devicebase module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.devicebase.html#pygaposa.devicebase.DeviceBase"><code class="docutils literal notranslate"><span class="pre">DeviceBase</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.devicebase.html#pygaposa.devicebase.DeviceBase.doUpdate"><code class="docutils literal notranslate"><span class="pre">DeviceBase.doUpdate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.devicebase.html#pygaposa.devicebase.DeviceBase.findMotorsById"><code class="docutils literal notranslate"><span class="pre">DeviceBase.findMotorsById()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.devicebase.html#pygaposa.devicebase.DeviceBase.hasSchedule"><code class="docutils literal notranslate"><span class="pre">DeviceBase.hasSchedule()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.devicebase.html#pygaposa.devicebase.DeviceBase.onDocumentUpdated"><code class="docutils literal notranslate"><span class="pre">DeviceBase.onDocumentUpdated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.devicebase.html#pygaposa.devicebase.DeviceBase.setLocation"><code class="docutils literal notranslate"><span class="pre">DeviceBase.setLocation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.devicebase.html#pygaposa.devicebase.DeviceBase.update"><code class="docutils literal notranslate"><span class="pre">DeviceBase.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.firebase.html">pygaposa.firebase module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseApp"><code class="docutils literal notranslate"><span class="pre">FirebaseApp</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseApp.auth"><code class="docutils literal notranslate"><span class="pre">FirebaseApp.auth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseApp.firestore"><code class="docutils literal notranslate"><span class="pre">FirebaseApp.firestore()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseApp.hasAuth"><code class="docutils literal notranslate"><span class="pre">FirebaseApp.hasAuth</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuth"><code class="docutils literal notranslate"><span class="pre">FirebaseAuth</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuth.getToken"><code class="docutils literal notranslate"><span class="pre">FirebaseAuth.getToken()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuth.on_token_received"><code class="docutils literal notranslate"><span class="pre">FirebaseAuth.on_token_received()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuth.refresh_id_token"><code class="docutils literal notranslate"><span class="pre">FirebaseAuth.refresh_id_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuth.should_refresh_id_token"><code class="docutils literal notranslate"><span class="pre">FirebaseAuth.should_refresh_id_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuth.sign_in"><code class="docutils literal notranslate"><span class="pre">FirebaseAuth.sign_in()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuth.sign_in_with_email_and_password"><code class="docutils literal notranslate"><span class="pre">FirebaseAuth.sign_in_with_email_and_password()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthResponse"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthResponse.displayName"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.displayName</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthResponse.email"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.email</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthResponse.expiresIn"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.expiresIn</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthResponse.idToken"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.idToken</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthResponse.kind"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.kind</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthResponse.localId"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.localId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthResponse.refreshToken"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.refreshToken</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthResponse.registered"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.registered</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseConfig"><code class="docutils literal notranslate"><span class="pre">FirebaseConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseConfig.apiKey"><code class="docutils literal notranslate"><span class="pre">FirebaseConfig.apiKey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseConfig.authDomain"><code class="docutils literal notranslate"><span class="pre">FirebaseConfig.authDomain</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseConfig.databaseURL"><code class="docutils literal notranslate"><span class="pre">FirebaseConfig.databaseURL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseConfig.projectId"><code class="docutils literal notranslate"><span class="pre">FirebaseConfig.projectId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirebaseConfig.storageBucket"><code class="docutils literal notranslate"><span class="pre">FirebaseConfig.storageBucket</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.Firestore"><code class="docutils literal notranslate"><span class="pre">Firestore</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.Firestore.get"><code class="docutils literal notranslate"><span class="pre">Firestore.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestoreDocument"><code class="docutils literal notranslate"><span class="pre">FirestoreDocument</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestoreDocument.update"><code class="docutils literal notranslate"><span class="pre">FirestoreDocument.update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestoreDocument.val"><code class="docutils literal notranslate"><span class="pre">FirestoreDocument.val()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestoreDocumentType"><code class="docutils literal notranslate"><span class="pre">FirestoreDocumentType</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestoreDocumentType.createTime"><code class="docutils literal notranslate"><span class="pre">FirestoreDocumentType.createTime</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestoreDocumentType.fields"><code class="docutils literal notranslate"><span class="pre">FirestoreDocumentType.fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestoreDocumentType.name"><code class="docutils literal notranslate"><span class="pre">FirestoreDocumentType.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestoreDocumentType.updateTime"><code class="docutils literal notranslate"><span class="pre">FirestoreDocumentType.updateTime</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestorePath"><code class="docutils literal notranslate"><span class="pre">FirestorePath</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestorePath.child"><code class="docutils literal notranslate"><span class="pre">FirestorePath.child()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestorePath.get"><code class="docutils literal notranslate"><span class="pre">FirestorePath.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestorePath.sanitize_path"><code class="docutils literal notranslate"><span class="pre">FirestorePath.sanitize_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.SecureTokenRefreshResponse"><code class="docutils literal notranslate"><span class="pre">SecureTokenRefreshResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.SecureTokenRefreshResponse.expires_in"><code class="docutils literal notranslate"><span class="pre">SecureTokenRefreshResponse.expires_in</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.SecureTokenRefreshResponse.id_token"><code class="docutils literal notranslate"><span class="pre">SecureTokenRefreshResponse.id_token</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.SecureTokenRefreshResponse.project_id"><code class="docutils literal notranslate"><span class="pre">SecureTokenRefreshResponse.project_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.SecureTokenRefreshResponse.refresh_token"><code class="docutils literal notranslate"><span class="pre">SecureTokenRefreshResponse.refresh_token</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.SecureTokenRefreshResponse.token_type"><code class="docutils literal notranslate"><span class="pre">SecureTokenRefreshResponse.token_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.SecureTokenRefreshResponse.user_id"><code class="docutils literal notranslate"><span class="pre">SecureTokenRefreshResponse.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.flattenValue"><code class="docutils literal notranslate"><span class="pre">flattenValue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.initialize_app"><code class="docutils literal notranslate"><span class="pre">initialize_app()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.pathjoin"><code class="docutils literal notranslate"><span class="pre">pathjoin()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.gaposa.html">pygaposa.gaposa module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.gaposa.html#pygaposa.gaposa.Gaposa"><code class="docutils literal notranslate"><span class="pre">Gaposa</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.gaposa.html#pygaposa.gaposa.Gaposa.close"><code class="docutils literal notranslate"><span class="pre">Gaposa.close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.gaposa.html#pygaposa.gaposa.Gaposa.open"><code class="docutils literal notranslate"><span class="pre">Gaposa.open()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.gaposa.html#pygaposa.gaposa.Gaposa.setConfig"><code class="docutils literal notranslate"><span class="pre">Gaposa.setConfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.gaposa.html#pygaposa.gaposa.Gaposa.setLocation"><code class="docutils literal notranslate"><span class="pre">Gaposa.setLocation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.gaposa.html#pygaposa.gaposa.Gaposa.update"><code class="docutils literal notranslate"><span class="pre">Gaposa.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.geoapi.html">pygaposa.geoapi module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.ApiTimezoneResponse"><code class="docutils literal notranslate"><span class="pre">ApiTimezoneResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.ApiTimezoneResponse.dstOffset"><code class="docutils literal notranslate"><span class="pre">ApiTimezoneResponse.dstOffset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.ApiTimezoneResponse.rawOffset"><code class="docutils literal notranslate"><span class="pre">ApiTimezoneResponse.rawOffset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.ApiTimezoneResponse.status"><code class="docutils literal notranslate"><span class="pre">ApiTimezoneResponse.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.ApiTimezoneResponse.timeZoneId"><code class="docutils literal notranslate"><span class="pre">ApiTimezoneResponse.timeZoneId</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.ApiTimezoneResponse.timeZoneName"><code class="docutils literal notranslate"><span class="pre">ApiTimezoneResponse.timeZoneName</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.GeoApi"><code class="docutils literal notranslate"><span class="pre">GeoApi</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.GeoApi.fetch"><code class="docutils literal notranslate"><span class="pre">GeoApi.fetch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.GeoApi.resolveLocation"><code class="docutils literal notranslate"><span class="pre">GeoApi.resolveLocation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.geoapi.html#pygaposa.geoapi.GeoApi.resolveTimezone"><code class="docutils literal notranslate"><span class="pre">GeoApi.resolveTimezone()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.group.html">pygaposa.group module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.group.html#pygaposa.group.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.group.html#pygaposa.group.Group.command"><code class="docutils literal notranslate"><span class="pre">Group.command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.group.html#pygaposa.group.Group.down"><code class="docutils literal notranslate"><span class="pre">Group.down()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.group.html#pygaposa.group.Group.preset"><code class="docutils literal notranslate"><span class="pre">Group.preset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.group.html#pygaposa.group.Group.stop"><code class="docutils literal notranslate"><span class="pre">Group.stop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.group.html#pygaposa.group.Group.up"><code class="docutils literal notranslate"><span class="pre">Group.up()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.group.html#pygaposa.group.Group.update"><code class="docutils literal notranslate"><span class="pre">Group.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.model.html">pygaposa.model module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Controllable"><code class="docutils literal notranslate"><span class="pre">Controllable</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Controllable.down"><code class="docutils literal notranslate"><span class="pre">Controllable.down()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Controllable.preset"><code class="docutils literal notranslate"><span class="pre">Controllable.preset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Controllable.stop"><code class="docutils literal notranslate"><span class="pre">Controllable.stop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Controllable.up"><code class="docutils literal notranslate"><span class="pre">Controllable.up()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Motor"><code class="docutils literal notranslate"><span class="pre">Motor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Motor.update"><code class="docutils literal notranslate"><span class="pre">Motor.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Named"><code class="docutils literal notranslate"><span class="pre">Named</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Updatable"><code class="docutils literal notranslate"><span class="pre">Updatable</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Updatable.update"><code class="docutils literal notranslate"><span class="pre">Updatable.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.model.html#pygaposa.model.expectedState"><code class="docutils literal notranslate"><span class="pre">expectedState()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.motor.html">pygaposa.motor module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.motor.html#pygaposa.motor.MotorImpl"><code class="docutils literal notranslate"><span class="pre">MotorImpl</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.motor.html#pygaposa.motor.MotorImpl.command"><code class="docutils literal notranslate"><span class="pre">MotorImpl.command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.motor.html#pygaposa.motor.MotorImpl.down"><code class="docutils literal notranslate"><span class="pre">MotorImpl.down()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.motor.html#pygaposa.motor.MotorImpl.preset"><code class="docutils literal notranslate"><span class="pre">MotorImpl.preset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.motor.html#pygaposa.motor.MotorImpl.stop"><code class="docutils literal notranslate"><span class="pre">MotorImpl.stop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.motor.html#pygaposa.motor.MotorImpl.up"><code class="docutils literal notranslate"><span class="pre">MotorImpl.up()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.poll_manager.html">pygaposa.poll_manager module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollMagagerConfig"><code class="docutils literal notranslate"><span class="pre">PollMagagerConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollMagagerConfig.poll_interval"><code class="docutils literal notranslate"><span class="pre">PollMagagerConfig.poll_interval</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollMagagerConfig.poll_retries"><code class="docutils literal notranslate"><span class="pre">PollMagagerConfig.poll_retries</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollMagagerConfig.poll_timeout"><code class="docutils literal notranslate"><span class="pre">PollMagagerConfig.poll_timeout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollManager"><code class="docutils literal notranslate"><span class="pre">PollManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollManager.execute"><code class="docutils literal notranslate"><span class="pre">PollManager.execute()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollManager.numConditions"><code class="docutils literal notranslate"><span class="pre">PollManager.numConditions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollManager.wait_for_condition"><code class="docutils literal notranslate"><span class="pre">PollManager.wait_for_condition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollManager.wait_for_update"><code class="docutils literal notranslate"><span class="pre">PollManager.wait_for_update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.room.html">pygaposa.room module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.room.html#pygaposa.room.Room"><code class="docutils literal notranslate"><span class="pre">Room</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.room.html#pygaposa.room.Room.update"><code class="docutils literal notranslate"><span class="pre">Room.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pygaposa.schedule.html">pygaposa.schedule module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule"><code class="docutils literal notranslate"><span class="pre">Schedule</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.delete"><code class="docutils literal notranslate"><span class="pre">Schedule.delete()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.deleteEvent"><code class="docutils literal notranslate"><span class="pre">Schedule.deleteEvent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.getDateTomorrow"><code class="docutils literal notranslate"><span class="pre">Schedule.getDateTomorrow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.nextSuntimeEpoch"><code class="docutils literal notranslate"><span class="pre">Schedule.nextSuntimeEpoch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.setActive"><code class="docutils literal notranslate"><span class="pre">Schedule.setActive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.setEvent"><code class="docutils literal notranslate"><span class="pre">Schedule.setEvent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.setSunriseOpen"><code class="docutils literal notranslate"><span class="pre">Schedule.setSunriseOpen()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.setSunsetClose"><code class="docutils literal notranslate"><span class="pre">Schedule.setSunsetClose()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.setSuntimeCommand"><code class="docutils literal notranslate"><span class="pre">Schedule.setSuntimeCommand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.update"><code class="docutils literal notranslate"><span class="pre">Schedule.update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.updateEvents"><code class="docutils literal notranslate"><span class="pre">Schedule.updateEvents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.Schedule.updateProperties"><code class="docutils literal notranslate"><span class="pre">Schedule.updateProperties()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.ScheduleEvent"><code class="docutils literal notranslate"><span class="pre">ScheduleEvent</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.ScheduleEvent.update"><code class="docutils literal notranslate"><span class="pre">ScheduleEvent.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.getEventRepeat"><code class="docutils literal notranslate"><span class="pre">getEventRepeat()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pygaposa.schedule.html#pygaposa.schedule.modeToIndex"><code class="docutils literal notranslate"><span class="pre">modeToIndex()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="modules.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pygaposa.tests.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">pygaposa.tests package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mark Watson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Mark Watson.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

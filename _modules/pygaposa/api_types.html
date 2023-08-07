@@ -1,0 +1,625 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pygaposa.api_types &#8212; pygaposa 0.1.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/rtd_sphinx_search.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/js/rtd_search_config.js"></script>
+    <script src="../../_static/js/rtd_sphinx_search.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pygaposa/api_types';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">pygaposa 0.1.dev0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../packages/modules.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../packages/pygaposa.html">pygaposa package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../packages/pygaposa.tests.html">pygaposa.tests package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.api_test.html">pygaposa.tests.api_test module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.api_test_data.html">pygaposa.tests.api_test_data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_firebase.html">pygaposa.tests.test_firebase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_firestore.html">pygaposa.tests.test_firestore module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_firestore_path.html">pygaposa.tests.test_firestore_path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_group.html">pygaposa.tests.test_group module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_motor.html">pygaposa.tests.test_motor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_poll_manager.html">pygaposa.tests.test_poll_manager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_room.html">pygaposa.tests.test_room module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_schedule.html">pygaposa.tests.test_schedule module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.api.html">pygaposa.api module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.api_types.html">pygaposa.api_types module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.client.html">pygaposa.client module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.device.html">pygaposa.device module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.devicebase.html">pygaposa.devicebase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.firebase.html">pygaposa.firebase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.gaposa.html">pygaposa.gaposa module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.geoapi.html">pygaposa.geoapi module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.group.html">pygaposa.group module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.model.html">pygaposa.model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.motor.html">pygaposa.motor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.poll_manager.html">pygaposa.poll_manager module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.room.html">pygaposa.room module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../packages/pygaposa.schedule.html">pygaposa.schedule module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../packages/setup.html">setup module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../py-modindex.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for pygaposa.api_types</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">IntEnum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">Union</span>
+
+
+<div class="viewcode-block" id="DeviceInfo"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.DeviceInfo">[docs]</a><span class="k">class</span> <span class="nc">DeviceInfo</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Serial</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ClientInfo"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ClientInfo">[docs]</a><span class="k">class</span> <span class="nc">ClientInfo</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Role</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Devices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DeviceInfo</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="AuthResult"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.AuthResult">[docs]</a><span class="k">class</span> <span class="nc">AuthResult</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">TermsAgreed</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">UserRole</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Clients</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ClientInfo</span><span class="p">]</span>
+    <span class="n">DateFormat</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">TimeFormat</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">Theme</span><span class="p">:</span> <span class="n">Any</span></div>
+
+
+<span class="c1"># Response for /v1/login</span>
+<div class="viewcode-block" id="ApiLoginResponse"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiLoginResponse">[docs]</a><span class="k">class</span> <span class="nc">ApiLoginResponse</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">apiStatus</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Success&quot;</span><span class="p">]</span>
+    <span class="n">msg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Auth&quot;</span><span class="p">]</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">AuthResult</span></div>
+
+
+<div class="viewcode-block" id="UserInfo"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.UserInfo">[docs]</a><span class="k">class</span> <span class="nc">UserInfo</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">CountryID</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">EmailAlert</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Email</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Role</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Uid</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Active</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">CompoundLocation</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Country</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Joined</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">TermsAgreed</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">CountryCode</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Mobile</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="UsersResult"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.UsersResult">[docs]</a><span class="k">class</span> <span class="nc">UsersResult</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Info</span><span class="p">:</span> <span class="n">UserInfo</span></div>
+
+
+<span class="c1"># Response for /v1/users</span>
+<div class="viewcode-block" id="ApiUsersResponse"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiUsersResponse">[docs]</a><span class="k">class</span> <span class="nc">ApiUsersResponse</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">apiStatus</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;success&quot;</span><span class="p">]</span>
+    <span class="n">msg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Return user&quot;</span><span class="p">]</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">UsersResult</span></div>
+
+
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">DOWN</span> <span class="o">=</span> <span class="s2">&quot;0xee&quot;</span>
+    <span class="n">UP</span> <span class="o">=</span> <span class="s2">&quot;0xdd&quot;</span>
+    <span class="n">STOP</span> <span class="o">=</span> <span class="s2">&quot;0xcc&quot;</span>
+    <span class="n">PRESET</span> <span class="o">=</span> <span class="s2">&quot;0xad&quot;</span></div>
+
+
+<div class="viewcode-block" id="EventDays"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.EventDays">[docs]</a><span class="k">class</span> <span class="nc">EventDays</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">MON</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">TUE</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">WED</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">THU</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">FRI</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">SAT</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">SUN</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">ALL</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">WEEKDAYS</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">WEEKENDS</span> <span class="o">=</span> <span class="mi">9</span></div>
+
+
+<span class="n">NumericIdentifier</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">Location</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;_latitude&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;_longitude&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">})</span>
+<span class="n">EventRepeat</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="State"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.State">[docs]</a><span class="k">class</span> <span class="nc">State</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">TimeStamp</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">OnLine</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">LastCmd</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Message</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="Info"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.Info">[docs]</a><span class="k">class</span> <span class="nc">Info</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">ClientId</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="Assistant"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.Assistant">[docs]</a><span class="k">class</span> <span class="nc">Assistant</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Alexa</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Home</span><span class="p">:</span> <span class="nb">bool</span></div>
+
+
+<div class="viewcode-block" id="HeartBeat"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.HeartBeat">[docs]</a><span class="k">class</span> <span class="nc">HeartBeat</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Subnet</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Channels</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Software</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Signal</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Mode</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Frequency</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Gateway</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Ip</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">TxID</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Channel"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.Channel">[docs]</a><span class="k">class</span> <span class="nc">Channel</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">StatusCode</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">State</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">HomeRunning</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Location</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">HomePercent</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Icon</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">HomePaused</span><span class="p">:</span> <span class="nb">bool</span></div>
+
+
+<div class="viewcode-block" id="RoomInfo"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.RoomInfo">[docs]</a><span class="k">class</span> <span class="nc">RoomInfo</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Favourite</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Motors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Icon</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="GroupInfo"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.GroupInfo">[docs]</a><span class="k">class</span> <span class="nc">GroupInfo</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Favourite</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Icon</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Motors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">Rooms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ScheduleInfo"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ScheduleInfo">[docs]</a><span class="k">class</span> <span class="nc">ScheduleInfo</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Groups</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">Location</span><span class="p">:</span> <span class="n">Location</span>
+    <span class="n">Motors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">Icon</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Active</span><span class="p">:</span> <span class="nb">bool</span></div>
+
+
+<div class="viewcode-block" id="ScheduleUpdate"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ScheduleUpdate">[docs]</a><span class="k">class</span> <span class="nc">ScheduleUpdate</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">Id</span><span class="p">:</span> <span class="n">NumericIdentifier</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Groups</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">Location</span><span class="p">:</span> <span class="n">Location</span>
+    <span class="n">Motors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">Icon</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Active</span><span class="p">:</span> <span class="nb">bool</span></div>
+
+
+<div class="viewcode-block" id="DeviceDocumentRequired"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.DeviceDocumentRequired">[docs]</a><span class="k">class</span> <span class="nc">DeviceDocumentRequired</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">State</span><span class="p">:</span> <span class="n">State</span>
+    <span class="n">Info</span><span class="p">:</span> <span class="n">Info</span>
+    <span class="n">Assistant</span><span class="p">:</span> <span class="n">Assistant</span>
+    <span class="n">Channels</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Channel</span><span class="p">]</span>
+    <span class="n">Rooms</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">RoomInfo</span><span class="p">]</span>  <span class="c1"># key is room name</span>
+    <span class="n">Groups</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">NumericIdentifier</span><span class="p">,</span> <span class="n">GroupInfo</span><span class="p">]</span>
+    <span class="n">HeartBeat</span><span class="p">:</span> <span class="n">HeartBeat</span>
+    <span class="n">DeletedChannels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">Pending</span><span class="p">:</span> <span class="nb">list</span>
+    <span class="n">Uid</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="DeviceDocument"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.DeviceDocument">[docs]</a><span class="k">class</span> <span class="nc">DeviceDocument</span><span class="p">(</span><span class="n">DeviceDocumentRequired</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">Schedule</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">NumericIdentifier</span><span class="p">,</span> <span class="n">ScheduleInfo</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="EventMode"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.EventMode">[docs]</a><span class="k">class</span> <span class="nc">EventMode</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">SunRise</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">SunSet</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">TimeDay</span><span class="p">:</span> <span class="nb">bool</span></div>
+
+
+<div class="viewcode-block" id="ScheduleEventInfo"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ScheduleEventInfo">[docs]</a><span class="k">class</span> <span class="nc">ScheduleEventInfo</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">EventRepeat</span><span class="p">:</span> <span class="n">EventRepeat</span>
+    <span class="n">TimeZone</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Active</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">FutureEvent</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Submit</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">EventEpoch</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Location</span><span class="p">:</span> <span class="n">Location</span>
+    <span class="n">Motors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">EventMode</span><span class="p">:</span> <span class="n">EventMode</span></div>
+
+
+<div class="viewcode-block" id="NamedItem"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.NamedItem">[docs]</a><span class="k">class</span> <span class="nc">NamedItem</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Name</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ScheduleEventType"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ScheduleEventType">[docs]</a><span class="k">class</span> <span class="nc">ScheduleEventType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">UP</span> <span class="o">=</span> <span class="s2">&quot;UP&quot;</span>
+    <span class="n">DOWN</span> <span class="o">=</span> <span class="s2">&quot;DOWN&quot;</span>
+    <span class="n">PRESET</span> <span class="o">=</span> <span class="s2">&quot;PRESET&quot;</span></div>
+
+
+<div class="viewcode-block" id="ApiControlResult"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiControlResult">[docs]</a><span class="k">class</span> <span class="nc">ApiControlResult</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Success</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;OK&quot;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ApiGroupControlData"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiGroupControlData">[docs]</a><span class="k">class</span> <span class="nc">ApiGroupControlData</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">cmd</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ApiChannelControlData"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiChannelControlData">[docs]</a><span class="k">class</span> <span class="nc">ApiChannelControlData</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">cmd</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">bank</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">address</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+<span class="c1"># Request for /control</span>
+<div class="viewcode-block" id="ApiControlRequestBase"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestBase">[docs]</a><span class="k">class</span> <span class="nc">ApiControlRequestBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">serial</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ApiControlRequestGroup"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestGroup">[docs]</a><span class="k">class</span> <span class="nc">ApiControlRequestGroup</span><span class="p">(</span><span class="n">ApiControlRequestBase</span><span class="p">):</span>
+    <span class="n">group</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">ApiGroupControlData</span></div>
+
+
+<div class="viewcode-block" id="ApiControlRequestChannel"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiControlRequestChannel">[docs]</a><span class="k">class</span> <span class="nc">ApiControlRequestChannel</span><span class="p">(</span><span class="n">ApiControlRequestBase</span><span class="p">):</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">ApiChannelControlData</span></div>
+
+
+<span class="n">ApiControlRequest</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">ApiControlRequestChannel</span><span class="p">,</span> <span class="n">ApiControlRequestGroup</span><span class="p">]</span>
+
+
+<span class="c1"># Response for /control</span>
+<div class="viewcode-block" id="ApiControlResponse"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiControlResponse">[docs]</a><span class="k">class</span> <span class="nc">ApiControlResponse</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">apiCommand</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Success&quot;</span><span class="p">]</span>
+    <span class="n">msg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;OK&quot;</span><span class="p">]</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">ApiControlResult</span></div>
+
+
+<span class="c1"># Request for /v1/schedules (in &quot;payload&quot; field)</span>
+<div class="viewcode-block" id="ApiScheduleRequest"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiScheduleRequest">[docs]</a><span class="k">class</span> <span class="nc">ApiScheduleRequest</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">serial</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">schedule</span><span class="p">:</span> <span class="n">ScheduleUpdate</span></div>
+
+
+<div class="viewcode-block" id="ApiScheduleDeleteResult"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiScheduleDeleteResult">[docs]</a><span class="k">class</span> <span class="nc">ApiScheduleDeleteResult</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Schedule</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Down</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Up</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Preset</span><span class="p">:</span> <span class="nb">bool</span></div>
+
+
+<span class="c1"># Response for /v1/schedules</span>
+<div class="viewcode-block" id="ApiScheduleResponse"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiScheduleResponse">[docs]</a><span class="k">class</span> <span class="nc">ApiScheduleResponse</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">apiStatus</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;success&quot;</span><span class="p">]</span>
+    <span class="n">msg</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Schedule Update&quot;</span><span class="p">],</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Schedule deleted&quot;</span><span class="p">],</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Schedule Add&quot;</span><span class="p">]</span>
+    <span class="p">]</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;ok&quot;</span><span class="p">],</span> <span class="n">ApiScheduleDeleteResult</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ScheduleEventSelector"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ScheduleEventSelector">[docs]</a><span class="k">class</span> <span class="nc">ScheduleEventSelector</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">Id</span><span class="p">:</span> <span class="n">NumericIdentifier</span>
+    <span class="n">Mode</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<span class="c1"># Request for /v1/schedules/event (in &quot;payload&quot; field)</span>
+<div class="viewcode-block" id="ApiScheduleEventRequestBase"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventRequestBase">[docs]</a><span class="k">class</span> <span class="nc">ApiScheduleEventRequestBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">serial</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">schedule</span><span class="p">:</span> <span class="n">ScheduleEventSelector</span></div>
+
+
+<div class="viewcode-block" id="ApiScheduleEventRequest"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventRequest">[docs]</a><span class="k">class</span> <span class="nc">ApiScheduleEventRequest</span><span class="p">(</span><span class="n">ApiScheduleEventRequestBase</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">event</span><span class="p">:</span> <span class="n">ScheduleEventInfo</span></div>
+
+
+<span class="c1"># Response for /v1/schedules/event</span>
+<div class="viewcode-block" id="ApiScheduleEventResponse"><a class="viewcode-back" href="../../packages/pygaposa.api_types.html#pygaposa.api_types.ApiScheduleEventResponse">[docs]</a><span class="k">class</span> <span class="nc">ApiScheduleEventResponse</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">apiStatus</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;success&quot;</span><span class="p">]</span>
+    <span class="n">msg</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Schedule Add&quot;</span><span class="p">]</span>
+    <span class="n">result</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<span class="n">ApiRequestPayload</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">ApiScheduleRequest</span><span class="p">,</span> <span class="n">ApiScheduleEventRequest</span><span class="p">,</span> <span class="n">ApiControlRequest</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mark Watson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Mark Watson.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
