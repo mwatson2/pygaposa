@@ -3,7 +3,7 @@
 Gaposa Motorized Shades API
 ===========================
 
-This module provides access to the cloud API for Gaposa motorized shades as used by the RollApp mobile application
+This module provides unofficial access to the cloud API for Gaposa motorized shades as used by the RollApp mobile application
 
 
 Contributing
