@@ -134,6 +134,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_firebase.html">pygaposa.tests.test_firebase module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_firestore.html">pygaposa.tests.test_firestore module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_firestore_path.html">pygaposa.tests.test_firestore_path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_gaposa_startup.html">pygaposa.tests.test_gaposa_startup module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_group.html">pygaposa.tests.test_group module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_motor.html">pygaposa.tests.test_motor module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_poll_manager.html">pygaposa.tests.test_poll_manager module</a></li>
@@ -273,7 +274,12 @@ document.write(`
 <span class="kn">from</span> <span class="nn">pygaposa.api</span> <span class="kn">import</span> <span class="n">GaposaApi</span>
 <span class="kn">from</span> <span class="nn">pygaposa.api_types</span> <span class="kn">import</span> <span class="n">ApiLoginResponse</span>
 <span class="kn">from</span> <span class="nn">pygaposa.client</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">User</span>
-<span class="kn">from</span> <span class="nn">pygaposa.firebase</span> <span class="kn">import</span> <span class="n">FirebaseAuth</span><span class="p">,</span> <span class="n">FirestorePath</span><span class="p">,</span> <span class="n">initialize_app</span>
+<span class="kn">from</span> <span class="nn">pygaposa.firebase</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FirebaseAuth</span><span class="p">,</span>
+    <span class="n">FirebaseAuthException</span><span class="p">,</span>
+    <span class="n">FirestorePath</span><span class="p">,</span>
+    <span class="n">initialize_app</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pygaposa.geoapi</span> <span class="kn">import</span> <span class="n">GeoApi</span>
 <span class="kn">from</span> <span class="nn">pygaposa.poll_manager</span> <span class="kn">import</span> <span class="n">DefaultPollManagerConfig</span><span class="p">,</span> <span class="n">PollMagagerConfig</span>
 
@@ -347,14 +353,14 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Gaposa.open"><a class="viewcode-back" href="../../packages/pygaposa.gaposa.html#pygaposa.gaposa.Gaposa.open">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="Gaposa.login"><a class="viewcode-back" href="../../packages/pygaposa.gaposa.html#pygaposa.gaposa.Gaposa.login">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Open the API and authenticate with Google and Gaposa.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">email</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">auth</span><span class="p">:</span> <span class="n">FirebaseAuth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">firebase</span><span class="o">.</span><span class="n">auth</span><span class="p">()</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">sign_in_with_email_and_password</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">firebase</span><span class="o">.</span><span class="n">hasAuth</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to authenticate with Google&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GaposaAuthException</span><span class="p">(</span><span class="s2">&quot;Failed to authenticate with Google&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">firestore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">firebase</span><span class="o">.</span><span class="n">firestore</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">GaposaApi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">getToken</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">serverUrl</span><span class="p">)</span>
@@ -363,7 +369,7 @@ document.write(`
         <span class="n">authResponse</span><span class="p">:</span> <span class="n">ApiLoginResponse</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">login</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">authResponse</span><span class="p">[</span><span class="s2">&quot;apiStatus&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;Success&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to authenticate with Gaposa&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GaposaAuthException</span><span class="p">(</span><span class="s2">&quot;Failed to authenticate with Gaposa&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Client</span><span class="p">,</span> <span class="n">User</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">authResponse</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">][</span><span class="s2">&quot;Clients&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -379,8 +385,6 @@ document.write(`
             <span class="n">user</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">getUserInfo</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">client</span><span class="p">,</span> <span class="n">user</span><span class="p">))</span>
 
-        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-
         <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="Gaposa.close"><a class="viewcode-back" href="../../packages/pygaposa.gaposa.html#pygaposa.gaposa.Gaposa.close">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -390,7 +394,16 @@ document.write(`
 <div class="viewcode-block" id="Gaposa.update"><a class="viewcode-back" href="../../packages/pygaposa.gaposa.html#pygaposa.gaposa.Gaposa.update">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the state of all devices.&quot;&quot;&quot;</span>
         <span class="n">updates</span> <span class="o">=</span> <span class="p">[</span><span class="n">client</span><span class="o">.</span><span class="n">update</span><span class="p">()</span> <span class="k">for</span> <span class="n">client</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">]</span>
-        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">updates</span><span class="p">)</span></div></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">updates</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">FirebaseAuthException</span> <span class="k">as</span> <span class="n">exp</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GaposaAuthException</span> <span class="kn">from</span> <span class="nn">exp</span></div></div>
+
+
+<div class="viewcode-block" id="GaposaAuthException"><a class="viewcode-back" href="../../packages/pygaposa.gaposa.html#pygaposa.gaposa.GaposaAuthException">[docs]</a><span class="k">class</span> <span class="nc">GaposaAuthException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception raised when authentication fails.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
 </pre></div>
 
                 </article>

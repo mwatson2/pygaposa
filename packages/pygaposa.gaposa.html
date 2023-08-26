@@ -137,6 +137,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firebase.html">pygaposa.tests.test_firebase module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firestore.html">pygaposa.tests.test_firestore module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firestore_path.html">pygaposa.tests.test_firestore_path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_gaposa_startup.html">pygaposa.tests.test_gaposa_startup module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_group.html">pygaposa.tests.test_group module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_motor.html">pygaposa.tests.test_motor module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_poll_manager.html">pygaposa.tests.test_poll_manager module</a></li>
@@ -314,12 +315,13 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa"><code class="docutils literal notranslate"><span class="pre">Gaposa</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.close"><code class="docutils literal notranslate"><span class="pre">Gaposa.close()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.open"><code class="docutils literal notranslate"><span class="pre">Gaposa.open()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.login"><code class="docutils literal notranslate"><span class="pre">Gaposa.login()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.setConfig"><code class="docutils literal notranslate"><span class="pre">Gaposa.setConfig()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.setLocation"><code class="docutils literal notranslate"><span class="pre">Gaposa.setLocation()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.update"><code class="docutils literal notranslate"><span class="pre">Gaposa.update()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.GaposaAuthException"><code class="docutils literal notranslate"><span class="pre">GaposaAuthException</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -362,8 +364,8 @@ loop: The event loop to use for the API. If not specified, the default</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pygaposa.gaposa.Gaposa.open">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/gaposa.html#Gaposa.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.gaposa.Gaposa.open" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="pygaposa.gaposa.Gaposa.login">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/gaposa.html#Gaposa.login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.gaposa.Gaposa.login" title="Permalink to this definition">#</a></dt>
 <dd><p>Open the API and authenticate with Google and Gaposa.</p>
 </dd></dl>
 
@@ -388,6 +390,13 @@ activation times which are calculated based on geographic location and date.</p>
 </dd></dl>
 
 </section>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="pygaposa.gaposa.GaposaAuthException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygaposa.gaposa.</span></span><span class="sig-name descname"><span class="pre">GaposaAuthException</span></span><a class="reference internal" href="../_modules/pygaposa/gaposa.html#GaposaAuthException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.gaposa.GaposaAuthException" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Exception raised when authentication fails.</p>
 </dd></dl>
 
 </section>
@@ -442,12 +451,13 @@ activation times which are calculated based on geographic location and date.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa"><code class="docutils literal notranslate"><span class="pre">Gaposa</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.close"><code class="docutils literal notranslate"><span class="pre">Gaposa.close()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.open"><code class="docutils literal notranslate"><span class="pre">Gaposa.open()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.login"><code class="docutils literal notranslate"><span class="pre">Gaposa.login()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.setConfig"><code class="docutils literal notranslate"><span class="pre">Gaposa.setConfig()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.setLocation"><code class="docutils literal notranslate"><span class="pre">Gaposa.setLocation()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.Gaposa.update"><code class="docutils literal notranslate"><span class="pre">Gaposa.update()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.gaposa.GaposaAuthException"><code class="docutils literal notranslate"><span class="pre">GaposaAuthException</span></code></a></li>
 </ul>
   </nav></div>
 

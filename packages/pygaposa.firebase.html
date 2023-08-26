@@ -137,6 +137,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firebase.html">pygaposa.tests.test_firebase module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firestore.html">pygaposa.tests.test_firestore module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firestore_path.html">pygaposa.tests.test_firestore_path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_gaposa_startup.html">pygaposa.tests.test_gaposa_startup module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_group.html">pygaposa.tests.test_group module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_motor.html">pygaposa.tests.test_motor module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_poll_manager.html">pygaposa.tests.test_poll_manager module</a></li>
@@ -327,6 +328,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuth.sign_in_with_email_and_password"><code class="docutils literal notranslate"><span class="pre">FirebaseAuth.sign_in_with_email_and_password()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuthException"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthException</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuthResponse"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuthResponse.displayName"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.displayName</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuthResponse.email"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.email</span></code></a></li>
@@ -448,6 +450,13 @@ document.write(`
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sign_in_with_email_and_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pygaposa/firebase.html#FirebaseAuth.sign_in_with_email_and_password"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.firebase.FirebaseAuth.sign_in_with_email_and_password" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="pygaposa.firebase.FirebaseAuthException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygaposa.firebase.</span></span><span class="sig-name descname"><span class="pre">FirebaseAuthException</span></span><a class="reference internal" href="../_modules/pygaposa/firebase.html#FirebaseAuthException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.firebase.FirebaseAuthException" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Raised when authentication with Google fails.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -718,6 +727,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuth.sign_in_with_email_and_password"><code class="docutils literal notranslate"><span class="pre">FirebaseAuth.sign_in_with_email_and_password()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuthException"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthException</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuthResponse"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuthResponse.displayName"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.displayName</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.firebase.FirebaseAuthResponse.email"><code class="docutils literal notranslate"><span class="pre">FirebaseAuthResponse.email</span></code></a></li>

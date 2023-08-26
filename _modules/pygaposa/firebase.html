@@ -134,6 +134,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_firebase.html">pygaposa.tests.test_firebase module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_firestore.html">pygaposa.tests.test_firestore module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_firestore_path.html">pygaposa.tests.test_firestore_path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_gaposa_startup.html">pygaposa.tests.test_gaposa_startup module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_group.html">pygaposa.tests.test_group module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_motor.html">pygaposa.tests.test_motor module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../packages/pygaposa.tests.test_poll_manager.html">pygaposa.tests.test_poll_manager module</a></li>
@@ -371,7 +372,9 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">authresponse</span><span class="p">:</span> <span class="n">FirebaseAuthResponse</span> <span class="o">=</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">on_token_received</span><span class="p">()</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_token_received</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">FirebaseAuthException</span><span class="p">(</span><span class="s2">&quot;Failed to authenticate with Google&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FirebaseAuth.refresh_id_token"><a class="viewcode-back" href="../../packages/pygaposa.firebase.html#pygaposa.firebase.FirebaseAuth.refresh_id_token">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">refresh_id_token</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
@@ -403,6 +406,12 @@ document.write(`
 
 <div class="viewcode-block" id="FirebaseAuth.should_refresh_id_token"><a class="viewcode-back" href="../../packages/pygaposa.firebase.html#pygaposa.firebase.FirebaseAuth.should_refresh_id_token">[docs]</a>    <span class="k">def</span> <span class="nf">should_refresh_id_token</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_expiry</span></div></div>
+
+
+<div class="viewcode-block" id="FirebaseAuthException"><a class="viewcode-back" href="../../packages/pygaposa.firebase.html#pygaposa.firebase.FirebaseAuthException">[docs]</a><span class="k">class</span> <span class="nc">FirebaseAuthException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when authentication with Google fails.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
 
 
 <span class="n">FirestoreDocumentType</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">(</span>
