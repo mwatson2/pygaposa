@@ -17,7 +17,6 @@ Submodules
    pygaposa.tests.test_firebase
    pygaposa.tests.test_firestore
    pygaposa.tests.test_firestore_path
-   pygaposa.tests.test_gaposa_startup
    pygaposa.tests.test_group
    pygaposa.tests.test_motor
    pygaposa.tests.test_poll_manager
