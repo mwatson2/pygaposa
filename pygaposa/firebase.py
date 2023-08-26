@@ -106,6 +106,8 @@ class FirebaseAuth:
             if response.status == 200:
                 self.authresponse: FirebaseAuthResponse = await response.json()
                 self.on_token_received()
+            else:
+                raise FirebaseAuthException("Failed to authenticate with Google")
 
     async def refresh_id_token(self) -> None:
         async with self.app.session.post(
@@ -137,6 +139,12 @@ class FirebaseAuth:
 
     def should_refresh_id_token(self) -> bool:
         return datetime.today() > self.token_expiry
+
+
+class FirebaseAuthException(Exception):
+    """Raised when authentication with Google fails."""
+
+    pass
 
 
 FirestoreDocumentType = TypedDict(

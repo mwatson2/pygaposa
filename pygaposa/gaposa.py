@@ -7,7 +7,12 @@ import aiohttp
 from pygaposa.api import GaposaApi
 from pygaposa.api_types import ApiLoginResponse
 from pygaposa.client import Client, User
-from pygaposa.firebase import FirebaseAuth, FirestorePath, initialize_app
+from pygaposa.firebase import (
+    FirebaseAuth,
+    FirebaseAuthException,
+    FirestorePath,
+    initialize_app,
+)
 from pygaposa.geoapi import GeoApi
 from pygaposa.poll_manager import DefaultPollManagerConfig, PollMagagerConfig
 
@@ -81,14 +86,14 @@ class Gaposa:
         self.config = config
         return self
 
-    async def open(self, email: str, password: str):
+    async def login(self, email: str, password: str):
         """Open the API and authenticate with Google and Gaposa."""
         self.email = email
         self.password = password
         self.auth: FirebaseAuth = self.firebase.auth()
         await self.auth.sign_in_with_email_and_password(self.email, self.password)
         if not self.firebase.hasAuth:
-            raise Exception("Failed to authenticate with Google")
+            raise GaposaAuthException("Failed to authenticate with Google")
 
         self.firestore = self.firebase.firestore()
         self.api = GaposaApi(self.session, self.auth.getToken, self.serverUrl)
@@ -97,7 +102,7 @@ class Gaposa:
         authResponse: ApiLoginResponse = await self.api.login()
 
         if authResponse["apiStatus"] != "Success":
-            raise Exception("Failed to authenticate with Gaposa")
+            raise GaposaAuthException("Failed to authenticate with Gaposa")
 
         self.clients: list[tuple[Client, User]] = []
         for key, value in authResponse["result"]["Clients"].items():
@@ -113,8 +118,6 @@ class Gaposa:
             user = await client.getUserInfo()
             self.clients.append((client, user))
 
-        await self.update()
-
         return None
 
     async def close(self):
@@ -124,4 +127,13 @@ class Gaposa:
     async def update(self):
         """Update the state of all devices."""
         updates = [client.update() for client, _ in self.clients]
-        await asyncio.gather(*updates)
+        try:
+            await asyncio.gather(*updates)
+        except FirebaseAuthException as exp:
+            raise GaposaAuthException from exp
+
+
+class GaposaAuthException(Exception):
+    """Exception raised when authentication fails."""
+
+    pass
