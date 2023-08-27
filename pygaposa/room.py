@@ -16,3 +16,4 @@ class Room(Updatable):
         self.favourite = info["Favourite"]
         self.motors = self.device.findMotorsById(info["Motors"])
         self.icon = info["Icon"]
+        return self

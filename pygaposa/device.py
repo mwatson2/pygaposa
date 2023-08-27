@@ -96,6 +96,8 @@ class Device(DeviceBase):
         update: Dict[str, InitializerType],
         itemType: Callable[["Device", str, InitializerType], ItemType],
     ) -> list[ItemType]:  # noqa: E501
+        if any(item is None for item in items):
+            self.logger.error("None value in item list")
         result: list[ItemType] = [
             item.update(update[item.id]) for item in items if item.id in update
         ]

@@ -32,6 +32,7 @@ class ScheduleEvent:
         self.motors = self.device.findMotorsById(info["Motors"])
         self.eventmode = info["EventMode"]
         self.eventrepeat = info["EventRepeat"]
+        return self
 
 
 ScheduleEventsTuple = list[Optional[ScheduleEvent]]
