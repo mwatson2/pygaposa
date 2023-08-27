@@ -297,7 +297,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;Location&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">motors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">findMotorsById</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;Motors&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eventmode</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;EventMode&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eventrepeat</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;EventRepeat&quot;</span><span class="p">]</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eventrepeat</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;EventRepeat&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span></div></div>
 
 
 <span class="n">ScheduleEventsTuple</span> <span class="o">=</span> <span class="nb">list</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">ScheduleEvent</span><span class="p">]]</span>
