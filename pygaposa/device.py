@@ -51,6 +51,7 @@ class Device(DeviceBase):
         self.rooms: list[Room] = []
         self.groups: list[Group] = []
         self.schedules: list[Schedule] = []
+        self.listeners: list[Callable[[], None]] = []
 
     def onDocumentUpdated(self, updateSchedules: bool = False):
         DeviceBase.onDocumentUpdated(self)
@@ -68,6 +69,15 @@ class Device(DeviceBase):
         if updateSchedules:
             for schedule in self.schedules:
                 schedule.updateEvents(self.scheduleEvents[schedule.id])
+
+        for listener in self.listeners:
+            listener()
+
+    def addListener(self, listener: Callable[[], None]):
+        self.listeners.append(listener)
+
+    def removeListener(self, listener: Callable[[], None]):
+        self.listeners.remove(listener)
 
     def findMotorById(self, id: Union[int, str]) -> Optional[Motor]:
         return findById(self.motors, str(id))

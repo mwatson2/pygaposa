@@ -21,23 +21,30 @@ class Group(Controllable):
         self.icon = info["Icon"]
         return self
 
-    async def up(self):
+    async def up(self, waitForUpdate=True):
         """Issue an "UP" command to the motors in the group."""
-        await self.command(Command.UP)
+        await self.command(Command.UP, waitForUpdate)
 
-    async def down(self):
+    async def down(self, waitForUpdate=True):
         """Issue a "DOWN" command to the motors in the group."""
-        await self.command(Command.DOWN)
+        await self.command(Command.DOWN, waitForUpdate)
 
-    async def stop(self):
+    async def stop(self, waitForUpdate=True):
         """Issue a "STOP" command to the motors in the group."""
-        await self.command(Command.STOP)
+        await self.command(Command.STOP, waitForUpdate)
 
-    async def preset(self):
+    async def preset(self, waitForUpdate=True):
         """Issue a "PRESET" command to the motors in the group."""
-        await self.command(Command.PRESET)
+        await self.command(Command.PRESET, waitForUpdate)
 
-    async def command(self, command: Command):
+    async def command(self, command: Command, waitForUpdate=True):
         await self.device.api.control(command, "group", self.id)
-        await asyncio.sleep(2)
+        if waitForUpdate:
+            await self.updateAfterCommand(command)
+        else:
+            asyncio.create_task(self.updateAfterCommand(command))
+
+    async def updateAfterCommand(self, command: Command, delay=2):
+        if delay:
+            await asyncio.sleep(delay)
         await self.device.update(lambda: self.motors[0].state == expectedState(command))
