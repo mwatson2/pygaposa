@@ -319,6 +319,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.group.Group.stop"><code class="docutils literal notranslate"><span class="pre">Group.stop()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.group.Group.up"><code class="docutils literal notranslate"><span class="pre">Group.up()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.group.Group.update"><code class="docutils literal notranslate"><span class="pre">Group.update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.group.Group.updateAfterCommand"><code class="docutils literal notranslate"><span class="pre">Group.updateAfterCommand()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -341,30 +342,30 @@ document.write(`
 <p>Represents a group of motors in the Gaposa API.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.group.Group.command">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command" title="pygaposa.api_types.Command"><span class="pre">Command</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.command" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command" title="pygaposa.api_types.Command"><span class="pre">Command</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.command" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.group.Group.down">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">down</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.down"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.down" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.down"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.down" title="Permalink to this definition">#</a></dt>
 <dd><p>Issue a “DOWN” command to the motors in the group.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.group.Group.preset">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.preset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.preset" title="Permalink to this definition">#</a></dt>
 <dd><p>Issue a “PRESET” command to the motors in the group.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.group.Group.stop">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.stop" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.stop" title="Permalink to this definition">#</a></dt>
 <dd><p>Issue a “STOP” command to the motors in the group.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.group.Group.up">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.up" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.up" title="Permalink to this definition">#</a></dt>
 <dd><p>Issue an “UP” command to the motors in the group.</p>
 </dd></dl>
 
@@ -373,6 +374,11 @@ document.write(`
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.GroupInfo" title="pygaposa.api_types.GroupInfo"><span class="pre">GroupInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pygaposa.group.Group" title="pygaposa.group.Group"><span class="pre">Group</span></a></span></span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.update" title="Permalink to this definition">#</a></dt>
 <dd><p>Update the group with new state from the API.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pygaposa.group.Group.updateAfterCommand">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">updateAfterCommand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command" title="pygaposa.api_types.Command"><span class="pre">Command</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/group.html#Group.updateAfterCommand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.group.Group.updateAfterCommand" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -433,6 +439,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.group.Group.stop"><code class="docutils literal notranslate"><span class="pre">Group.stop()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.group.Group.up"><code class="docutils literal notranslate"><span class="pre">Group.up()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.group.Group.update"><code class="docutils literal notranslate"><span class="pre">Group.update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.group.Group.updateAfterCommand"><code class="docutils literal notranslate"><span class="pre">Group.updateAfterCommand()</span></code></a></li>
 </ul>
 </li>
 </ul>

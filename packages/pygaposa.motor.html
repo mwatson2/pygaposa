@@ -318,6 +318,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.motor.MotorImpl.preset"><code class="docutils literal notranslate"><span class="pre">MotorImpl.preset()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.motor.MotorImpl.stop"><code class="docutils literal notranslate"><span class="pre">MotorImpl.stop()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.motor.MotorImpl.up"><code class="docutils literal notranslate"><span class="pre">MotorImpl.up()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.motor.MotorImpl.updateAfterCommand"><code class="docutils literal notranslate"><span class="pre">MotorImpl.updateAfterCommand()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -340,32 +341,37 @@ document.write(`
 <p>Represents a motor in the Gaposa API.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.motor.MotorImpl.command">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command" title="pygaposa.api_types.Command"><span class="pre">Command</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.command" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command" title="pygaposa.api_types.Command"><span class="pre">Command</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.command" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.motor.MotorImpl.down">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">down</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.down"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.down" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.down"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.down" title="Permalink to this definition">#</a></dt>
 <dd><p>Issue a “DOWN” command to the motor.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.motor.MotorImpl.preset">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.preset" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.preset" title="Permalink to this definition">#</a></dt>
 <dd><p>Issue a “PRESET” command to the motor.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.motor.MotorImpl.stop">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.stop" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.stop" title="Permalink to this definition">#</a></dt>
 <dd><p>Issue a “STOP” command to the motor.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.motor.MotorImpl.up">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.up" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">waitForUpdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.up" title="Permalink to this definition">#</a></dt>
 <dd><p>Issue an “UP” command to the motor.</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pygaposa.motor.MotorImpl.updateAfterCommand">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">updateAfterCommand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.Command" title="pygaposa.api_types.Command"><span class="pre">Command</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/motor.html#MotorImpl.updateAfterCommand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.motor.MotorImpl.updateAfterCommand" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -425,6 +431,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.motor.MotorImpl.preset"><code class="docutils literal notranslate"><span class="pre">MotorImpl.preset()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.motor.MotorImpl.stop"><code class="docutils literal notranslate"><span class="pre">MotorImpl.stop()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.motor.MotorImpl.up"><code class="docutils literal notranslate"><span class="pre">MotorImpl.up()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pygaposa.motor.MotorImpl.updateAfterCommand"><code class="docutils literal notranslate"><span class="pre">MotorImpl.updateAfterCommand()</span></code></a></li>
 </ul>
 </li>
 </ul>
