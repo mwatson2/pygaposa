@@ -16,9 +16,6 @@ Contributions are welcome! If you can see a way to improve this module:
 
 Or to report a bug or request something new, make an issue.
 
-.. highlight:: python
-
-
 .. |GHA tests| image:: https://github.com/mwatson2/pygaposa/workflows/tests/badge.svg
    :target: https://github.com/mwatson2/pygaposa/actions?query=workflow%3Atests
    :alt: GHA Status
