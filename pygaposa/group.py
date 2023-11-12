@@ -8,6 +8,16 @@ from pygaposa.model import Controllable, Named, expectedState
 class Group(Controllable):
     """Represents a group of motors in the Gaposa API."""
 
+    @property
+    def state(self):
+        # return the state if the state of all motors in self.motors is the same
+        # otherwise return None
+        states = {motor.state for motor in self.motors}
+        if len(states) == 1:
+            return states.pop()
+        else:
+            return None
+
     def __init__(self, device: DeviceBase, id: str, info: GroupInfo):
         Named.__init__(self, id, info["Name"])
         self.device = device
