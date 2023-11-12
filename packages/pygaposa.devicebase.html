@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,8 +34,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/rtd_sphinx_search.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -61,6 +62,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -122,6 +132,7 @@
   
   
   
+  
     <p class="title logo__title">pygaposa 0.1.0 documentation</p>
   
 </a></div>
@@ -137,6 +148,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firebase.html">pygaposa.tests.test_firebase module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firestore.html">pygaposa.tests.test_firestore module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_firestore_path.html">pygaposa.tests.test_firestore_path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_gaposa_startup.html">pygaposa.tests.test_gaposa_startup module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_group.html">pygaposa.tests.test_group module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_motor.html">pygaposa.tests.test_motor module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygaposa.tests.test_poll_manager.html">pygaposa.tests.test_poll_manager module</a></li>
@@ -274,10 +286,10 @@
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -285,7 +297,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -336,7 +348,7 @@ document.write(`
 <span id="pygaposa-devicebase-module"></span><h1>pygaposa.devicebase module<a class="headerlink" href="#module-pygaposa.devicebase" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pygaposa.devicebase.DeviceBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygaposa.devicebase.</span></span><span class="sig-name descname"><span class="pre">DeviceBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi" title="pygaposa.api.GaposaApi"><span class="pre">GaposaApi</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">firestore</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestorePath" title="pygaposa.firebase.FirestorePath"><span class="pre">FirestorePath</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.11)"><span class="pre">Logger</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollMagagerConfig" title="pygaposa.poll_manager.PollMagagerConfig"><span class="pre">PollMagagerConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceInfo" title="pygaposa.api_types.DeviceInfo"><span class="pre">DeviceInfo</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygaposa.devicebase.</span></span><span class="sig-name descname"><span class="pre">DeviceBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api.html#pygaposa.api.GaposaApi" title="pygaposa.api.GaposaApi"><span class="pre">GaposaApi</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">firestore</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.firebase.html#pygaposa.firebase.FirestorePath" title="pygaposa.firebase.FirestorePath"><span class="pre">FirestorePath</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.12)"><span class="pre">Logger</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.poll_manager.html#pygaposa.poll_manager.PollMagagerConfig" title="pygaposa.poll_manager.PollMagagerConfig"><span class="pre">PollMagagerConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pygaposa.api_types.html#pygaposa.api_types.DeviceInfo" title="pygaposa.api_types.DeviceInfo"><span class="pre">DeviceInfo</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pygaposa.model.html#pygaposa.model.Updatable" title="pygaposa.model.Updatable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Updatable</span></code></a></p>
 <p>Base class for a device in the Gaposa API.</p>
 <p>A device is a physical Gaposa hub device that can be controlled by the API.
@@ -351,12 +363,12 @@ classes that require a Device instance to be created.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.devicebase.DeviceBase.findMotorsById">
-<span class="sig-name descname"><span class="pre">findMotorsById</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Motor" title="pygaposa.model.Motor"><span class="pre">pygaposa.model.Motor</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase.findMotorsById"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase.findMotorsById" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">findMotorsById</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pygaposa.model.html#pygaposa.model.Motor" title="pygaposa.model.Motor"><span class="pre">pygaposa.model.Motor</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase.findMotorsById"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase.findMotorsById" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.devicebase.DeviceBase.hasSchedule">
-<span class="sig-name descname"><span class="pre">hasSchedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase.hasSchedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase.hasSchedule" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">hasSchedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase.hasSchedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase.hasSchedule" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -366,12 +378,12 @@ classes that require a Device instance to be created.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.devicebase.DeviceBase.setLocation">
-<span class="sig-name descname"><span class="pre">setLocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase.setLocation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase.setLocation" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setLocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase.setLocation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase.setLocation" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pygaposa.devicebase.DeviceBase.update">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase.update" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pygaposa/devicebase.html#DeviceBase.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygaposa.devicebase.DeviceBase.update" title="Permalink to this definition">#</a></dt>
 <dd><p>Update the device state from the API.</p>
 <p>Since we have only poll access to the device state, we need to poll the API
 to get the latest state. Since state changes may take some time to occur after
@@ -391,11 +403,10 @@ expected state change.</p>
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="pygaposa.device.html"
@@ -415,10 +426,7 @@ expected state change.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -489,8 +497,8 @@ By Mark Watson
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
