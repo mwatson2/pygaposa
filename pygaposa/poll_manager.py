@@ -3,8 +3,8 @@ from logging import Logger
 from typing import Any, Callable, Coroutine, Optional, TypedDict
 
 POLL_INTERVAL = 2  # seconds
-POLL_RETRIES = 5
-POLL_TIMEOUT = 10  # seconds
+POLL_RETRIES = 10
+POLL_TIMEOUT = 20  # seconds
 
 
 class PollMagagerConfig(TypedDict):
@@ -64,7 +64,7 @@ class PollManager:
         """
         await self.wait_for_condition()
 
-    async def wait_for_condition(self, condition: Optional[Callable[[], bool]] = None):
+    def add_condition(self, condition: Optional[Callable[[], bool]] = None):
         """
         Poll the device document until the callback returns True or just once.
         """
@@ -75,6 +75,13 @@ class PollManager:
         if self.pollingTask is None:
             self.pollingTask = asyncio.create_task(self.execute())
 
+        return event
+
+    async def wait_for_condition(self, condition: Optional[Callable[[], bool]] = None):
+        """
+        Poll the device document until the callback returns True or just once.
+        """
+        event = self.add_condition(condition)
         await event.wait()
 
     async def execute(self):
@@ -84,6 +91,10 @@ class PollManager:
         while self.waiters:
             numConditions = self.numConditions()
             try:
+                self.logger.debug(
+                    f"Polling device document ({numConditions} conditions,"
+                    f" {self.retries} retries)"
+                )
                 await asyncio.wait_for(self.poll(), self.poll_timeout)
             except asyncio.TimeoutError:
                 self.logger.error("Timeout waiting for device document update")
