@@ -89,7 +89,8 @@ class DeviceBase(Updatable):
         self.uid = self.document["Uid"]
 
         for deletedChannel in self.document["DeletedChannels"]:
-            del self.document["Channels"][str(deletedChannel)]
+            if str(deletedChannel) in self.document["Channels"]:
+                del self.document["Channels"][str(deletedChannel)]
 
     def setLocation(self, location: tuple[float, float], timezone: str):
         self.location = location

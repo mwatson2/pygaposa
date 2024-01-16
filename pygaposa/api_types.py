@@ -164,7 +164,7 @@ class DeviceDocumentRequired(TypedDict):
     Groups: Dict[NumericIdentifier, GroupInfo]
     HeartBeat: HeartBeat
     DeletedChannels: List[int]
-    Pending: list
+    Pending: list | Dict[str, Channel]
     Uid: list[str]
 
 

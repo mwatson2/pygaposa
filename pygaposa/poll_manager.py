@@ -87,8 +87,8 @@ class PollManager:
                 await asyncio.wait_for(self.poll(), self.poll_timeout)
             except asyncio.TimeoutError:
                 self.logger.error("Timeout waiting for device document update")
-            except Exception as e:
-                self.logger.error(f"Error {e} waiting for device document update")
+            except Exception:
+                self.logger.exception("Error waiting for device document update")
 
             sleep = numConditions == self.numConditions()
 
