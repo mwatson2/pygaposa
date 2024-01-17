@@ -246,7 +246,7 @@ class FirebaseApp:
         websession: Optional[aiohttp.ClientSession] = None,
     ) -> None:
         self.config: FirebaseConfig = config
-        self.logger = logging.getLogger("firebase")
+        self.logger = logging.getLogger("gaposa.firebase")
         if loop:
             self.loop: asyncio.AbstractEventLoop = loop
         else:

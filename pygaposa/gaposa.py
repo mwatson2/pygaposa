@@ -56,7 +56,7 @@ class Gaposa:
             }
         )
         self.firestore: Optional[FirestorePath] = None
-        self.logger = logging.getLogger("GAPOSA")
+        self.logger = logging.getLogger("gaposa")
         self.config = DefaultPollManagerConfig
 
         if loop:
