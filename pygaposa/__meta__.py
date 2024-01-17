@@ -4,7 +4,7 @@ name = "pygaposa"
 path = name.lower().replace("-", "_").replace(" ", "_")
 # Your version number should follow https://python.org/dev/peps/pep-0440 and
 # https://semver.org
-version = "0.2.2"
+version = "0.2.3"
 author = "Mark Watson"
 author_email = "markwatson@cantab.net"
 description = "Unofficial module for access to Gaposa morotized shades cloud API"
