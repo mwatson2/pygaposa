@@ -1,7 +1,7 @@
 |GHA tests| |Codecov report| |pre-commit| |black|
 
-Gaposa Motorized Shades API
-===========================
+Unofficial Gaposa Motorized Shades API
+======================================
 
 This module provides unofficial access to the cloud API for Gaposa motorized shades as used by the RollApp mobile application
 
