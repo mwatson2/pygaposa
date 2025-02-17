@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional, TypeVar, Union
+from typing import TypeVar
 
 from pygaposa.api_types import Channel, Command
 
@@ -27,19 +27,19 @@ class Controllable(Updatable):
     """Represents an object that can be controlled by the API."""
 
     @abstractmethod
-    async def up(self):
+    async def up(self, waitForUpdate=True):
         pass
 
     @abstractmethod
-    async def down(self):
+    async def down(self, waitForUpdate=True):
         pass
 
     @abstractmethod
-    async def stop(self):
+    async def stop(self, waitForUpdate=True):
         pass
 
     @abstractmethod
-    async def preset(self):
+    async def preset(self, waitForUpdate=True):
         pass
 
 
