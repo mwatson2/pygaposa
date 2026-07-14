@@ -146,8 +146,7 @@ class Gaposa:
         promptly.
         """
         updates = [
-            client.update(notifyListeners=notifyListeners)
-            for client, _ in self.clients
+            client.update(notifyListeners=notifyListeners) for client, _ in self.clients
         ]
         try:
             await asyncio.gather(*updates)

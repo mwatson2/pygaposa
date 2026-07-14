@@ -54,9 +54,7 @@ async def test_wait_for_condition_three_times(poll_manager, mock_poll) -> None:
     condition.assert_called_with()
 
 
-async def test_wait_for_update_propagates_poll_failure(
-    poll_manager, mock_poll
-) -> None:
+async def test_wait_for_update_propagates_poll_failure(poll_manager, mock_poll) -> None:
     """A poll that keeps failing must raise, not silently complete."""
     mock_poll.side_effect = RuntimeError("network down")
 
