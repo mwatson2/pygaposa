@@ -94,3 +94,31 @@ async def test_close_cancels_polling_and_waiters(poll_manager) -> None:
     assert future.cancelled()
     assert poll_manager.pollingTask is None
     assert poll_manager.waiters == []
+
+
+async def test_cancelling_waiter_stops_background_polling(poll_manager) -> None:
+    """Cancelling wait_for_condition must cancel the detached polling task."""
+    started = asyncio.Event()
+
+    async def blocking_poll():
+        started.set()
+        await asyncio.sleep(3600)
+
+    poll_manager.poll = blocking_poll
+    task = asyncio.ensure_future(
+        poll_manager.wait_for_condition(MagicMock(return_value=False))
+    )
+    await started.wait()
+    polling_task = poll_manager.pollingTask
+    assert polling_task is not None
+
+    task.cancel()
+    with pytest.raises(asyncio.CancelledError):
+        await task
+
+    assert poll_manager.pollingTask is None
+    assert poll_manager.waiters == []
+
+    # The detached polling task is cancelled, not left running in the background.
+    await asyncio.gather(polling_task, return_exceptions=True)
+    assert polling_task.cancelled()

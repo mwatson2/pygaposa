@@ -77,6 +77,16 @@ def flattenValue(value: Dict) -> Union[Dict, List, str, int, float, bool, None]:
         return list(value.values())[0]
 
 
+def sanitizedResponse(response: aiohttp.ClientResponse) -> str:
+    """Describe a response for logging without exposing URL query parameters.
+
+    The sign-in and token-refresh requests carry the Firebase API key in the
+    query string (``?key=...``), so logging the raw response object would leak
+    the key. Only the method, query-stripped URL and status are returned.
+    """
+    return f"{response.method} {response.url.with_query(None)} -> {response.status}"
+
+
 class FirebaseAuth:
     def __init__(self, app: FirebaseApp) -> None:
         self.app: FirebaseApp = app
@@ -102,7 +112,7 @@ class FirebaseAuth:
                 "password": self.password,
             },
         ) as response:
-            self.app.logger.debug(response)
+            self.app.logger.debug(sanitizedResponse(response))
             if response.status == 200:
                 self.authresponse: FirebaseAuthResponse = await response.json()
                 self.on_token_received()
@@ -118,7 +128,7 @@ class FirebaseAuth:
                 "refresh_token": self.authresponse["refreshToken"],
             },
         ) as response:
-            self.app.logger.debug(response)
+            self.app.logger.debug(sanitizedResponse(response))
 
             if response.status == 200:
                 responseData: SecureTokenRefreshResponse = await response.json()
@@ -187,7 +197,7 @@ class Firestore:
             pathjoin("https://firestore.googleapis.com/v1", path),
             headers=headers,
         ) as response:
-            self.app.logger.debug(response)
+            self.app.logger.debug(sanitizedResponse(response))
 
             if response.status == 200:
                 return await response.json()
