@@ -70,8 +70,9 @@ class Device(DeviceBase):
             for schedule in self.schedules:
                 schedule.updateEvents(self.scheduleEvents[schedule.id])
 
-        for listener in self.listeners:
-            listener()
+        if self.suppressNotifyDepth == 0:
+            for listener in self.listeners:
+                listener()
 
     def addListener(self, listener: Callable[[], None]):
         self.listeners.append(listener)

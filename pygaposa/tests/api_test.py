@@ -1,4 +1,5 @@
 import json
+import logging
 from typing import Any, Callable, Dict, Optional
 
 import aiohttp
@@ -169,6 +170,16 @@ async def test_login(server, api):
     response = await api.login()
     assert response == expected_login_response
     server.assert_called_once()
+
+
+async def test_request_does_not_log_bearer_token(server, api, caplog):
+    """The live bearer token must never be written to the debug log."""
+    mock_get(server, "/v1/login", expected_login_response)
+    with caplog.at_level(logging.DEBUG, logger="gaposa"):
+        await api.login()
+
+    assert "mock_token" not in caplog.text
+    assert "**redacted**" in caplog.text
 
 
 async def test_login_auth_failure(server, api, api_bad_auth):

@@ -248,14 +248,33 @@ class FirebaseApp:
         self.config: FirebaseConfig = config
         self.logger = logging.getLogger("gaposa.firebase")
         if loop:
-            self.loop: asyncio.AbstractEventLoop = loop
+            self.loop: Optional[asyncio.AbstractEventLoop] = loop
         else:
-            self.loop = asyncio.get_event_loop()
+            # The loop is retained for backwards compatibility but is not used
+            # internally. Fetching it can raise when there is no running loop
+            # (e.g. constructed from synchronous code on Python 3.12+), so fall
+            # back to None rather than failing.
+            try:
+                self.loop = asyncio.get_event_loop()
+            except RuntimeError:
+                self.loop = None
 
         if websession:
             self.session: aiohttp.ClientSession = websession
+            self.ownSession: bool = False
         else:
             self.session = aiohttp.ClientSession()
+            self.ownSession = True
+
+    async def close(self) -> None:
+        """Close the underlying session if this app created it.
+
+        When a session is supplied by the caller (e.g. Home Assistant's shared
+        client session), the caller retains ownership and is responsible for
+        closing it.
+        """
+        if self.ownSession:
+            await self.session.close()
 
     def auth(self) -> FirebaseAuth:
         if not self.hasAuth:

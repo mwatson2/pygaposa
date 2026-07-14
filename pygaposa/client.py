@@ -88,7 +88,9 @@ class Client(Named):
             device.setLocation(self.user.location, self.user.timezone)
         return self.user
 
-    async def update(self):
+    async def update(self, notifyListeners: bool = True):
         """Update the state of all devices associated with this client."""
-        updates = [device.update() for device in self.devices]
+        updates = [
+            device.update(notifyListeners=notifyListeners) for device in self.devices
+        ]
         await asyncio.gather(*updates)

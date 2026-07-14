@@ -22,7 +22,20 @@ from pygaposa.api_types import (
     ScheduleUpdate,
 )
 
-logging.basicConfig(level=logging.DEBUG)
+SENSITIVE_HEADERS = frozenset({"authorization", "auth"})
+
+
+def redactHeaders(headers: dict[str, str]) -> dict[str, str]:
+    """Return a copy of the headers with sensitive values redacted.
+
+    The ``authorization`` header carries a live, reusable Firebase bearer
+    token, so it must never be written to the logs. The ``auth`` header carries
+    the role/client identifiers, which are also redacted as a precaution.
+    """
+    return {
+        key: ("**redacted**" if key.lower() in SENSITIVE_HEADERS else value)
+        for key, value in headers.items()
+    }
 
 
 class GaposaApi:
@@ -241,7 +254,7 @@ class GaposaApi:
         )
 
         self.logger.debug(f"Request: {method} {endpoint}")
-        self.logger.debug(f"Headers: {headers}")
+        self.logger.debug(f"Headers: {redactHeaders(headers)}")
         self.logger.debug(f"Payload: {data}")
         self.logger.debug(f"Response: {response}")
 
