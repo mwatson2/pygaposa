@@ -9,7 +9,7 @@ from pygaposa.firebase import FirebaseApp, FirebaseAuth, FirebaseConfig, initial
 
 def test_has_auth():
     firebase_config: FirebaseConfig = {}  # type: ignore
-    firebase_app = FirebaseApp(firebase_config)
+    firebase_app = FirebaseApp(firebase_config, websession=mock.MagicMock())
     assert firebase_app.hasAuth is False
     firebase_app.auth()
     assert firebase_app.hasAuth is True
@@ -29,7 +29,7 @@ def test_init_no_loop_or_session(mock_get_event_loop, mock_client_session):
 
 def test_auth():
     firebase_config: FirebaseConfig = {}  # type: ignore
-    firebase_app = FirebaseApp(firebase_config)
+    firebase_app = FirebaseApp(firebase_config, websession=mock.MagicMock())
     firebase_auth = firebase_app.auth()
     assert isinstance(firebase_auth, FirebaseAuth)
     assert firebase_auth == firebase_app.firebaseAuth
@@ -37,7 +37,7 @@ def test_auth():
 
 def test_auth_again():
     firebase_config: FirebaseConfig = {}  # type: ignore
-    firebase_app = FirebaseApp(firebase_config)
+    firebase_app = FirebaseApp(firebase_config, websession=mock.MagicMock())
     firebase_auth = firebase_app.auth()
     firebase_auth_again = firebase_app.auth()
     assert firebase_auth == firebase_auth_again
@@ -47,7 +47,7 @@ def test_firestore(monkeypatch):
     dummy_path = "/projects/dummyProjectId/databases/(default)/documents"
     firebase_config: FirebaseConfig = {}  # type: ignore
     monkeypatch.setitem(firebase_config, "projectId", "dummyProjectId")
-    firebase_app = FirebaseApp(firebase_config)
+    firebase_app = FirebaseApp(firebase_config, websession=mock.MagicMock())
     firestore_path = firebase_app.firestore()
     assert firestore_path.path == dummy_path
 

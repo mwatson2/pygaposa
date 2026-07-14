@@ -16,8 +16,6 @@ from pygaposa.firebase import (
 from pygaposa.geoapi import GeoApi
 from pygaposa.poll_manager import DefaultPollManagerConfig, PollMagagerConfig
 
-logging.basicConfig(level=logging.DEBUG)
-
 
 class Gaposa:
     """The main class for interacting with the Gaposa API.
@@ -46,23 +44,19 @@ class Gaposa:
     ):
         self.apiKey = apiKey
         self.serverUrl = "https://backend.rollapp.tech"
-        self.firebase = initialize_app(
-            {
-                "apiKey": apiKey,
-                "authDomain": "gaposa-prod.firebaseapp.com",
-                "databaseURL": "https://gaposa-prod.firebaseio.com",
-                "projectId": "gaposa-prod",
-                "storageBucket": "gaposa-prod.appspot.com",
-            }
-        )
         self.firestore: Optional[FirestorePath] = None
         self.logger = logging.getLogger("gaposa")
         self.config = DefaultPollManagerConfig
 
         if loop:
-            self.loop: asyncio.AbstractEventLoop = loop
+            self.loop: Optional[asyncio.AbstractEventLoop] = loop
         else:
-            self.loop = asyncio.get_event_loop()
+            # Retained for backwards compatibility but not used internally.
+            # Avoid raising when constructed without a running loop.
+            try:
+                self.loop = asyncio.get_event_loop()
+            except RuntimeError:
+                self.loop = None
 
         if websession:
             self.session: aiohttp.ClientSession = websession
@@ -70,6 +64,22 @@ class Gaposa:
         else:
             self.session = aiohttp.ClientSession()
             self.ownSession = True
+
+        # Share the same session with Firebase rather than letting it create its
+        # own, so that a caller-supplied session (e.g. Home Assistant's shared
+        # client session) is reused for every request and there is no orphaned
+        # session to leak.
+        self.firebase = initialize_app(
+            {
+                "apiKey": apiKey,
+                "authDomain": "gaposa-prod.firebaseapp.com",
+                "databaseURL": "https://gaposa-prod.firebaseio.com",
+                "projectId": "gaposa-prod",
+                "storageBucket": "gaposa-prod.appspot.com",
+            },
+            self.loop,
+            self.session,
+        )
 
     def setLocation(self, location: tuple[float, float], timeZoneId: str) -> "Gaposa":
         """Set the physical location and timezone for the API.
@@ -124,9 +134,20 @@ class Gaposa:
         if self.ownSession:
             await self.session.close()
 
-    async def update(self):
-        """Update the state of all devices."""
-        updates = [client.update() for client, _ in self.clients]
+    async def update(self, notifyListeners: bool = False):
+        """Update the state of all devices.
+
+        This is a bulk refresh of every device's state. By default it does not
+        fire the per-device listeners, because callers driving a scheduled
+        refresh (such as the Home Assistant coordinator) consume the refreshed
+        state directly and firing a listener per device would publish redundant
+        intermediate updates. Command-driven polls (e.g. after a motor command)
+        still notify listeners so that observers see the resulting state change
+        promptly.
+        """
+        updates = [
+            client.update(notifyListeners=notifyListeners) for client, _ in self.clients
+        ]
         try:
             await asyncio.gather(*updates)
         except FirebaseAuthException as exp:

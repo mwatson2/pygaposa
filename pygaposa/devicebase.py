@@ -42,7 +42,17 @@ class DeviceBase(Updatable):
         self.documentRef = firestore.child("Devices").child(self.serial)
         self.scheduleRef = self.documentRef.child("Schedule")
 
-    async def update(self, condition: Optional[Callable[[], bool]] = None):
+        # Depth counter used to suppress listener notifications while a bulk
+        # refresh is in progress. Notifications are suppressed whenever this is
+        # greater than zero. A counter (rather than a boolean) keeps the state
+        # correct if suppressed updates overlap.
+        self.suppressNotifyDepth = 0
+
+    async def update(
+        self,
+        condition: Optional[Callable[[], bool]] = None,
+        notifyListeners: bool = True,
+    ):
         """Update the device state from the API.
 
         Since we have only poll access to the device state, we need to poll the API
@@ -52,8 +62,19 @@ class DeviceBase(Updatable):
 
         We use the PollManager class to manage the polling and to wait for the
         expected state change.
+
+        When ``notifyListeners`` is False the registered listeners are not
+        called for updates produced by this poll. This is used by the bulk
+        refresh path so that a scheduled refresh does not publish a redundant
+        intermediate update per device.
         """
-        await self.pollManager.wait_for_condition(condition)
+        if not notifyListeners:
+            self.suppressNotifyDepth += 1
+        try:
+            await self.pollManager.wait_for_condition(condition)
+        finally:
+            if not notifyListeners:
+                self.suppressNotifyDepth -= 1
 
     async def doUpdate(self):
         self.snapshot = await self.documentRef.get()

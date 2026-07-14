@@ -52,3 +52,26 @@ async def test_wait_for_condition_three_times(poll_manager, mock_poll) -> None:
     await poll_manager.wait_for_condition(condition)
     assert mock_poll.await_count == 3
     condition.assert_called_with()
+
+
+async def test_wait_for_update_propagates_poll_failure(poll_manager, mock_poll) -> None:
+    """A poll that keeps failing must raise, not silently complete."""
+    mock_poll.side_effect = RuntimeError("network down")
+
+    with pytest.raises(RuntimeError, match="network down"):
+        await poll_manager.wait_for_update()
+
+    # Polled the initial attempt plus every retry before giving up.
+    assert mock_poll.await_count == poll_manager.poll_retries + 1
+
+
+async def test_wait_for_condition_recovers_after_transient_failure(
+    poll_manager, mock_poll
+) -> None:
+    """A poll that fails once then succeeds should complete normally."""
+    mock_poll.side_effect = [RuntimeError("blip"), None]
+    condition = MagicMock(side_effect=[True])
+
+    await poll_manager.wait_for_condition(condition)
+
+    assert mock_poll.await_count == 2
