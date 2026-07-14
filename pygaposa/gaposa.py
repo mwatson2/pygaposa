@@ -131,6 +131,16 @@ class Gaposa:
         return None
 
     async def close(self):
+        """Shut down the API, cancelling any outstanding background tasks.
+
+        Cancels in-flight fire-and-forget command-poll tasks and stops polling
+        for every device before closing the session (if owned), so that nothing
+        keeps polling — or emits unhandled task exceptions — after close.
+        """
+        for client, _ in getattr(self, "clients", []):
+            for device in client.devices:
+                await device.close()
+
         if self.ownSession:
             await self.session.close()
 

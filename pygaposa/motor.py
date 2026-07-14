@@ -34,7 +34,7 @@ class MotorImpl(Motor):
         if waitForUpdate:
             await self.updateAfterCommand(command)
         else:
-            asyncio.create_task(self.updateAfterCommand(command))
+            self.device.createBackgroundTask(self.updateAfterCommand(command))
 
     async def updateAfterCommand(self, command: Command, delay=2):
         if delay:

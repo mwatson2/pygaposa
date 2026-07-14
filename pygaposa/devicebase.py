@@ -1,6 +1,6 @@
 import asyncio
 from logging import Logger
-from typing import Callable, Optional, Union
+from typing import Callable, Coroutine, Optional, Union
 
 from typeguard import check_type
 
@@ -47,6 +47,42 @@ class DeviceBase(Updatable):
         # greater than zero. A counter (rather than a boolean) keeps the state
         # correct if suppressed updates overlap.
         self.suppressNotifyDepth = 0
+
+        # Fire-and-forget command-poll tasks (see Motor/Group command with
+        # waitForUpdate=False). Strong references are retained so the tasks are
+        # not garbage collected mid-execution, and so they can be cancelled on
+        # close().
+        self.backgroundTasks: set[asyncio.Task] = set()
+
+    def createBackgroundTask(self, coro: Coroutine) -> asyncio.Task:
+        """Create and track a fire-and-forget background task.
+
+        The task is kept referenced until it completes, and its result is
+        always retrieved on completion so that a failure (e.g. a poll that
+        raises during an outage) is logged rather than surfacing as an
+        "Task exception was never retrieved" error.
+        """
+        task = asyncio.create_task(coro)
+        self.backgroundTasks.add(task)
+        task.add_done_callback(self._onBackgroundTaskDone)
+        return task
+
+    def _onBackgroundTaskDone(self, task: asyncio.Task) -> None:
+        self.backgroundTasks.discard(task)
+        if task.cancelled():
+            return
+        exception = task.exception()
+        if exception is not None:
+            self.logger.error("Background command-poll task failed", exc_info=exception)
+
+    async def close(self):
+        """Cancel outstanding background tasks and stop polling for this device."""
+        tasks = list(self.backgroundTasks)
+        for task in tasks:
+            task.cancel()
+        if tasks:
+            await asyncio.gather(*tasks, return_exceptions=True)
+        await self.pollManager.close()
 
     async def update(
         self,

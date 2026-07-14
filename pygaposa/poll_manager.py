@@ -66,6 +66,28 @@ class PollManager:
         """
         await self.wait_for_condition()
 
+    async def close(self):
+        """Cancel any in-progress polling and fail outstanding waiters.
+
+        Used when shutting down so that a polling task started for a
+        fire-and-forget command does not keep running (and does not emit
+        unhandled exceptions) after the owner has been closed.
+        """
+        task = self.pollingTask
+        self.pollingTask = None
+
+        for _, future in self.waiters:
+            if not future.done():
+                future.cancel()
+        self.waiters = []
+
+        if task is not None:
+            task.cancel()
+            try:
+                await task
+            except asyncio.CancelledError:
+                pass
+
     def add_condition(
         self, condition: Optional[Callable[[], bool]] = None
     ) -> "asyncio.Future[None]":
