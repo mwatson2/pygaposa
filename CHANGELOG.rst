@@ -11,6 +11,30 @@ The format is based on `Keep a Changelog`_, and this project adheres to `Semanti
 Categories for changes are: Added, Changed, Deprecated, Removed, Fixed, Security.
 
 
+Version `0.2.7 <https://github.com/mwatson2/pygaposa/tree/0.2.7>`__
+------------------------------------------------------------------
+
+Release date: 2026-07-14.
+
+Security:
+
+- Do not log Firebase request URLs verbatim. ``FirebaseAuth.sign_in``,
+  ``FirebaseAuth.refresh_id_token`` and ``Firestore._get`` previously logged the
+  raw ``ClientResponse`` at debug level; the sign-in and token-refresh URLs
+  include ``?key=<api key>``, so enabling debug logging leaked the configured
+  Firebase API key. These now log only the method, query-stripped URL and
+  status.
+
+Fixed:
+
+- Make polling cancellation-safe. When a caller of ``Device.update()`` /
+  ``PollManager.wait_for_condition()`` is cancelled (e.g. an outer timeout
+  expires), the waiter is now removed and the detached background polling task
+  is cancelled when it was the last waiter. Previously the poll continued in the
+  background and could later notify listeners with stale data after the caller
+  had given up.
+
+
 Version `0.2.6 <https://github.com/mwatson2/pygaposa/tree/0.2.6>`__
 ------------------------------------------------------------------
 

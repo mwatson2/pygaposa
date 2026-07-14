@@ -3,8 +3,34 @@ from unittest import mock
 
 import aiohttp
 import pytest
+from yarl import URL
 
-from pygaposa.firebase import FirebaseApp, FirebaseAuth, FirebaseConfig, initialize_app
+from pygaposa.firebase import (
+    FirebaseApp,
+    FirebaseAuth,
+    FirebaseConfig,
+    initialize_app,
+    sanitizedResponse,
+)
+
+
+def test_sanitized_response_strips_query_and_keeps_context():
+    """The API key in the query string must not appear in the log line."""
+    response = mock.Mock()
+    response.method = "POST"
+    response.url = URL(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword"
+        "?key=SUPER_SECRET_KEY"
+    )
+    response.status = 200
+
+    line = sanitizedResponse(response)
+
+    assert "SUPER_SECRET_KEY" not in line
+    assert "key=" not in line
+    assert "POST" in line
+    assert "200" in line
+    assert "identitytoolkit.googleapis.com" in line
 
 
 def test_has_auth():

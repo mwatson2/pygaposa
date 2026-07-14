@@ -110,9 +110,24 @@ class PollManager:
         If polling ultimately fails (the poll raises on every attempt until the
         retry limit is reached), the originating exception is propagated to the
         caller rather than being silently swallowed.
+
+        If the caller is cancelled (e.g. an outer timeout expires) this waiter is
+        removed and, when it is the last outstanding waiter, the background
+        polling task is cancelled too. This prevents a detached poll from
+        continuing to run — and later notifying listeners with stale data —
+        after the caller has given up.
         """
         future = self.add_condition(condition)
-        await future
+        try:
+            await future
+        except asyncio.CancelledError:
+            self.waiters = [
+                (cond, fut) for cond, fut in self.waiters if fut is not future
+            ]
+            if not self.waiters and self.pollingTask is not None:
+                self.pollingTask.cancel()
+                self.pollingTask = None
+            raise
 
     async def execute(self):
         """
