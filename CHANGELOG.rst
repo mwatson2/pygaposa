@@ -11,6 +11,25 @@ The format is based on `Keep a Changelog`_, and this project adheres to `Semanti
 Categories for changes are: Added, Changed, Deprecated, Removed, Fixed, Security.
 
 
+Version `0.2.6 <https://github.com/mwatson2/pygaposa/tree/0.2.6>`__
+------------------------------------------------------------------
+
+Release date: 2026-07-14.
+
+Fixed:
+
+- Track and finalize fire-and-forget command-poll tasks. ``Motor``/``Group``
+  commands issued with ``waitForUpdate=False`` previously created untracked
+  ``asyncio`` tasks. These are now tracked on the device, their failures are
+  logged instead of surfacing as "Task exception was never retrieved" errors
+  (which could otherwise occur during an outage now that polling failures
+  propagate), and they are cancelled by ``Gaposa.close()`` so nothing keeps
+  polling after shutdown.
+- ``Gaposa.close()`` now cancels each device's outstanding background tasks and
+  stops its polling before closing the session. ``PollManager`` gained a
+  ``close()`` method to support this.
+
+
 Version `0.2.5 <https://github.com/mwatson2/pygaposa/tree/0.2.5>`__
 ------------------------------------------------------------------
 

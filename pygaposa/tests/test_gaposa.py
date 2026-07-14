@@ -1,3 +1,5 @@
+from unittest.mock import AsyncMock, Mock
+
 import aiohttp
 
 from pygaposa.gaposa import Gaposa
@@ -30,4 +32,21 @@ async def test_own_session_is_shared_with_firebase_and_closed():
     assert gaposa.firebase.session is session
 
     await gaposa.close()
+    assert session.closed is True
+
+
+async def test_close_finalizes_all_devices():
+    """close() must close every device (cancelling their background tasks)."""
+    gaposa = Gaposa("api-key")
+    session = gaposa.session
+
+    device = Mock()
+    device.close = AsyncMock()
+    client = Mock()
+    client.devices = [device]
+    gaposa.clients = [(client, Mock())]
+
+    await gaposa.close()
+
+    device.close.assert_awaited_once()
     assert session.closed is True

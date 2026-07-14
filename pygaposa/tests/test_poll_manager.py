@@ -75,3 +75,22 @@ async def test_wait_for_condition_recovers_after_transient_failure(
     await poll_manager.wait_for_condition(condition)
 
     assert mock_poll.await_count == 2
+
+
+async def test_close_cancels_polling_and_waiters(poll_manager) -> None:
+    """close() must stop the polling task and cancel outstanding waiters."""
+    started = asyncio.Event()
+
+    async def blocking_poll():
+        started.set()
+        await asyncio.sleep(3600)
+
+    poll_manager.poll = blocking_poll
+    future = poll_manager.add_condition(MagicMock(return_value=False))
+    await started.wait()
+
+    await poll_manager.close()
+
+    assert future.cancelled()
+    assert poll_manager.pollingTask is None
+    assert poll_manager.waiters == []
